@@ -1,17 +1,14 @@
-// Require any necessary modules or dependencies
-const express = require('express');
+require('dotenv').config();
 
-// Create an instance of the Express application
+const express = require('express');
 const app = express();
 
-// Define routes
 app.get('/', (req, res) => {
     res.send('Welcome to Agribrain System!');
 });
 
-// Start the server
-const port = 5000;
-app.listen(port, () => {
+const port = process.env.APP_PORT;
 
-    console.log(`Server running on port ${port}`);
+app.listen(port, () => {
+    console.log(`Server up and running on port ${port}...`);
 });
