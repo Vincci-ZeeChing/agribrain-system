@@ -1,0 +1,5 @@
+#Server
+.idea
+/server/node_modules
+
+#Client
