@@ -1,5 +1,7 @@
 
-const getCrop = async (req,res) =>{}
+const getCrop = async (req,res) =>{
+    res.send('Get crop');
+}
 
 const getCropById = async (req,res) =>{}
 
