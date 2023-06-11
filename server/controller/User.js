@@ -1,15 +1,21 @@
-import User from "../model/UserModel.js";
-import argon2 from "argon2";
+const getUser = async (req, res) => {
+    res.send('Get user');
+}
+const getUserById = async (req, res) => {
+    res.send('Get user by id');
+}
 
+const createUser = async (req, res) => {
+    res.send('Create user by id');
+}
 
-const getUser = async (req, res) => {}
-const getUserById = async (req, res) => {}
+const updateUser = async (req,res) =>{
+    res.send('Update user by id');
+}
 
-const createUser = async (req, res) => {}
-
-const updateUser = async (req,res) =>{}
-
-const deleteUser =async (req,res) =>{}
+const deleteUser =async (req,res) =>{
+    res.send('Delete user by id');
+}
 
 module.exports = {
     getUser,
