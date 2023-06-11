@@ -1,16 +1,12 @@
-import Farming from "../model/FarmingModel.js";
-import Crop from "../model/CropModel.js";
-import User from "../model/UserModel.js";
-
-
-const getFarming = async (req, res) => {}
+const getFarming = async (req, res) => {
+    res.send('Get Farming');
+}
 
 
 const getFarmingById = (req,res) =>{}
 
 
 const createFarming = async (req, res) => {};
-
 
 
 const updateFarming = (req,res) =>{}
