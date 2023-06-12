@@ -24,7 +24,7 @@ app.use(FarmingRoute)
 app.use(WeatherRoute)
 
 //
-// // Sync the UserModel with the database
+// Sync the UserModel with the database
 // sequelize.sync()
 //     .then(() => {
 //         console.log('Model synchronized with database');

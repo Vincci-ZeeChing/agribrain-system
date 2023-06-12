@@ -1,0 +1,31 @@
+###
+//Create a new user (Farmer)
+POST http://localhost:5000/api/v1/user
+Content-Type: application/json
+
+{
+  "user_fullname": "Chye Zee Ching",
+  "user_email": "chingc217@gmail.com",
+  "user_password": "ching",
+  "confirm_password": "ching",
+  "user_role": "Farmer",
+  "user_phone": "0105650214"
+}
+
+###
+//Create a new user (Worker)
+POST http://localhost:5000/api/v1/user
+Content-Type: application/json
+
+{
+  "user_fullname": "Vincci Chye",
+  "user_email": "vincci@gmail.com",
+  "user_password": "vincci",
+  "confirm_password": "vincci",
+  "user_role": "Worker",
+  "user_phone": "0149420214"
+}
+
+###
+GET http://localhost:5000/api/v1/user
+
