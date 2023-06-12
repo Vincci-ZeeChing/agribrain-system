@@ -1,5 +1,6 @@
 const express = require('express');
 const { getUser, getUserById, createUser, updateUser, deleteUser } = require("../controller/User.js");
+// const { verifyUser } = require("../middleware/AuthUser.js");
 
 const router = express.Router();
 

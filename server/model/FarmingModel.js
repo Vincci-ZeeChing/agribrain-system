@@ -28,18 +28,26 @@ const FarmingModel = sequelize.define('FARMING_T', {
             isDate: true,
         },
     },
-    cropId: {
+    cropId:{
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull:true,
         validate: {
-            notEmpty: true,
-        },
+            notEmpty:true,
+        }
     },
+    userId:{
+        type: DataTypes.INTEGER,
+        allowNull:true,
+        validate: {
+            notEmpty:true,
+        }
+    }
 }, {
     freezeTableName: true,
 });
 
 FarmingModel.belongsTo(CropModel, { foreignKey: 'cropId' });
-FarmingModel.belongsTo(UserModel, { foreignKey: 'userId' });
+FarmingModel.belongsTo(UserModel,{foreignKey:'userId'});
+
 
 module.exports = FarmingModel;

@@ -10,14 +10,6 @@ const connection = mysql.createConnection({
     database: process.env.DB_NAME,
 });
 
-// Connect to the MySQL database
-connection.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL database:', err);
-        return;
-    }
-    console.log('Connected to MySQL database!');
-});
 
 // Create a Sequelize instance using the MySQL connection
 const sequelize = new Sequelize({
@@ -29,6 +21,15 @@ const sequelize = new Sequelize({
     database: process.env.DB_NAME,
 });
 
+
+// Connect to the MySQL database
+connection.connect((err) => {
+    if (err) {
+        console.error('Error connecting to MySQL database:', err);
+        return;
+    }
+    console.log('Connected to MySQL database!');
+});
 module.exports = {
     sequelize,
     connection,

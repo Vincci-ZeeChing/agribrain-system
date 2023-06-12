@@ -13,7 +13,7 @@ Content-Type: application/json
 }
 
 ###
-//Create a new user (Worker)
+//Create a new user (Farmer)
 POST http://localhost:5000/api/v1/user
 Content-Type: application/json
 
@@ -22,10 +22,80 @@ Content-Type: application/json
   "user_email": "vincci@gmail.com",
   "user_password": "vincci",
   "confirm_password": "vincci",
+  "user_role": "Farmer",
+  "user_phone": "0149420214"
+}
+
+###
+//Create a new user (Worker)
+POST http://localhost:5000/api/v1/user
+Content-Type: application/json
+
+{
+  "user_fullname": "Ahmad",
+  "user_email": "ahmad@gmail.com",
+  "user_password": "ahmad",
+  "confirm_password": "ahmad",
   "user_role": "Worker",
   "user_phone": "0149420214"
 }
 
 ###
+//Get All Users
 GET http://localhost:5000/api/v1/user
 
+
+###
+//Get User by ID
+GET http://localhost:5000/api/v1/user/0741f2b2-849f-456e-b3bd-5be2870971a4
+
+
+###
+//Update user (Admin)
+PATCH http://localhost:5000/api/v1/user/3dccf5ee-54d0-4a6d-9868-6f1ae65cb61c
+Content-Type: application/json
+
+{
+  "user_fullname": "Chye Zee Ching",
+  "user_email": "chingc217@gmail.com",
+  "user_password": "",
+  "user_confirmPassword": "",
+  "user_role": "Admin",
+  "user_phone": "0105650214"
+}
+
+
+###
+//delete user
+DELETE http://localhost:5000/api/v1/user/0741f2b2-849f-456e-b3bd-5be2870971a4
+
+
+###
+//Login user (Admin)
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "user_email": "chingc217@gmail.com",
+  "user_password": "ching"
+}
+
+###
+GET http://localhost:5000/me
+
+###
+//Logout
+DELETE http://localhost:5000/logout
+
+###
+//Get All CropList
+GET http://localhost:5000/api/v1/crop
+
+###
+//Create CropList
+POST http://localhost:5000/api/v1/crop
+Content-Type: application/json
+
+{
+  "crop_name": "Cucumber"
+}

@@ -5,9 +5,9 @@ const session = require('express-session');
 const SessionStore = require('connect-session-sequelize')(session.Store);
 
 const { sequelize } = require('./config/Database.js');
-// const { UserModel } = require('./model/UserModel.js');
-// const { FarmingModel } = require('./model/FarmingModel.js');
-// const { CropModel } = require('./model/CropModel.js');
+const { UserModel } = require('./model/UserModel.js');
+const { FarmingModel } = require('./model/FarmingModel.js');
+const { CropModel } = require('./model/CropModel.js');
 const UserRoute = require("./route/UserRoute");
 const CropRoute = require("./route/CropRoute");
 const FarmingRoute = require("./route/FarmingRoute");
@@ -35,6 +35,17 @@ app.use(session({
 app.get('/', (req, res) => {
     res.send('Welcome to Agribrain System!');
 });
+
+
+// Sync the with the database
+sequelize.sync()
+    .then(() => {
+        console.log('Model synchronized with database');
+    })
+    .catch((error) => {
+        console.error('Error synchronizing UserModel:', error);
+    });
+
 
 app.use(express.json());
 app.use(UserRoute);
