@@ -1,36 +1,40 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/Database.js');
-const UserModel = require('./UserModel.js');
+const UserModel = require('./UserModel');
 
 const CropModel = sequelize.define('CROP_T', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+    },
     crop_uuid: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
+        unique: true,
     },
     crop_name: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: true,
-            len: [3, 100],
         },
     },
     userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-            notEmpty: true,
+        references: {
+            model: UserModel,
+            key: 'user_uuid',
         },
     },
 }, {
     freezeTableName: true,
 });
 
-UserModel.hasMany(CropModel);
-CropModel.belongsTo(UserModel, { foreignKey: 'userId' });
+CropModel.belongsTo(UserModel, { foreignKey: 'userId', targetKey: 'user_uuid' });
+UserModel.hasMany(CropModel, { foreignKey: 'userId' });
 
 module.exports = CropModel;

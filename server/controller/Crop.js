@@ -62,16 +62,20 @@ const getCropById = async (req,res) =>{
 // Create crop
 const createCrop = async (req, res) => {
     const { crop_name } = req.body;
+    const userId = req.session.userId; // Assuming the user ID is stored in the session
+
     try {
-        await Crop.create({
-            crop_name: crop_name,
-            userId: req.session.userId, // Assuming the user ID is stored in the session
+        // Create the crop in the database
+        const newCrop = await Crop.create({
+            crop_name,
+            userId
         });
-        res.status(201).json({ msg: "CropList Created Successfully" });
+
+        return res.status(201).json({ message: 'Crop created successfully', data: newCrop });
     } catch (error) {
-        res.status(500).json({ msg: error.message });
+        res.status(400).json({ msg: error.message });
     }
-}
+};
 
 // Update crop
 const updateCrop = async (req,res) =>{
