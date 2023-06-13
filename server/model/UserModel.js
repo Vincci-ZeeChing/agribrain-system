@@ -2,13 +2,17 @@ const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/Database.js');
 
 const UserModel = sequelize.define('USER_T', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+    },
     user_uuid: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
+        unique: true,
     },
     user_fullname: {
         type: DataTypes.STRING,
@@ -50,5 +54,6 @@ const UserModel = sequelize.define('USER_T', {
 }, {
     freezeTableName: true,
 });
+
 
 module.exports = UserModel;
