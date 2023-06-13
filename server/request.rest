@@ -8,7 +8,7 @@ Content-Type: application/json
   "user_email": "chingc217@gmail.com",
   "user_password": "ching",
   "confirm_password": "ching",
-  "user_role": "Farmer",
+  "user_role": "Admin",
   "user_phone": "0105650214"
 }
 
@@ -52,7 +52,7 @@ GET http://localhost:5000/api/v1/user/0741f2b2-849f-456e-b3bd-5be2870971a4
 
 ###
 //Update user (Admin)
-PATCH http://localhost:5000/api/v1/user/3dccf5ee-54d0-4a6d-9868-6f1ae65cb61c
+PATCH http://localhost:5000/api/v1/user/80aa3040-7c54-4f38-9950-8c34927326e2
 Content-Type: application/json
 
 {
@@ -81,6 +81,26 @@ Content-Type: application/json
 }
 
 ###
+//Login user (Farmer)
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "user_email": "vincci@gmail.com",
+  "user_password": "vincci"
+}
+
+###
+//Login user (Worker)
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "user_email": "ahmad@gmail.com",
+  "user_password": "ahmad"
+}
+
+###
 GET http://localhost:5000/me
 
 ###
@@ -92,10 +112,15 @@ DELETE http://localhost:5000/logout
 GET http://localhost:5000/api/v1/crop
 
 ###
+//Get Crop by id
+GET http://localhost:5000/api/v1/crop/1ce30712-d26d-4d9c-9bcd-df833c6e6dc6
+
+
+###
 //Create CropList
 POST http://localhost:5000/api/v1/crop
 Content-Type: application/json
 
 {
-  "crop_name": "Cucumber"
+  "crop_name": "Lettuce"
 }
