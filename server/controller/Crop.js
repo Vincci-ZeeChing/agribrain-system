@@ -21,41 +21,28 @@ const getCrop = async (req,res) =>{
 
 // Get crop by id
 const getCropById = async (req,res) =>{
-    try{
-        const crop = await Crop.findOne({
-            where:{
-                crop_uuid:req.params.id,
-            }
-        });
-        if(!crop) return res.status(404).json({msg:"CropList not found"})
-        let response;
-        if(req.user_role === "Farmer"){
-            response = await Crop.findOne(({
-                attributes:['crop_uuid','crop_name'],
-                where:{
-                    id:crop.id,
-                },
-                include:[{
-                    model:User,
-                    attributes:['user_fullname','user_email'],
-                }]
-            }))
-        }else{
-            response = await Crop.findOne(({
-                attributes:['crop_uuid','crop_name'],
-                where: {
-                    [Op.and]:[{id:crop.id},{userId:req.userId}],
-                },
-                include:[{
-                    model:User,
-                    attributes:['user_fullname','user_email'],
-                }]
-            }))
-        }
-        res.status(200).json(response);
+    const { id } = req.params;
 
-    }catch (error){
-        res.status(500).json({msg:error.message});
+    try {
+        const crop = await Crop.findOne({
+            where: {
+                crop_uuid: id,
+            },
+            include: [
+                {
+                    model: User,
+                    attributes: ['user_fullname', 'user_email'],
+                },
+            ],
+        });
+
+        if (!crop) {
+            return res.status(404).json({ msg: 'Crop not found' });
+        }
+
+        res.status(200).json(crop);
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
     }
 }
 
