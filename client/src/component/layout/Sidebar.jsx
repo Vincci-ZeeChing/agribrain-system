@@ -94,21 +94,20 @@ const Sidebar = () => {
 
 
                 </ul>
-                {user && user.user.user_role === 'Farmer' && (
+                {user && (user.user.user_role === 'Farmer' || user.user.user_role === 'Admin') && (
                     <div>
                         <p className="menu-label mt-5">
                             Administration
                         </p>
                         <ul className="menu-list">
                             <li>
-                                <li><NavLink to={"/user"}><IoPerson/> User</NavLink></li>
+                                <NavLink to={"/user"}><IoPerson/> User</NavLink>
                             </li>
-                            <li>
-
-                            </li>
+                            {/* Add more menu items specific to the Farmer or Admin role here */}
                         </ul>
                     </div>
                 )}
+
                 <p className="menu-label mt-5">
                     Settings
                 </p>
