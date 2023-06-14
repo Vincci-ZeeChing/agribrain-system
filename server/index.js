@@ -42,8 +42,8 @@ app.get('/', (req, res) => {
     res.send('Welcome to Agribrain System!');
 });
 
-//
-// // Sync the with the database
+
+// Sync the with the database
 // sequelize.sync()
 //     .then(() => {
 //         console.log('Model synchronized with database');

@@ -139,5 +139,20 @@ Content-Type: application/json
 DELETE http://localhost:5000/api/v1/crop/1ce30712-d26d-4d9c-9bcd-df833c6e6dc6
 
 ###
+//Get All Farming
+GET http://localhost:5000/api/v1/farming
+
+###
+//Create FarmingList
+POST http://localhost:5000/api/v1/farming
+Content-Type: application/json
+
+{
+  "farming_name": "Fertilizer",
+  "farming_date": "2023-05-10",
+  "cropId": "1"
+}
+
+###
 //Get Weather
 GET http://localhost:5000/api/v1/currentWeather

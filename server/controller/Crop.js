@@ -1,6 +1,5 @@
 const Crop = require('../model/CropModel.js');
 const User = require('../model/UserModel.js');
-const Op = require ("sequelize");
 
 // Get all crop
 const getCrop = async (req,res) =>{
@@ -49,7 +48,7 @@ const getCropById = async (req,res) =>{
 // Create crop
 const createCrop = async (req, res) => {
     const { crop_name } = req.body;
-    const userId = req.session.userId; // Assuming the user ID is stored in the session
+    const userId = req.session.userId;
 
     try {
         // Create the crop in the database

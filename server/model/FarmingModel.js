@@ -4,6 +4,12 @@ const UserModel = require('./UserModel.js');
 const CropModel = require('./CropModel.js');
 
 const FarmingModel = sequelize.define('FARMING_T', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+    },
     farming_uuid: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
@@ -35,19 +41,20 @@ const FarmingModel = sequelize.define('FARMING_T', {
             notEmpty:true,
         }
     },
-    userId:{
-        type: DataTypes.INTEGER,
-        allowNull:true,
-        validate: {
-            notEmpty:true,
-        }
-    }
+    userId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: UserModel,
+            key: 'user_uuid',
+        },
+    },
 }, {
     freezeTableName: true,
 });
 
 FarmingModel.belongsTo(CropModel, { foreignKey: 'cropId' });
-FarmingModel.belongsTo(UserModel,{foreignKey:'userId'});
+FarmingModel.belongsTo(UserModel, { foreignKey: 'userId', targetKey: 'user_uuid' });
 
 
 module.exports = FarmingModel;
