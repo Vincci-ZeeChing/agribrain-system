@@ -23,18 +23,19 @@ const UserList = () => {
         <div>
             <h1 className="title">Users</h1>
             <h2 className="subtitle">List of Users</h2>
-            <Link to="/user/add" className="button is-primary mb-2">
+            <Link to="/user/add" className="button mb-2"
+                  style={{ backgroundColor: "#71AF9D", color: "white" }}>
                 Add New
             </Link>
-            <table className="table is-striped is-fullwidth">
+            <table className="table is-bordered is-hoverable is-fullwidth">
                 <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Phone</th>
-                    <th>Actions</th>
+                <tr style={{ backgroundColor: "#E1F6F0" }}>
+                    <th className="has-text-centered">No</th>
+                    <th className="has-text-centered">Name</th>
+                    <th className="has-text-centered">Email</th>
+                    <th className="has-text-centered">Role</th>
+                    <th className="has-text-centered">Phone</th>
+                    <th className="has-text-centered">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -43,21 +44,23 @@ const UserList = () => {
                         <td>{index + 1}</td>
                         <td>{user.user_fullname}</td>
                         <td>{user.user_email}</td>
-                        <td>{user.user_role}</td>
-                        <td>{user.user_phone}</td>
+                        <td className="has-text-centered">{user.user_role}</td>
+                        <td className="has-text-centered">{user.user_phone}</td>
                         <td>
-                            <Link
-                                to={`/user/edit/${user.user_uuid}`}
-                                className="button is-small is-info"
-                            >
-                                Edit
-                            </Link>
-                            <button
-                                onClick={() => deleteUser(user.user_uuid)}
-                                className="button is-small is-danger"
-                            >
-                                Delete
-                            </button>
+                            <div className="has-text-centered">
+                                <Link
+                                    to={`/user/edit/${user.user_uuid}`}
+                                    lassName="is-small is-info mr-3"
+                                >
+                                    <span className="is-underlined">Edit</span>
+                                </Link>
+                                <span
+                                    onClick={() => deleteUser(user.user_uuid)}
+                                    className="is-small is-info mr-3"
+                                >
+                                <span className="is-underlined" style={{color:"red"}}>Delete</span>
+                            </span>
+                            </div>
                         </td>
                     </tr>
                 ))}
