@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const SessionStore = require('connect-session-sequelize')(session.Store);
+const cors = require('cors');
 
 const { sequelize } = require('./config/Database.js');
 // const { UserModel } = require('./model/UserModel.js');
@@ -30,6 +31,11 @@ app.use(session({
     cookie: {
         secure: 'auto',
     }
+}));
+
+app.use(cors({
+    credentials:true,
+    origin: 'http://localhost:3000'
 }));
 
 app.get('/', (req, res) => {
