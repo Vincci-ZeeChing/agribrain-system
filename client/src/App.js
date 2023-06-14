@@ -17,6 +17,12 @@ import AddFarming from "./page/precisionFamring/FarmingRecord/AddFarming";
 import Crop from "./page/precisionFamring/Crop/Crop";
 import AddCrop from "./page/precisionFamring/Crop/AddCrop";
 import EditCrop from "./page/precisionFamring/Crop/EditCrop";
+import VisualizationDashboard from "./page/dataAnalytics/VisualizationDashboard";
+import ReportDashboard from "./page/dataAnalytics/ReportDashboard";
+import DataAnalyticsDashboard from "./page/dataAnalytics/DataAnalyticsDashboard";
+import User from "./page/user/User";
+import AddUser from "./page/user/AddUser";
+import EditUser from "./page/user/EditUser";
 
 function App() {
   return (
@@ -31,6 +37,7 @@ function App() {
                 <Route path="/sensor-monitoring" element={<SensorDashboard/>}/>
                 <Route path="/climate-condition" element={<ClimateDashboard/>} />
                 <Route path="/precision-farming" element={<PrecisionDashboard/>}/>
+                <Route path="/data-analytics" element={<DataAnalyticsDashboard/>}/>
 
                 {/*Subpage - Sensor*/}
                 <Route path="/sensor-monitoring/soil" element={<SoilDashboard/>} />
@@ -49,7 +56,14 @@ function App() {
                 <Route path="/precision-farming/crop/add" element={<AddCrop/>}/>
                 <Route path="/precision-farming/crop/edit/:id" element={<EditCrop/>}/>
 
+                {/*Subpage - Data Analytics*/}
+                <Route path="/data-analytics/visualization" element={<VisualizationDashboard/>}/>
+                <Route path="/data-analytics/report" element={<ReportDashboard/>}/>
 
+                {/*Subpage - User*/}
+                <Route path="/user" element={<User/>}/>
+                <Route path="/user/add" element={<AddUser/>}/>
+                <Route path="/user/edit/:id" element={<EditUser/>}/>
             </Routes>
         </BrowserRouter>
     </div>
