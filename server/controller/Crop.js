@@ -66,61 +66,77 @@ const createCrop = async (req, res) => {
 
 // Update crop
 const updateCrop = async (req,res) =>{
-    try{
+    try {
         const crop = await Crop.findOne({
-            where:{
-                crop_uuid:req.params.id,
-            }
+            where: {
+                crop_uuid: req.params.id,
+            },
         });
-        if(!crop) return res.status(404).json({msg:"CropList not found"})
-        const {crop_name} = req.body;
-        if(req.user_role === "Farmer"){
-            await Crop.update({crop_name},{
-                where:{
-                    id: crop.id
-                }
-            });
-        }else{
-            if(req.userId !== crop.userId) return res.status(403).json({msg:"Access Denied"})
-            await Crop.update({crop_name},{
+
+        if (!crop) {
+            return res.status(404).json({ msg: 'Crop not found' });
+        }
+
+        const { crop_name } = req.body;
+
+        if (req.user_role === 'Farmer' || req.user_role === 'Admin') {
+            await Crop.update({ crop_name }, {
                 where: {
-                    [Op.and]:[{id:crop.id},{userId:req.userId}],
+                    id: crop.id,
+                },
+            });
+        } else {
+            if (req.userId !== crop.userId) {
+                return res.status(403).json({ msg: 'Access Denied' });
+            }
+
+            await Crop.update({ crop_name }, {
+                where: {
+                    id: crop.id,
+                    userId: req.userId,
                 },
             });
         }
-        res.status(200).json({msg:"CropList Updated Successfully"});
-    }catch (error){
-        res.status(500).json({msg:error.message});
+
+        res.status(200).json({ msg: 'Crop updated successfully' });
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
     }
 }
 
 // Delete crop
 const deleteCrop = async (req,res) =>{
-    try{
+    try {
         const crop = await Crop.findOne({
-            where:{
-                crop_uuid:req.params.id,
-            }
+            where: {
+                crop_uuid: req.params.id,
+            },
         });
-        if(!crop) return res.status(404).json({msg:"CropList not found"})
-        const {crop_name} = req.body;
-        if(req.user_role === "Farmer"){
-            await Crop.destroy({
-                where:{
-                    id: crop.id
-                }
-            });
-        }else{
-            if(req.userId !== crop.userId) return res.status(403).json({msg:"Access Denied"})
-            await Crop.destroy({
-                where: {
-                    [Op.and]:[{id:crop.id},{userId:req.userId}],
-                },
-            });
+
+        if (!crop) {
+            return res.status(404).json({ msg: 'Crop not found' });
         }
-        res.status(200).json({msg:"CropList Deleted Successfully"});
-    }catch (error){
-        res.status(500).json({msg:error.message});
+
+        const isFarmer = req.user_role === 'Farmer';
+        const isAdmin = req.user_role === 'Admin';
+
+        if (isFarmer && crop.userId !== req.userId) {
+            return res.status(403).json({ msg: 'Access Denied' });
+        }
+
+        if (!isFarmer && !isAdmin) {
+            return res.status(403).json({ msg: 'Access Denied' });
+        }
+
+        await Crop.destroy({
+            where: {
+                crop_uuid: req.params.id,
+            },
+        });
+
+        res.status(200).json({ msg: 'Crop deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
     }
 }
 
