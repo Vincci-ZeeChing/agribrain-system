@@ -20,11 +20,11 @@ const PrecisionFarming = () => {
 
 
     const getFarming = async () => {
-        // const response = await axios.get("http://localhost:5000/api/v1/farming");
-        // const sortedFarming = response.data.sort((a, b) =>
-        //     a.farming_date > b.farming_date ? -1 : 1
-        // );
-        // setFarming(sortedFarming);
+        const response = await axios.get("http://localhost:5000/api/v1/farming");
+        const sortedFarming = response.data.sort((a, b) =>
+            a.farming_date > b.farming_date ? -1 : 1
+        );
+        setFarming(sortedFarming);
     };
 
 
@@ -62,7 +62,7 @@ const PrecisionFarming = () => {
                 Summary Table
             </h1>
             <table className="table is-bordered is-hoverable is-fullwidth mb-6">
-                <thread>
+                <thead>
                     <tr style={{ backgroundColor: '#E1F6F0' }}>
                         <th className="has-text-centered">No</th>
                         <th className="has-text-centered">Crop Name</th>
@@ -73,7 +73,7 @@ const PrecisionFarming = () => {
                         <th className="has-text-centered">Last Irrigation Date</th>
                         <th className="has-text-centered">Last Fertiliser Date</th>
                     </tr>
-                </thread>
+                </thead>
             </table>
 
         {/*    Crop Table */}
@@ -97,35 +97,35 @@ const PrecisionFarming = () => {
                 </tbody>
             </table>
 
-            {/*/!* Farming Table *!/*/}
-            {/*<h1 className="subtitle is-underlined">Farming Listing</h1>*/}
-            {/*<table className="table is-bordered is-hoverable is-fullwidth">*/}
-            {/*    <thead>*/}
-            {/*    <tr  style={{ backgroundColor: '#E1F6F0' }}>*/}
-            {/*        <th className="has-text-centered">No</th>*/}
-            {/*        <th className="has-text-centered">Farming Name</th>*/}
-            {/*        <th className="has-text-centered">Date</th>*/}
-            {/*        <th className="has-text-centered">Crop Name</th>*/}
-            {/*        <th className="has-text-centered">Created By</th>*/}
-            {/*    </tr>*/}
-            {/*    </thead>*/}
-            {/*    <tbody>*/}
-            {/*    {currentRecords.map((farming, index) =>*/}
-            {/*        renderTableRow(farming, index)*/}
-            {/*    )}*/}
-            {/*    {emptyRows > 0 && (*/}
-            {/*        Array.from({ length: emptyRows }, (_, index) => (*/}
-            {/*            <tr key={`empty-${index}`} className="empty-row">*/}
-            {/*                <td>&nbsp;</td>*/}
-            {/*                <td>&nbsp;</td>*/}
-            {/*                <td>&nbsp;</td>*/}
-            {/*                <td>&nbsp;</td>*/}
-            {/*                <td>&nbsp;</td>*/}
-            {/*            </tr>*/}
-            {/*        ))*/}
-            {/*    )}*/}
-            {/*    </tbody>*/}
-            {/*</table>*/}
+            {/* Farming Table */}
+            <h1 className="subtitle is-underlined">Farming Listing</h1>
+            <table className="table is-bordered is-hoverable is-fullwidth">
+                <thead>
+                <tr  style={{ backgroundColor: '#E1F6F0' }}>
+                    <th className="has-text-centered">No</th>
+                    <th className="has-text-centered">Farming Name</th>
+                    <th className="has-text-centered">Date</th>
+                    <th className="has-text-centered">Crop Name</th>
+                    <th className="has-text-centered">Created By</th>
+                </tr>
+                </thead>
+                <tbody>
+                {currentRecords.map((farming, index) =>
+                    renderTableRow(farming, index)
+                )}
+                {emptyRows > 0 && (
+                    Array.from({ length: emptyRows }, (_, index) => (
+                        <tr key={`empty-${index}`} className="empty-row">
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    ))
+                )}
+                </tbody>
+            </table>
 
             {/* Pagination */}
             <div className="pagination" style={{ marginTop: '1rem', justifyContent: 'flex-end' }}>
