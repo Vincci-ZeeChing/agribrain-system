@@ -122,7 +122,8 @@ POST http://localhost:5000/api/v1/crop
 Content-Type: application/json
 
 {
-  "crop_name": "Lettuce"
+  "crop_name": "Tomato",
+  "crop_active": "false"
 }
 
 ###
@@ -131,7 +132,8 @@ PATCH http://localhost:5000/api/v1/crop/1ce30712-d26d-4d9c-9bcd-df833c6e6dc6
 Content-Type: application/json
 
 {
-  "crop_name": "Radish"
+  "crop_name": "Cabbage",
+  "crop_active": "false"
 }
 
 
