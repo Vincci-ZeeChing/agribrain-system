@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaFilter } from "react-icons/fa";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
+import Switch from "react-switch";
 
 const CropList = () => {
     const [crop, setCrop] = useState([]);
     const [filterText, setFilterText] = useState("");
     const [deleteConfirmation, setDeleteConfirmation] = useState(null);
-    const {user} = useSelector((state) => state.auth);
-
+    const { user } = useSelector((state) => state.auth);
 
     useEffect(() => {
         getCrops();
@@ -31,9 +31,7 @@ const CropList = () => {
     };
 
     const filteredName = crop.filter((crop) => {
-        return crop.USER_T.user_fullname
-            .toLowerCase()
-            .includes(filterText.toLowerCase());
+        return crop.USER_T.user_fullname.toLowerCase().includes(filterText.toLowerCase());
     });
 
     const showDeleteConfirmation = (cropId) => {
@@ -42,6 +40,13 @@ const CropList = () => {
 
     const closeDeleteConfirmation = () => {
         setDeleteConfirmation(null);
+    };
+
+    const handleSwitchChange = async (cropId, newValue) => {
+        await axios.patch(`http://localhost:5000/api/v1/crop/${cropId}`, {
+            crop_active: newValue,
+        });
+        getCrops();
     };
 
     return (
@@ -84,6 +89,7 @@ const CropList = () => {
                         <th className="has-text-centered">No</th>
                         <th className="has-text-centered">Crop Name</th>
                         <th className="has-text-centered">Created By</th>
+                        <th className="has-text-centered">Active</th>
                         {user && (user.user.user_role === 'Farmer' || user.user.user_role === 'Admin') && (
                             <th className="has-text-centered">Actions</th>
                         )}
@@ -118,7 +124,19 @@ const CropList = () => {
                                         </div>
                                     </td>
                                 )}
-
+                                <td className="has-text-centered">
+                                    <Switch
+                                        onChange={(newValue) => handleSwitchChange(crop.crop_uuid, newValue)}
+                                        checked={crop.crop_active}
+                                        onColor="#71AF9D"
+                                        offColor="#E1E1E1"
+                                        handleDiameter={20}
+                                        height={15}
+                                        width={35}
+                                        className="react-switch"
+                                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                                    />
+                                </td>
                             </tr>
                         ))
                     )}
