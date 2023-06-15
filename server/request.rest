@@ -113,7 +113,7 @@ GET http://localhost:5000/api/v1/crop
 
 ###
 //Get Crop by id
-GET http://localhost:5000/api/v1/crop/1ce30712-d26d-4d9c-9bcd-df833c6e6dc6
+GET http://localhost:5000/api/v1/crop/8994097e-efa5-4130-9c98-5dcc9745151c
 
 
 ###
@@ -122,18 +122,18 @@ POST http://localhost:5000/api/v1/crop
 Content-Type: application/json
 
 {
-  "crop_name": "Tomato",
-  "crop_active": "false"
+  "crop_name": "Radish",
+  "crop_active": 0
 }
 
 ###
 //Update CropList
-PATCH http://localhost:5000/api/v1/crop/1ce30712-d26d-4d9c-9bcd-df833c6e6dc6
+PATCH http://localhost:5000/api/v1/crop/88d518b3-b53e-4d3a-9109-345dbebe76ca
 Content-Type: application/json
 
 {
-  "crop_name": "Cabbage",
-  "crop_active": "false"
+  "crop_name": "Cucumber",
+  "crop_active": 1
 }
 
 
