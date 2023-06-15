@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import axios from "axios";
 import { FaFilter } from "react-icons/fa";
+import {useSelector} from "react-redux";
 
 const CropList = () => {
     const [crop, setCrop] = useState([]);
     const [filterText, setFilterText] = useState("");
     const [deleteConfirmation, setDeleteConfirmation] = useState(null);
+    const {user} = useSelector((state) => state.auth);
+
 
     useEffect(() => {
         getCrops();
@@ -81,7 +84,9 @@ const CropList = () => {
                         <th className="has-text-centered">No</th>
                         <th className="has-text-centered">Crop Name</th>
                         <th className="has-text-centered">Created By</th>
-                        <th className="has-text-centered">Actions</th>
+                        {user && (user.user.user_role === 'Farmer' || user.user.user_role === 'Admin') && (
+                            <th className="has-text-centered">Actions</th>
+                        )}
                     </tr>
                     </thead>
                     <tbody>
@@ -95,22 +100,25 @@ const CropList = () => {
                                 <td className="has-text-centered">{index + 1}</td>
                                 <td>{crop.crop_name}</td>
                                 <td className="has-text-centered">{crop.USER_T.user_fullname}</td>
-                                <td>
-                                    <div className="has-text-centered">
-                                        <Link
-                                            to={`/precision-farming/crop/edit/${crop.crop_uuid}`}
-                                            className="is-small is-info mr-3"
-                                        >
-                                            <span className="is-underlined">Edit</span>
-                                        </Link>
-                                        <span
-                                            onClick={() => showDeleteConfirmation(crop.crop_uuid)}
-                                            className="is-hoverable is-small  delete-text"
-                                        >
+                                {user && (user.user.user_role === 'Farmer' || user.user.user_role === 'Admin') && (
+                                    <td>
+                                        <div className="has-text-centered">
+                                            <Link
+                                                to={`/precision-farming/crop/edit/${crop.crop_uuid}`}
+                                                className="is-small is-info mr-3"
+                                            >
+                                                <span className="is-underlined">Edit</span>
+                                            </Link>
+                                            <span
+                                                onClick={() => showDeleteConfirmation(crop.crop_uuid)}
+                                                className="is-hoverable is-small  delete-text"
+                                            >
                                             <span className="is-underlined" style={{color:"red"}}>Delete</span>
                                         </span>
-                                    </div>
-                                </td>
+                                        </div>
+                                    </td>
+                                )}
+
                             </tr>
                         ))
                     )}

@@ -131,8 +131,9 @@ PATCH http://localhost:5000/api/v1/crop/1ce30712-d26d-4d9c-9bcd-df833c6e6dc6
 Content-Type: application/json
 
 {
-  "crop_name": "Lettuce"
+  "crop_name": "Radish"
 }
+
 
 ###
 //Delete CropList
