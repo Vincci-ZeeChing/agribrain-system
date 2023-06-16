@@ -25,9 +25,9 @@ const CropModel = sequelize.define('CROP_T', {
     crop_active: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
         validate: {
             notEmpty: true,
-            defaultValue: false,
         },
     },
     userId: {
