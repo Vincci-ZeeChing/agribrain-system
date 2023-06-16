@@ -24,7 +24,8 @@ const FormAddFarming = () => {
     const getCrops = async () => {
         try {
             const response = await axios.get('http://localhost:5000/api/v1/crop');
-            setCrops(response.data);
+            const activeCrops = response.data.filter(crop => crop.crop_active === true);
+            setCrops(activeCrops);
         } catch (error) {
             console.log(error);
         }
@@ -38,7 +39,10 @@ const FormAddFarming = () => {
             return;
         }
 
-        const formattedDate = date.toISOString().split('T')[0];
+        const formattedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+            .toISOString()
+            .split('T')[0];
+
         let farmingName = name === 'Other' ? otherName : name;
         farmingName = farmingName.charAt(0).toUpperCase() + farmingName.slice(1).toLowerCase();
 
@@ -65,7 +69,6 @@ const FormAddFarming = () => {
             }
         }
     };
-
 
     const handleNameChange = (e) => {
         setName(e.target.value);
