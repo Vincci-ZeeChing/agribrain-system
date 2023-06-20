@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 // Import crop images
 import beansImage from '../../../image/crop/beans.jpg';
@@ -21,7 +21,6 @@ import radishImage from '../../../image/crop/radish.jpg';
 import spinachImage from '../../../image/crop/spinach.jpg';
 import tomatoImage from '../../../image/crop/tomato.jpg';
 import zucchiniImage from '../../../image/crop/zucchini.jpg';
-
 
 
 const FormCropRecommendation = () => {
@@ -54,6 +53,7 @@ const FormCropRecommendation = () => {
         temperature: '',
         humidity: '',
     });
+
     const handlePrediction = (event) => {
         event.preventDefault(); // Prevent form submission
 
@@ -156,7 +156,7 @@ const FormCropRecommendation = () => {
                             <div className="columns">
                                 <div className="column">
                                     <div className="field">
-                                        <label className="label">Nitrogen</label>
+                                        <label className="label">Nitrogen (mg/kg)</label>
                                         <div className="control">
                                             <input
                                                 type="number"
@@ -172,7 +172,7 @@ const FormCropRecommendation = () => {
                                         </div>
                                     </div>
                                     <div className="field">
-                                        <label className="label">Phosphorus</label>
+                                        <label className="label">Phosphorus (mg/kg)</label>
                                         <div className="control">
                                             <input
                                                 type="number"
@@ -189,7 +189,7 @@ const FormCropRecommendation = () => {
                                     </div>
 
                                     <div className="field">
-                                        <label className="label">Potassium</label>
+                                        <label className="label">Potassium (mg/kg)</label>
                                         <div className="control">
                                             <input
                                                 type="number"
@@ -208,7 +208,7 @@ const FormCropRecommendation = () => {
 
                                 <div className="column">
                                     <div className="field">
-                                        <label className="label">Rainfall</label>
+                                        <label className="label">Rainfall (mm)</label>
                                         <div className="control">
                                             <input
                                                 type="number"
@@ -242,7 +242,7 @@ const FormCropRecommendation = () => {
                                     </div>
 
                                     <div className="field">
-                                        <label className="label">Temperature</label>
+                                        <label className="label">Temperature (°C)</label>
                                         <div className="control">
                                             <input
                                                 type="number"
@@ -259,7 +259,7 @@ const FormCropRecommendation = () => {
                                     </div>
 
                                     <div className="field">
-                                        <label className="label">Humidity</label>
+                                        <label className="label">Humidity (%)</label>
                                         <div className="control">
                                             <input
                                                 type="number"
