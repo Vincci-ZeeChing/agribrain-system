@@ -47,6 +47,7 @@ const FormAddUser = () => {
                 <div className="card-content">
                     <div className="content">
                         <form onSubmit={handleSaveUser}>
+                            {message}
                             <p className="has-text-centered">{message}</p>
                             <div className="field">
                                 <label className="label"> Full Name</label>
@@ -55,7 +56,14 @@ const FormAddUser = () => {
                                         type="text"
                                         className="input"
                                         value={name}
-                                        onChange={(e) => setName(e.target.value)}
+                                        onChange={(e) => {
+                                            const inputName = e.target.value;
+                                            // Validate input: Only letters allowed
+                                            const regex = /^[a-zA-Z\s]*$/;
+                                            if (regex.test(inputName)) {
+                                                setName(inputName);
+                                            }
+                                        }}
                                         placeholder="Full Name"
                                     />
                                 </div>
@@ -64,7 +72,7 @@ const FormAddUser = () => {
                                 <label className="label"> Email</label>
                                 <div className="control">
                                     <input
-                                        type="text"
+                                        type="email"
                                         className="input"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
@@ -103,12 +111,17 @@ const FormAddUser = () => {
                                 <label className="label"> Phone Number</label>
                                 <div className="control">
                                     <input
-                                        type="text"
+                                        type="tel"
                                         className="input"
+                                        pattern="[0-9]*"
                                         value={phone}
-                                        onChange={(e) => setPhone(e.target.value)}
+                                        onChange={(e) => {
+                                            const inputPhone = e.target.value;
+                                            setPhone(inputPhone);
+                                        }}
                                         placeholder="Phone Number"
                                     />
+
                                 </div>
                             </div>
                             <div className="field">
