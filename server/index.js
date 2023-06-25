@@ -9,6 +9,7 @@ const { sequelize } = require('./config/Database.js');
 // const { UserModel } = require('./model/UserModel.js');
 // const { FarmingModel } = require('./model/FarmingModel.js');
 // const { CropModel } = require('./model/CropModel.js');
+// const { CropManagementModel } = require('./model/CropManagementModel.js');
 const UserRoute = require("./route/UserRoute");
 const CropRoute = require("./route/CropRoute");
 const FarmingRoute = require("./route/FarmingRoute");
@@ -43,7 +44,7 @@ app.get('/', (req, res) => {
 });
 
 
-// // Sync the with the database
+// Sync the with the database
 // sequelize.sync()
 //     .then(() => {
 //         console.log('Model synchronized with database');
