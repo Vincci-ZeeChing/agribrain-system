@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import DatePicker from "react-datepicker";
 
 const FormEditCropManagement = () => {
     const [crops, setCrops] = useState("");
@@ -41,6 +40,37 @@ const FormEditCropManagement = () => {
 
     const handleUpdateCropManagement = async (e) => {
         e.preventDefault();
+
+        if (dates === null) {
+            setMessage('Date cannot be empty.');
+            return;
+        }
+
+        if (harvest.trim() === '') {
+            setMessage('Harvest cannot be empty.');
+            return;
+        }
+
+        if (store.trim() === '') {
+            setMessage('Store cannot be empty.');
+            return;
+        }
+
+        if (sold.trim() === '') {
+            setMessage('Sold cannot be empty.');
+            return;
+        }
+
+        if (price.trim() === '') {
+            setMessage('Price cannot be empty.');
+            return;
+        }
+
+        if (cropId.trim() === '') {
+            setMessage('Crop Name cannot be empty.');
+            return;
+        }
+
         try {
             await axios.patch(`http://localhost:5000/api/v1/cropManagement/${id}`,{
                 c_management_date: dates,
@@ -68,6 +98,7 @@ const FormEditCropManagement = () => {
                 <div className="card-content">
                     <div className="content">
                         <form onSubmit={handleUpdateCropManagement}>
+                            <p className="has-text-centered has-text-danger">{message}</p>
                             <div className="columns">
                                 <div className="column">
                                     <div className="field">
