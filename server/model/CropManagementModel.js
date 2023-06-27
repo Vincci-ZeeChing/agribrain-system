@@ -73,7 +73,7 @@ const CropManagementModel = sequelize.define('CROP_MANAGEMENT_T', {
     freezeTableName: true,
 });
 
-CropManagementModel.belongsTo(CropModel, { foreignKey: 'cropId' });
+CropManagementModel.belongsTo(CropModel, { foreignKey: 'cropId'});
 CropManagementModel.belongsTo(UserModel, { foreignKey: 'userId', targetKey: 'user_uuid' });
 
 

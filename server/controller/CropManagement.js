@@ -157,7 +157,7 @@ const deleteCropManagement = async (req, res) => {
 
         if (cropManagement) {
             await cropManagement.destroy();
-            res.status(204).json({ message: 'Crop management deleted successfully' });
+            res.status(200).json({ message: 'Crop management deleted successfully' });
         } else {
             res.status(404).json({ error: 'Crop management not found' });
         }
@@ -165,6 +165,7 @@ const deleteCropManagement = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
 
 module.exports = {
     getCropManagement,
