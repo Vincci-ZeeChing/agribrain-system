@@ -32,6 +32,36 @@ const FormAddCropManagement = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (date === null) {
+            setMessage('Date cannot be empty.');
+            return;
+        }
+
+        if (harvest.trim() === '') {
+            setMessage('Harvest cannot be empty.');
+            return;
+        }
+
+        if (store.trim() === '') {
+            setMessage('Store cannot be empty.');
+            return;
+        }
+
+        if (sold.trim() === '') {
+            setMessage('Sold cannot be empty.');
+            return;
+        }
+
+        if (price.trim() === '') {
+            setMessage('Price cannot be empty.');
+            return;
+        }
+
+        if (cropId.trim() === '') {
+            setMessage('Crop Name cannot be empty.');
+            return;
+        }
+
         try {
             // Format the date to YYYY-MM-DD format
             const formattedDate = date.toISOString().slice(0, 10);
@@ -63,6 +93,7 @@ const FormAddCropManagement = () => {
                 <div className="card-content">
                     <div className="content">
                         <form onSubmit={handleSubmit}>
+                            <p className="has-text-centered has-text-danger">{message}</p>
                             <div className="columns">
                                 <div className="column">
                                     <div className="field">
