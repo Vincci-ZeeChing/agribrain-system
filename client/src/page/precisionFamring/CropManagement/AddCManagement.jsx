@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {getMe} from "../../../features/authSlice";
 import Layout from "../../layout/Layout";
 import {Helmet} from "react-helmet";
-import AddCropManagement from "../../../component/precision/cropManagement/AddCropManagement";
+import FormAddCropManagement from "../../../component/precision/cropManagement/FormAddCropManagement";
 
 const AddCManagement = () => {
     const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const AddCManagement = () => {
             <Helmet>
                 <title>AgriBrain | Crop Management</title>
             </Helmet>
-            <AddCropManagement/>
+            <FormAddCropManagement/>
         </Layout>
     );
 };
