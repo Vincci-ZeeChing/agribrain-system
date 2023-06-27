@@ -49,7 +49,7 @@ const CropManagementList = () => {
             <h1 className="title">Crop Management</h1>
 
             <Link
-                to="/precision-farming/crop-management"
+                to="/precision-farming/crop-management/add"
                 className="button mb-2"
                 style={{ backgroundColor: '#71AF9D', color: 'white' }}
             >
@@ -136,7 +136,7 @@ const CropManagementList = () => {
                             <td>
                                 <div className="has-text-centered">
                                     <Link
-                                        to={`/precision-farming/crop-management${crop.crop_uuid}`}
+                                        to={`/precision-farming/crop-management/edit/${crop.c_management_uuid}`}
                                         className="is-small is-info mr-3"
                                     >
                                         <span className="is-underlined">Edit</span>
