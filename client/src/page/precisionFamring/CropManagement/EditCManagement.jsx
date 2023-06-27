@@ -4,8 +4,8 @@ import {useNavigate} from "react-router-dom";
 import {getMe} from "../../../features/authSlice";
 import Layout from "../../layout/Layout";
 import {Helmet} from "react-helmet";
-import AddCropManagement from "../../../component/precision/cropManagement/AddCropManagement";
-import EditCropManagement from "../../../component/precision/cropManagement/EditCropManagement";
+import FormAddCropManagement from "../../../component/precision/cropManagement/FormAddCropManagement";
+import FormEditCropManagement from "../../../component/precision/cropManagement/FormEditCropManagement";
 
 const EditCManagement = () => {
     const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const EditCManagement = () => {
             <Helmet>
                 <title>AgriBrain | Crop Management</title>
             </Helmet>
-            <EditCropManagement/>
+            <FormEditCropManagement/>
         </Layout>
     );
 };
