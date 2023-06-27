@@ -33,7 +33,7 @@ const getCropManagement = async (req, res) => {
                     {
                         model: CropModel,
                         as: 'CROP_T',
-                        attributes: ['crop_name'],
+                        attributes: ['id','crop_name'],
                     },
                 ],
             });
@@ -67,7 +67,7 @@ const getCropManagementById = async (req, res) => {
                 {
                     model: CropModel,
                     as: 'CROP_T',
-                    attributes: ['crop_name'],
+                    attributes: ['id','crop_name'],
                 },
             ],
         });
