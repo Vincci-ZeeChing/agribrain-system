@@ -152,7 +152,7 @@ Content-Type: application/json
 
 {
   "farming_name": "Fertilizer",
-  "farming_date": "2023-05-10",
+  "farming_date": "2023-05-14",
   "cropId": "1"
 }
 
@@ -191,6 +191,10 @@ Content-Type: application/json
   "c_management_price": "10",
   "cropId": "1"
 }
+
+###
+//Delete Crop Management Record
+DELETE http://localhost:5000/api/v1/cropManagement/065a5838-079b-45eb-9b5d-5a9c6eeab1cb
 
 
 ###
