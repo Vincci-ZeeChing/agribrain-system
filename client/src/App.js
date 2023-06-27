@@ -23,6 +23,8 @@ import DataAnalyticsDashboard from "./page/dataAnalytics/DataAnalyticsDashboard"
 import User from "./page/user/User";
 import AddUser from "./page/user/AddUser";
 import EditUser from "./page/user/EditUser";
+import AddCManagement from "./page/precisionFamring/CropManagement/AddCManagement";
+import EditCManagement from "./page/precisionFamring/CropManagement/EditCManagement";
 
 function App() {
   return (
@@ -50,6 +52,8 @@ function App() {
                 {/*Subpage - Precision Farming*/}
                 <Route path="/precision-farming/crop-recommendation" element={<CropRecommendation/>}/>
                 <Route path="/precision-farming/crop-management" element={<ManagementCropDashboard/>}/>
+                <Route path="/precision-farming/crop-management/add" element={<AddCManagement/>}/>
+                <Route path="/precision-farming/crop-management/edit/:id" element={<EditCManagement/>}/>
                 <Route path="/precision-farming/farming-record" element={<FarmingRecordDashboard/>}/>
                 <Route path="/precision-farming/farming-record/add" element={<AddFarming/>}/>
                 <Route path="/precision-farming/crop" element={<Crop/>}/>
