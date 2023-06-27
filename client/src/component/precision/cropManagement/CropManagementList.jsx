@@ -10,6 +10,7 @@ const CropManagementList = () => {
     const [filter, setFilter] = useState('');
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [deleteConfirmation, setDeleteConfirmation] = useState(null);
 
     const getCropsManagement = async () => {
         try {
@@ -36,6 +37,24 @@ const CropManagementList = () => {
         setEndDate(date);
     };
 
+    const handleDeleteConfirmation = (id) => {
+        setDeleteConfirmation(id);
+    };
+
+    const closeDeleteConfirmation = () => {
+        setDeleteConfirmation(null);
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:5000/api/v1/cropManagement/${id}`);
+            getCropsManagement(); // Refresh the crop management list after deletion
+            closeDeleteConfirmation();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const filteredCropManagement = cropManagement.filter(crop =>
         crop.CROP_T.crop_name.toLowerCase().includes(filter.toLowerCase()) &&
         (startDate && endDate
@@ -56,6 +75,7 @@ const CropManagementList = () => {
             </Link>
 
             <div className="field is-grouped mt-5">
+                {/* Filter by Crop */}
                 <div className="control">
                     <label className="label">Filter by Crop</label>
                     <div className="control has-icons-left">
@@ -68,11 +88,12 @@ const CropManagementList = () => {
                             style={{ minWidth: "20vw", maxWidth: "25vw" }}
                         />
                         <span className="icon is-small is-left">
-                            <FaFilter className="filter-icon" />
-                        </span>
+              <FaFilter className="filter-icon" />
+            </span>
                     </div>
                 </div>
 
+                {/* Filter by Date Range */}
                 <div className="control ml-3">
                     <label className="label">Filter by Date Range</label>
                     <div className="control has-icons-left is-flex">
@@ -88,8 +109,8 @@ const CropManagementList = () => {
                             style={{ minWidth: "20vw", maxWidth: "25vw" }}
                         />
                         <span className="icon is-small is-left">
-                            <FaFilter className="filter-icon" />
-                        </span>
+              <FaFilter className="filter-icon" />
+            </span>
                         <DatePicker
                             className="input is-rounded"
                             selected={endDate}
@@ -140,11 +161,13 @@ const CropManagementList = () => {
                                     >
                                         <span className="is-underlined">Edit</span>
                                     </Link>
-                                    <span className="is-hoverable is-small delete-text">
-                                            <span className="is-underlined" style={{ color: "red" }}>
-                                                Delete
-                                            </span>
-                                        </span>
+                                    <span
+                                        className="is-hoverable is-small delete-text"
+                                        style={{ cursor: 'pointer', color: 'red', textDecoration:"underline"} }
+                                        onClick={() => handleDeleteConfirmation(crop.c_management_uuid)}
+                                    >
+                                       Delete
+                                    </span>
                                 </div>
                             </td>
                         </tr>
@@ -158,6 +181,32 @@ const CropManagementList = () => {
                     </tbody>
                 )}
             </table>
+
+            {/* Delete Confirmation Modal */}
+            {deleteConfirmation && (
+                <div className="modal is-active">
+                    <div className="modal-background"></div>
+                    <div className="modal-card">
+                        <header className="modal-card-head" style={{ backgroundColor: "#71AF9D" }}>
+                            <p className="modal-card-title" style={{ color: "white", textAlign: "center", fontWeight: "bold" }}>
+                                Confirm Deletion
+                            </p>
+                            <button className="delete" aria-label="close" onClick={closeDeleteConfirmation}></button>
+                        </header>
+                        <section className="modal-card-body is-flex is-justify-content-center">
+                            <p style={{ margin: "2vh" }}>Are you sure you want to delete this record?</p>
+                        </section>
+                        <footer className="modal-card-foot is-justify-content-end">
+                            <button className="button is-danger is-small" onClick={() => handleDelete(deleteConfirmation)}>
+                                Delete
+                            </button>
+                            <button className="button is-small" onClick={closeDeleteConfirmation}>
+                                Cancel
+                            </button>
+                        </footer>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
