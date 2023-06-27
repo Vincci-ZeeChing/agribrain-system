@@ -14,7 +14,7 @@ const UserRoute = require("./route/UserRoute");
 const CropRoute = require("./route/CropRoute");
 const FarmingRoute = require("./route/FarmingRoute");
 const WeatherRoute = require("./route/WeatherRoute");
-
+const CropManagementRoute = require("./route/CropManagementRoute");
 const AuthRoute = require("./route/AuthRoute");
 
 const app = express();
@@ -60,6 +60,7 @@ app.use(AuthRoute);
 app.use(CropRoute);
 app.use(FarmingRoute);
 app.use(WeatherRoute);
+app.use(CropManagementRoute);
 // store.sync();
 
 const port = process.env.APP_PORT;

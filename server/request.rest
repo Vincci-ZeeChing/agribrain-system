@@ -157,5 +157,23 @@ Content-Type: application/json
 }
 
 ###
+//Create Crop Management Record
+POST http://localhost:5000/api/v1/cropManagement
+Content-Type: application/json
+
+{
+  "c_management_date": "2023-05-11",
+  "c_management_harvest": "120",
+  "c_management_stored": "20",
+  "c_management_sold": "100",
+  "c_management_price": "11",
+  "cropId": "1"
+}
+
+###
+//Get Crop Management Record
+GET http://localhost:5000/api/v1/cropManagement
+
+###
 //Get Weather
 GET http://localhost:5000/api/v1/currentWeather
