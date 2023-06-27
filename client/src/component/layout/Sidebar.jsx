@@ -76,7 +76,9 @@ const Sidebar = () => {
                             <ul>
                                 <li className="ml-1"><NavLink to="/precision-farming/crop">Crops</NavLink></li>
                                 <li className="ml-1"><NavLink to="/precision-farming/crop-recommendation">Crop Recommendation</NavLink></li>
-                                <li className="ml-1"><NavLink to="/precision-farming/crop-management">Crops Management</NavLink></li>
+                                {user && (user.user.user_role === 'Farmer' || user.user.user_role === 'Admin') && (
+                                    <li className="ml-1"><NavLink to="/precision-farming/crop-management">Crops Management</NavLink></li>
+                                )}
                                 <li className="ml-1"><NavLink to="/precision-farming/farming-record">Farming Records</NavLink></li>
                             </ul>
                         }
