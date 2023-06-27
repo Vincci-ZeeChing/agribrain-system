@@ -3,6 +3,7 @@ const CropManagementModel = require('../model/CropManagementModel.js');
 const CropModel = require('../model/CropModel.js');
 const UserModel = require('../model/UserModel.js');
 
+
 // Get all crop management
 const getCropManagement = async (req, res) => {
     const userId = req.session.userId; // Assuming the user ID is stored in the session
@@ -22,7 +23,7 @@ const getCropManagement = async (req, res) => {
         if (role === 'Admin' || role === 'Farmer') {
             // Allow admin and farmer to access all records
             const cropManagementData = await CropManagementModel.findAll({
-                attributes: ["c_management_date", "c_management_harvest", "c_management_stored", "c_management_sold", "c_management_price"],
+                attributes: ["c_management_uuid","c_management_date", "c_management_harvest", "c_management_stored", "c_management_sold", "c_management_price"],
                 include: [
                     {
                         model: UserModel,
@@ -50,15 +51,34 @@ const getCropManagement = async (req, res) => {
 // Get crop management by id
 const getCropManagementById = async (req, res) => {
     const { id } = req.params;
+
     try {
-        const cropManagement = await CropManagementModel.findByPk(id);
-        if (cropManagement) {
-            res.json(cropManagement);
-        } else {
-            res.status(404).json({ error: 'Crop management not found' });
+        const cropManagement = await CropManagementModel.findOne({
+            where: {
+                c_management_uuid: id,
+            },
+            attributes: ["c_management_uuid","c_management_date", "c_management_harvest", "c_management_stored", "c_management_sold", "c_management_price"],
+            include: [
+                {
+                    model: UserModel,
+                    as: 'USER_T',
+                    attributes: ['user_fullname'],
+                },
+                {
+                    model: CropModel,
+                    as: 'CROP_T',
+                    attributes: ['crop_name'],
+                },
+            ],
+        });
+
+        if (!cropManagement) {
+            return res.status(404).json({ msg: 'Crop not found' });
         }
+
+        res.status(200).json(cropManagement);
     } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ msg: error.message });
     }
 };
 
@@ -98,7 +118,12 @@ const updateCropManagement = async (req, res) => {
     const { id } = req.params;
     const { c_management_date, c_management_harvest, c_management_stored, c_management_sold, c_management_price, cropId, userId } = req.body;
     try {
-        const cropManagement = await CropManagementModel.findByPk(id);
+        const cropManagement = await CropManagementModel.findOne({
+            where: {
+                c_management_uuid: id,
+            },
+        });
+
         if (cropManagement) {
             await cropManagement.update({
                 c_management_date,
@@ -109,6 +134,7 @@ const updateCropManagement = async (req, res) => {
                 cropId,
                 userId,
             });
+
             res.json(cropManagement);
         } else {
             res.status(404).json({ error: 'Crop management not found' });
@@ -121,11 +147,17 @@ const updateCropManagement = async (req, res) => {
 // Delete crop management
 const deleteCropManagement = async (req, res) => {
     const { id } = req.params;
+
     try {
-        const cropManagement = await CropManagementModel.findByPk(id);
+        const cropManagement = await CropManagementModel.findOne({
+            where: {
+                c_management_uuid: id,
+            },
+        });
+
         if (cropManagement) {
             await cropManagement.destroy();
-            res.sendStatus(204);
+            res.status(204).json({ message: 'Crop management deleted successfully' });
         } else {
             res.status(404).json({ error: 'Crop management not found' });
         }
