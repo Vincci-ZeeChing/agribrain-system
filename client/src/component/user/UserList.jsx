@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 
 const UserList = () => {
     const [user, setUser] = useState([]);
+    const [deleteConfirmation, setDeleteConfirmation] = useState(null);
 
     useEffect(() => {
         getUsers();
@@ -14,9 +15,23 @@ const UserList = () => {
         setUser(response.data);
     };
 
+    const handleDeleteConfirmation = (id) => {
+        setDeleteConfirmation(id);
+    };
+
+    const closeDeleteConfirmation = () => {
+        setDeleteConfirmation(null);
+    };
+
+
     const deleteUser = async (userId) => {
-        await axios.delete(`http://localhost:5000/api/v1/user/${userId}`);
-        getUsers();
+        try {
+            await axios.delete(`http://localhost:5000/api/v1/user/${userId}`);
+            getUsers();
+            closeDeleteConfirmation();
+        }catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -41,7 +56,7 @@ const UserList = () => {
                 <tbody>
                 {user.map((user, index) => (
                     <tr key={user.user_uuid}>
-                        <td>{index + 1}</td>
+                        <td className="has-text-centered">{index + 1}</td>
                         <td>{user.user_fullname}</td>
                         <td>{user.user_email}</td>
                         <td className="has-text-centered">{user.user_role}</td>
@@ -50,15 +65,15 @@ const UserList = () => {
                             <div className="has-text-centered">
                                 <Link
                                     to={`/user/edit/${user.user_uuid}`}
-                                    lassName="is-small is-info mr-3"
+                                    lassName="is-small is-info"
                                 >
                                     <span className="is-underlined">Edit</span>
                                 </Link>
                                 <span
-                                    onClick={() => deleteUser(user.user_uuid)}
-                                    className="is-small is-info mr-3"
+                                    onClick={() => handleDeleteConfirmation(user.user_uuid)}
+                                    className="is-small is-info"
                                 >
-                                <span className="is-underlined" style={{color:"red"}}>Delete</span>
+                                <span className="is-underlined ml-2" style={{color:"red"}}>Delete</span>
                             </span>
                             </div>
                         </td>
@@ -66,6 +81,33 @@ const UserList = () => {
                 ))}
                 </tbody>
             </table>
+
+
+            {/* Delete Confirmation Modal */}
+            {deleteConfirmation && (
+                <div className="modal is-active">
+                    <div className="modal-background"></div>
+                    <div className="modal-card">
+                        <header className="modal-card-head" style={{ backgroundColor: "#71AF9D" }}>
+                            <p className="modal-card-title" style={{ color: "white", textAlign: "center", fontWeight: "bold" }}>
+                                Confirm Deletion
+                            </p>
+                            <button className="delete" aria-label="close" onClick={closeDeleteConfirmation}></button>
+                        </header>
+                        <section className="modal-card-body is-flex is-justify-content-center">
+                            <p style={{ margin: "2vh" }}>Are you sure you want to delete this user?</p>
+                        </section>
+                        <footer className="modal-card-foot is-justify-content-end">
+                            <button className="button is-danger is-small" onClick={() => deleteUser(deleteConfirmation)}>
+                                Delete
+                            </button>
+                            <button className="button is-small" onClick={closeDeleteConfirmation}>
+                                Cancel
+                            </button>
+                        </footer>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
