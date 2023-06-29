@@ -338,12 +338,13 @@ const FormCropRecommendation = () => {
                     <div className="modal-content">
                         <div className="box">
                             <h1 className="title">Crop Recommendation:</h1>
-                            <p>{prediction}</p>
+                            <hr />
                             {cropImage ? (
                                 <img src={cropImage} alt={prediction} />
                             ) : (
                                 <p>Image not found</p>
                             )}
+                            <p style={{fontSize:"30px", textAlign:"center"}}>{prediction}</p>
                         </div>
                     </div>
                     <button
