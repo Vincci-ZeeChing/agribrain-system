@@ -1,24 +1,36 @@
 import React, {useState} from 'react';
 
 // Import crop images
-import beansImage from '../../../image/crop/beans.jpg';
-import bellPepperImage from '../../../image/crop/bellpeppers.jpg';
+import beetrootImage from '../../../image/crop/beetroot.jpg';
+import bitterGourdImage from '../../../image/crop/bittergourd.jpg';
 import bokChoyImage from '../../../image/crop/bokchoy.jpg';
+import bottleGourdImage from '../../../image/crop/bottlegourd.jpg';
+import brinjalImage from '../../../image/crop/brinjal.jpg';
 import broccoliImage from '../../../image/crop/broccoli.jpg';
-import brusselsSproutsImage from '../../../image/crop/brusselssprouts.jpg';
 import cabbageImage from '../../../image/crop/cabbage.jpg';
+import capsicumImage from '../../../image/crop/capsicum.jpg';
 import carrotImage from '../../../image/crop/carrots.jpg';
 import cauliflowerImage from '../../../image/crop/cauliflower.jpg';
 import celeryImage from '../../../image/crop/celery.jpg';
+import chilliImage from '../../../image/crop/chilli.jpg';
 import chineseCabbageImage from '../../../image/crop/chinesecabbage.jpg';
+import corianderLeafImage from '../../../image/crop/corianderleaf.jpg';
+import cornImage from '../../../image/crop/corn.jpg';
 import cucumberImage from '../../../image/crop/cucumber.jpg';
-import eggplantImage from '../../../image/crop/eggplant.jpg';
+import favaBeansImage from '../../../image/crop/favabeans.jpg';
+import frenchBeansImage from '../../../image/crop/frenchbeans.jpg';
+import greenPeasImage from '../../../image/crop/greenpeas.jpg';
 import kaleImage from '../../../image/crop/kale.jpg';
+import ladyFingerImage from '../../../image/crop/ladyfinger.jpg';
 import lettuceImage from '../../../image/crop/lettuce.jpg';
+import limaBeansImage from '../../../image/crop/limabeans.jpg';
 import mustardGreensImage from '../../../image/crop/mustardgreens.jpg';
-import peasImage from '../../../image/crop/peas.jpg';
+import pumpkinImage from '../../../image/crop/pumpkin.jpg';
 import radishImage from '../../../image/crop/radish.jpg';
+import ridgeGourdImage from '../../../image/crop/ridgegourd.jpg';
 import spinachImage from '../../../image/crop/spinach.jpg';
+import sweetPotatoImage from '../../../image/crop/sweetpotato.jpg';
+import tapiocaImage from '../../../image/crop/tapioca.jpg';
 import tomatoImage from '../../../image/crop/tomato.jpg';
 import zucchiniImage from '../../../image/crop/zucchini.jpg';
 
@@ -114,25 +126,37 @@ const FormCropRecommendation = () => {
     };
 
     const cropImageMap = {
-        Beans: beansImage,
-        'Bell peppers': bellPepperImage,
+        Beetroot: beetrootImage,
+        'Bitter gourd': bitterGourdImage,
+        'Bottle gourd': bottleGourdImage,
+        Brinjal: brinjalImage,
+        Cabbage: cabbageImage,
+        'Capsicum': capsicumImage,
+        Carrot: carrotImage,
+        Cauliflower: cauliflowerImage,
+        Chilli: chilliImage,
+        'Coriander leaf': corianderLeafImage,
+        Corn: cornImage,
+        Cucumbers: cucumberImage,
+        'Fava beans': favaBeansImage,
+        'French beans': frenchBeansImage,
+        'Green peas': greenPeasImage,
+        'Ladyfinger': ladyFingerImage,
+        'Lima beans': limaBeansImage,
+        Pumpkin: pumpkinImage,
+        Radish: radishImage,
+        'Ridge gourd': ridgeGourdImage,
+        Spinach: spinachImage,
+        'Sweet potato': sweetPotatoImage,
+        Tapioca: tapiocaImage,
+        Tomato: tomatoImage,
+        Lettuce: lettuceImage,
         'Bok choy': bokChoyImage,
         Broccoli: broccoliImage,
-        'Brussels sprouts': brusselsSproutsImage,
-        Cabbage: cabbageImage,
-        Carrots: carrotImage,
-        Cauliflower: cauliflowerImage,
         Celery: celeryImage,
         'Chinese cabbage': chineseCabbageImage,
-        Cucumbers: cucumberImage,
-        Eggplant: eggplantImage,
         Kale: kaleImage,
-        Lettuce: lettuceImage,
         'Mustard greens': mustardGreensImage,
-        Peas: peasImage,
-        Radishes: radishImage,
-        Spinach: spinachImage,
-        Tomatoes: tomatoImage,
         Zucchini: zucchiniImage,
     };
 
