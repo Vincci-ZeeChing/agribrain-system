@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app, supports_credentials=True, origins='http://localhost:3000')
 
 # Load the Random Forest model
-RF_pkl_filename = 'RandomForest.pkl'
+RF_pkl_filename = './model/NBClassifier.pkl'
 with open(RF_pkl_filename, 'rb') as RF_Model_pkl:
     RF_model = pickle.load(RF_Model_pkl)
 
