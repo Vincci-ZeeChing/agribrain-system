@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {getMe} from "../../../features/authSlice";
 import Layout from "../../layout/Layout";
 import {Helmet} from "react-helmet";
-import FormCropRecommendation from "../../../component/precision/cropRecommendation/FormCropRecommendation";
+import FormCropRecommendation from "../../../component/dataAnalytics/cropRecommendation/FormCropRecommendation";
 
 const CropRecommendation = () => {
     const dispatch = useDispatch();

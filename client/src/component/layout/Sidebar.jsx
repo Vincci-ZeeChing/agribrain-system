@@ -75,7 +75,7 @@ const Sidebar = () => {
                         {isPrecisionSubMenuOpen &&
                             <ul>
                                 <li className="ml-1"><NavLink to="/precision-farming/crop">Crops</NavLink></li>
-                                <li className="ml-1"><NavLink to="/precision-farming/crop-recommendation">Crop Recommendation</NavLink></li>
+                                {/*<li className="ml-1"><NavLink to="/precision-farming/crop-recommendation">Crop Recommendation</NavLink></li>*/}
                                 {user && (user.user.user_role === 'Farmer' || user.user.user_role === 'Admin') && (
                                     <li className="ml-1"><NavLink to="/precision-farming/crop-management">Crops Management</NavLink></li>
                                 )}
@@ -87,6 +87,7 @@ const Sidebar = () => {
                         <a onClick={toggleAnalyticsSubMenu}><FaChartPie/> Data Analytics</a>
                         {isAnalyticsSubMenuOpen &&
                             <ul>
+                                <li className="ml-1"><NavLink to="/data-analytics/crop-recommendation">Crop Recommendation</NavLink></li>
                                 <li className="ml-1"><NavLink to="/data-analytics/visualization">Visualization</NavLink>
                                 </li>
                                 <li className="ml-1"><NavLink to="/data-analytics/report">Report</NavLink></li>

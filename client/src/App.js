@@ -10,7 +10,7 @@ import ClimateDashboard from "./page/climateCondition/ClimateDashboard";
 import HistoricalDashboard from "./page/climateCondition/HistoricalDashboard";
 import ForecastDashboard from "./page/climateCondition/ForecastDashboard";
 import PrecisionDashboard from "./page/precisionFamring/PrecisionDashboard";
-import CropRecommendation from "./page/precisionFamring/CropRecommendation/CropRecommendation";
+import CropRecommendation from "./page/dataAnalytics/CropRecommendation/CropRecommendation";
 import ManagementCropDashboard from "./page/precisionFamring/CropManagement/CropManagement";
 import FarmingRecordDashboard from "./page/precisionFamring/FarmingRecord/FarmRecordDashboard";
 import AddFarming from "./page/precisionFamring/FarmingRecord/AddFarming";
@@ -50,7 +50,6 @@ function App() {
                 <Route path="/climate-condition/forecast" element={<ForecastDashboard/>}/>
 
                 {/*Subpage - Precision Farming*/}
-                <Route path="/precision-farming/crop-recommendation" element={<CropRecommendation/>}/>
                 <Route path="/precision-farming/crop-management" element={<ManagementCropDashboard/>}/>
                 <Route path="/precision-farming/crop-management/add" element={<AddCManagement/>}/>
                 <Route path="/precision-farming/crop-management/edit/:id" element={<EditCManagement/>}/>
@@ -61,7 +60,8 @@ function App() {
                 <Route path="/precision-farming/crop/edit/:id" element={<EditCrop/>}/>
 
                 {/*Subpage - Data Analytics*/}
-                <Route path="/data-analytics/visualization" element={<VisualizationDashboard/>}/>
+                <Route path="/data-analytics/crop-recommendation" element={<CropRecommendation/>}/>
+                <Route path="//visualization" element={<VisualizationDashboard/>}/>
                 <Route path="/data-analytics/report" element={<ReportDashboard/>}/>
 
                 {/*Subpage - User*/}
