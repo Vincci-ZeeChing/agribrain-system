@@ -61,7 +61,7 @@ function App() {
 
                 {/*Subpage - Data Analytics*/}
                 <Route path="/data-analytics/crop-recommendation" element={<CropRecommendation/>}/>
-                <Route path="//visualization" element={<VisualizationDashboard/>}/>
+                <Route path="/data-analytics/visualization" element={<VisualizationDashboard/>}/>
                 <Route path="/data-analytics/report" element={<ReportDashboard/>}/>
 
                 {/*Subpage - User*/}
