@@ -25,6 +25,7 @@ import AddUser from "./page/user/AddUser";
 import EditUser from "./page/user/EditUser";
 import AddCManagement from "./page/precisionFamring/CropManagement/AddCManagement";
 import EditCManagement from "./page/precisionFamring/CropManagement/EditCManagement";
+import FertiliserRecommendation from "./page/dataAnalytics/FertiliserRecommendation/FertiliserRecommendation";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
 
                 {/*Subpage - Data Analytics*/}
                 <Route path="/data-analytics/crop-recommendation" element={<CropRecommendation/>}/>
+                <Route path="/data-analytics/fertiliser-recommendation" element={<FertiliserRecommendation/>}/>
                 <Route path="/data-analytics/visualization" element={<VisualizationDashboard/>}/>
                 <Route path="/data-analytics/report" element={<ReportDashboard/>}/>
 

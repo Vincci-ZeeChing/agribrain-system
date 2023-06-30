@@ -88,8 +88,8 @@ const Sidebar = () => {
                         {isAnalyticsSubMenuOpen &&
                             <ul>
                                 <li className="ml-1"><NavLink to="/data-analytics/crop-recommendation">Crop Recommendation</NavLink></li>
-                                <li className="ml-1"><NavLink to="/data-analytics/visualization">Visualization</NavLink>
-                                </li>
+                                <li className="ml-1"><NavLink to="/data-analytics/fertiliser-recommendation">Fertiliser Recommendation</NavLink></li>
+                                <li className="ml-1"><NavLink to="/data-analytics/visualization">Visualization</NavLink></li>
                                 <li className="ml-1"><NavLink to="/data-analytics/report">Report</NavLink></li>
                             </ul>
                         }
