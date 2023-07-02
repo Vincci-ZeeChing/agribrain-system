@@ -3,6 +3,8 @@ const axios = require("axios");
 const Crop = require("../model/CropModel");
 const User = require("../model/UserModel");
 
+
+// Report Format
 function formatReport(doc, reportTitle) {
     doc.font('Times-Roman')
         .fontSize(30)
@@ -37,6 +39,17 @@ function formatReport(doc, reportTitle) {
     doc.moveDown();
 }
 
+//End of content line
+function drawEndLine(doc, y) {
+    doc
+        .moveTo(50, y)
+        .lineTo(doc.page.width - 50, y)
+        .lineWidth(1)
+        .stroke();
+}
+
+
+// Get Crop Info
 async function getCrop(callback) {
     try {
         const response = await Crop.findAll({
@@ -56,12 +69,11 @@ async function getCrop(callback) {
 }
 
 
+// Generate Crop Report
 async function generateCropReport() {
     const table = {
         title: 'Crop Report',
-        subtitle: 'This is an official crop report.',
-        headers: ['Crop', 'Crop Active', 'User Name', 'User Email'],
-        rows: [],
+        headers: ['No', 'Crop', 'Active', 'User Name', 'Email'],
     };
 
     return new Promise((resolve, reject) => {
@@ -76,8 +88,8 @@ async function generateCropReport() {
 
         formatReport(doc, 'Crop Report');
 
-        const headerWidths = [60, 180, 280, 420]; // Adjust the widths based on your requirements
-        const tableWidth = headerWidths.reduce((a, b) => a + b, 0);
+        const headerWidths = [53, 105, 190, 300, 450];
+        const contentWidths = [57, 100, 195, 295, 420];
 
         // Display the header with aligned columns and font size 12px
         table.headers.forEach((header, index) => {
@@ -86,13 +98,15 @@ async function generateCropReport() {
         });
 
         doc.moveDown(2);
+
         getCrop((cropData, error) => {
             if (error) {
                 console.error(error);
                 doc.text('Error fetching crop data.');
             } else {
-                cropData.forEach((crop) => {
+                cropData.forEach((crop, index) => {
                     const cropInfo = [
+                        (index + 1).toString(), // Add the "No" value
                         crop.crop_name,
                         crop.crop_active.toString(),
                         crop.USER_T.user_fullname,
@@ -100,13 +114,16 @@ async function generateCropReport() {
                     ];
 
                     cropInfo.forEach((info, index) => {
-                        doc.fontSize(12).text(info, headerWidths[index], doc.y, { width: headerWidths[index], align: 'left' });
+                        doc.fontSize(12).text(info, contentWidths[index], doc.y, { width: contentWidths[index], align: 'left' });
                         doc.moveUp();
                     });
 
                     doc.moveDown(1.5); // Add space of 0.5 line between rows
                 });
             }
+
+            // Add a line after the content
+            drawEndLine(doc, doc.y + 5);
 
             const currentDate = new Date().toLocaleString();
             const textWidth = doc.widthOfString(`Created Date and Time: ${currentDate}`);
@@ -119,12 +136,7 @@ async function generateCropReport() {
 
 
 
-
-
-
-
-
-
+// Generate Crop Management Report
 function generateCropManagementReport() {
     return new Promise((resolve, reject) => {
         const doc = new PDFDocument();
