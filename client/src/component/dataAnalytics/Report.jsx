@@ -1,12 +1,49 @@
 import React from 'react';
 
 const Report = () => {
-    const reports = [
-        { id: 1, list: 'Crop' },
-        { id: 2, list: 'Crop Management' },
-        { id: 3, list: 'Farming' },
-        { id: 4, list: 'User' }
+    const crops = [
+        {
+            id: 1,
+            list: 'Crop',
+            apiEndpoint: 'http://localhost:5000/api/v1/cropReport',
+            filename: 'cropReport.pdf',
+        },
+        {
+            id: 2,
+            list: 'Crop Management',
+            apiEndpoint: 'http://localhost:5000/api/v1/cropManagementReport',
+            filename: 'cropManagementReport.pdf',
+        },
+        {
+            id: 3,
+            list: 'Farming Record',
+            apiEndpoint: 'http://localhost:5000/api/v1/farmingReport',
+            filename: 'farmingReport.pdf',
+        },
+        // Add more crop data here...
     ];
+
+    const handleDownload = async (apiEndpoint,filename) => {
+        try {
+            // Make a request to the specific API endpoint to initiate the download
+            const response = await fetch(apiEndpoint);
+            const blob = await response.blob();
+
+            // Create a URL for the downloaded file
+            const url = URL.createObjectURL(blob);
+
+            // Create a temporary link and click it to trigger the download
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.click();
+
+            // Clean up the URL object
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Error downloading report:', error);
+        }
+    };
 
     return (
         <div>
@@ -27,25 +64,27 @@ const Report = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {reports.map((report) => (
-                        <tr key={report.id}>
-                            <td className="has-text-centered">{report.id}</td>
-                            <td className="has-text-centered">{report.list}</td>
+                    {crops.map((crop) => (
+                        <tr key={crop.id}>
+                            <td className="has-text-centered">{crop.id}</td>
+                            <td className="has-text-centered">{crop.list}</td>
                             <td className="has-text-centered">
-                                <span
-                                    style={{
-                                        cursor: 'pointer',
-                                        color: '#000000'
-                                }}
-                                    onMouseOver={(e) => {
-                                        e.target.style.color = '#ff0000';
-                                    }}
-                                    onMouseOut={(e) => {
-                                        e.target.style.color = '#000000';
-                                    }}
-                                >
-                                    Download
-                                </span>
+                  <span
+                      style={{
+                          cursor: 'pointer',
+                          color: '#000000',
+                      }}
+                      onMouseOver={(e) => {
+                          e.target.style.color = '#ff0000';
+                      }}
+                      onMouseOut={(e) => {
+                          e.target.style.color = '#000000';
+                      }}
+                      onClick={() => handleDownload(crop.apiEndpoint, crop.filename)}
+                      // Call handleDownload with the specific API endpoint when clicked
+                  >
+                    Download
+                  </span>
                             </td>
                         </tr>
                     ))}
