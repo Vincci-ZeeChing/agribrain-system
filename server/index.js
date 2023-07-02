@@ -4,7 +4,9 @@ const express = require('express');
 const session = require('express-session');
 const SessionStore = require('connect-session-sequelize')(session.Store);
 const cors = require('cors');
-
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
+const ReportRoute = require('./route/ReportRoute');
 const { sequelize } = require('./config/Database.js');
 // const { UserModel } = require('./model/UserModel.js');
 // const { FarmingModel } = require('./model/FarmingModel.js');
@@ -61,6 +63,8 @@ app.use(CropRoute);
 app.use(FarmingRoute);
 app.use(WeatherRoute);
 app.use(CropManagementRoute);
+app.use(ReportRoute);
+
 // store.sync();
 
 const port = process.env.APP_PORT;
