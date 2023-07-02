@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 const PrecisionFarming = () => {
 
@@ -56,29 +57,28 @@ const PrecisionFarming = () => {
 
     return (
         <div>
-            <h1 className="title" style={{marginBottom:"8vh"}}>Precision Farming</h1>
-
-            <h1 className="subtitle is-underlined">
-                Summary Table
-            </h1>
-            <table className="table is-bordered is-hoverable is-fullwidth mb-6">
-                <thead>
-                    <tr style={{ backgroundColor: '#E1F6F0' }}>
-                        <th className="has-text-centered">No</th>
-                        <th className="has-text-centered">Crop Name</th>
-                        <th className="has-text-centered">Planting Date</th>
-                        <th className="has-text-centered">Estimate Harvest Date</th>
-                        <th className="has-text-centered">Estimate Crop Yield</th>
-                        <th className="has-text-centered">Crop Diseases</th>
-                        <th className="has-text-centered">Last Irrigation Date</th>
-                        <th className="has-text-centered">Last Fertiliser Date</th>
-                    </tr>
-                </thead>
-            </table>
+            <h1 className="title" style={{marginBottom:"4vh"}}>Precision Farming</h1>
+            {/*<h1 className="subtitle is-underlined">*/}
+            {/*    Summary Table*/}
+            {/*</h1>*/}
+            {/*<table className="table is-bordered is-hoverable is-fullwidth mb-6">*/}
+            {/*    <thead>*/}
+            {/*        <tr style={{ backgroundColor: '#E1F6F0' }}>*/}
+            {/*            <th className="has-text-centered">No</th>*/}
+            {/*            <th className="has-text-centered">Crop Name</th>*/}
+            {/*            <th className="has-text-centered">Planting Date</th>*/}
+            {/*            <th className="has-text-centered">Estimate Harvest Date</th>*/}
+            {/*            <th className="has-text-centered">Estimate Crop Yield</th>*/}
+            {/*            <th className="has-text-centered">Crop Diseases</th>*/}
+            {/*            <th className="has-text-centered">Last Irrigation Date</th>*/}
+            {/*            <th className="has-text-centered">Last Fertiliser Date</th>*/}
+            {/*        </tr>*/}
+            {/*    </thead>*/}
+            {/*</table>*/}
 
             {/* Farming Table */}
-            <h1 className="subtitle is-underlined">Farming Listing</h1>
-            <table className="table is-bordered is-hoverable is-fullwidth">
+            <Link to="/precision-farming/farming-record" className="subtitle is-underlined">Farming Listing</Link>
+            <table className="table is-bordered is-hoverable is-fullwidth mt-3">
                 <thead>
                 <tr  style={{ backgroundColor: '#E1F6F0' }}>
                     <th className="has-text-centered">No</th>
@@ -129,8 +129,8 @@ const PrecisionFarming = () => {
             </div>
 
             {/* Crop Table */}
-            <h1 className="subtitle is-underlined">Crop Listing</h1>
-            <table className="table is-bordered is-hoverable is-fullwidth mb-6">
+            <Link to="/precision-farming/crop" className="subtitle is-underlined">Crop Listing</Link>
+            <table className="table is-bordered is-hoverable is-fullwidth mb-6 mt-3">
                 <thead>
                 <tr style={{ backgroundColor: '#E1F6F0' }}>
                     <th className="has-text-centered">No</th>
