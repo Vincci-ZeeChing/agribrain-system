@@ -2,7 +2,10 @@ const PDFDocument = require('pdfkit');
 const axios = require("axios");
 const Crop = require("../model/CropModel");
 const User = require("../model/UserModel");
-const CropManagement = require("../model/CropManagementModel");
+const CropManagementModel = require("../model/CropManagementModel");
+const FarmingModel = require("../model/FarmingModel");
+const UserModel = require("../model/UserModel");
+const CropModel = require("../model/CropModel");
 
 // Report Format
 function formatReport(doc, reportTitle) {
@@ -86,7 +89,7 @@ async function generateCropReport() {
             resolve(pdfData);
         });
 
-        formatReport(doc, 'Crop Report');
+        formatReport(doc, table.title);
 
         const headerWidths = [53, 105, 190, 300, 450];
         const contentWidths = [57, 100, 195, 295, 420];
@@ -138,7 +141,7 @@ async function generateCropReport() {
 //Get Crop Management Info
 async function getCropManagement(callback) {
     try {
-        const cropManagementData = await CropManagement.findAll({
+        const cropManagementData = await CropManagementModel.findAll({
             attributes: ["c_management_uuid","c_management_date", "c_management_harvest", "c_management_stored", "c_management_sold", "c_management_price"],
             include: [
                 {
@@ -177,7 +180,7 @@ function generateCropManagementReport() {
             resolve(pdfData);
         });
 
-        formatReport(doc, 'Crop Management Report');
+        formatReport(doc, table.title);
 
         const headerWidths = [50, 90, 165, 220, 290, 360, 420, 510];
         const contentWidths = [50, 80, 155, 235, 310, 370, 435, 495];
@@ -228,7 +231,37 @@ function generateCropManagementReport() {
     });
 }
 
+//Get Farming Record Info
+async function getFarmingRecord(callback) {
+    try {
+        const farmingData = await FarmingModel.findAll({
+            attributes: ['farming_uuid', 'farming_name', 'farming_date'],
+            include: [
+                {
+                    model: User,
+                    as: 'USER_T',
+                    attributes: ['user_fullname'],
+                },
+                {
+                    model: Crop,
+                    as: 'CROP_T',
+                    attributes: ['id','crop_name'],
+                },
+            ],
+        });
+        callback(farmingData);
+    } catch (error) {
+        console.error(error);
+        callback(null, error);
+    }
+}
+
+//Generate Farming Record Report
 function generateFarmingRecordReport() {
+    const table = {
+        title: 'Farming Record Report',
+        headers: ['No', 'Farming', 'Date', 'Crop', 'User Name'],
+    };
     return new Promise((resolve, reject) => {
         const doc = new PDFDocument();
         const buffers = [];
@@ -239,11 +272,50 @@ function generateFarmingRecordReport() {
             resolve(pdfData);
         });
 
-        formatReport(doc, 'Farming Record Report');
+        formatReport(doc, table.title);
+        const headerWidths = [50, 105, 230, 355, 450];
+        const contentWidths = [50, 100, 220, 350, 440];
 
+        // Display the header with aligned columns and font size 12px
+        table.headers.forEach((header, index) => {
+            doc.fontSize(12).text(header, headerWidths[index], doc.y, { width: headerWidths[index], align: 'left' });
+            doc.moveUp();
+        });
 
+        doc.moveDown(2);
 
-        doc.end();
+        getFarmingRecord((farmingData, error) => {
+            if (error) {
+                console.error(error);
+                doc.text('Error fetching crop data.');
+            } else {
+                farmingData.forEach((farming, index) => {
+                    const cropInfo = [
+                        (index + 1).toString(), // Add the "No" value
+                        farming.farming_name,
+                        farming.farming_date,
+                        farming.CROP_T.crop_name,
+                        farming.USER_T.user_fullname,
+                    ];
+
+                    cropInfo.forEach((info, index) => {
+                        doc.fontSize(12).text(info, contentWidths[index], doc.y, { width: contentWidths[index], align: 'left' });
+                        doc.moveUp();
+                    });
+
+                    doc.moveDown(1.5); // Add space of 0.5 line between rows
+                });
+            }
+
+            // Add a line after the content
+            drawEndLine(doc, doc.y + 5);
+
+            const currentDate = new Date().toLocaleString();
+            const textWidth = doc.widthOfString(`Created Date and Time: ${currentDate}`);
+            doc.fontSize(12).text(`Created Date and Time: \n ${currentDate}`, 50, doc.y + 50, { align: 'left', width: textWidth });
+
+            doc.end();
+    });
     });
 }
 
