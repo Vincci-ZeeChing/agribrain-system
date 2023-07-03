@@ -2,7 +2,7 @@ const PDFDocument = require('pdfkit');
 const axios = require("axios");
 const Crop = require("../model/CropModel");
 const User = require("../model/UserModel");
-
+const CropManagement = require("../model/CropManagementModel");
 
 // Report Format
 function formatReport(doc, reportTitle) {
@@ -135,9 +135,38 @@ async function generateCropReport() {
 }
 
 
+//Get Crop Management Info
+async function getCropManagement(callback) {
+    try {
+        const cropManagementData = await CropManagement.findAll({
+            attributes: ["c_management_uuid","c_management_date", "c_management_harvest", "c_management_stored", "c_management_sold", "c_management_price"],
+            include: [
+                {
+                    model: User,
+                    as: 'USER_T',
+                    attributes: ['user_fullname'],
+                },
+                {
+                    model: Crop,
+                    as: 'CROP_T',
+                    attributes: ['id','crop_name'],
+                },
+            ],
+        });
+        callback(cropManagementData);
+    } catch (error) {
+        console.error(error);
+        callback(null, error);
+    }
+}
+
 
 // Generate Crop Management Report
 function generateCropManagementReport() {
+    const table = {
+        title: 'Crop Report',
+        headers: ['No', 'Date', 'Crop', 'Harvest(kg)', 'Stored(kg)', 'Sold(kg)', 'Price(RM)', 'User Name'],
+    };
     return new Promise((resolve, reject) => {
         const doc = new PDFDocument();
         const buffers = [];
@@ -150,7 +179,52 @@ function generateCropManagementReport() {
 
         formatReport(doc, 'Crop Management Report');
 
-        doc.end();
+        const headerWidths = [50, 90, 165, 220, 290, 360, 420, 510];
+        const contentWidths = [50, 80, 155, 235, 310, 370, 435, 495];
+
+        // Display the header with aligned columns and font size 12px
+        table.headers.forEach((header, index) => {
+            doc.fontSize(12).text(header, headerWidths[index], doc.y, { width: headerWidths[index], align: 'left' });
+            doc.moveUp();
+        });
+
+        doc.moveDown(2);
+
+        getCropManagement((cropManagementData, error) => {
+            if (error) {
+                console.error(error);
+                doc.text('Error fetching crop data.');
+            } else {
+                cropManagementData.forEach((cManagement, index) => {
+                    const cropInfo = [
+                        (index + 1).toString(), // Add the "No" value
+                        cManagement.c_management_date,
+                        cManagement.CROP_T.crop_name,
+                        cManagement.c_management_harvest,
+                        cManagement.c_management_stored,
+                        cManagement.c_management_sold,
+                        cManagement.c_management_price,
+                        cManagement.USER_T.user_fullname,
+                    ];
+
+                    cropInfo.forEach((info, index) => {
+                        doc.fontSize(12).text(info, contentWidths[index], doc.y, { width: contentWidths[index], align: 'left' });
+                        doc.moveUp();
+                    });
+
+                    doc.moveDown(1.5); // Add space of 0.5 line between rows
+                });
+            }
+
+            // Add a line after the content
+            drawEndLine(doc, doc.y + 5);
+
+            const currentDate = new Date().toLocaleString();
+            const textWidth = doc.widthOfString(`Created Date and Time: ${currentDate}`);
+            doc.fontSize(12).text(`Created Date and Time: \n ${currentDate}`, 50, doc.y + 50, { align: 'left', width: textWidth });
+
+            doc.end();
+        });
     });
 }
 
@@ -166,6 +240,8 @@ function generateFarmingRecordReport() {
         });
 
         formatReport(doc, 'Farming Record Report');
+
+
 
         doc.end();
     });
