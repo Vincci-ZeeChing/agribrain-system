@@ -104,13 +104,14 @@ const FormFertiliserRecommendation = () => {
                                         <div className="control">
                                             <div className="select">
                                                 <select name="crop" style={{ width: '50vw' }} onChange={handleCropChange}>
-                                                    <option value="">Select a crop</option>
-                                                    {cropOptions.map((crop) => (
+                                                    <option value="" disabled hidden>Select Crop</option>
+                                                    {cropOptions.slice(0, -1).map((crop) => (
                                                         <option key={crop} value={crop}>
                                                             {crop}
                                                         </option>
                                                     ))}
                                                 </select>
+
                                             </div>
                                         </div>
                                     </div>
