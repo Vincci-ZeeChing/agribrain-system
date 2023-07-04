@@ -3,10 +3,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {getMe} from "../../features/authSlice";
 import Layout from "../layout/Layout";
-import ForecastClimate from "../../component/climate/ForecastClimate";
+import HourlyForecast from "../../component/climate/HourlyForecast";
 import {Helmet} from "react-helmet";
 
-const ForecastDashboard = () => {
+const HourForecastDashboard = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {isError} =useSelector((state => state.auth));
@@ -26,9 +26,9 @@ const ForecastDashboard = () => {
             <Helmet>
                 <title>AgriBrain | Forecast Climate</title>
             </Helmet>
-            <ForecastClimate/>
+            <HourlyForecast/>
         </Layout>
     );
 };
 
-export default ForecastDashboard;
+export default HourForecastDashboard;

@@ -7,7 +7,7 @@ import SensorDashboard from "./page/sensorMonitoring/SensorDashboard";
 import SoilDashboard from "./page/sensorMonitoring/SoilDashboard";
 import SurroundingDashboard from "./page/sensorMonitoring/SurroundingDashboard";
 import ClimateDashboard from "./page/climateCondition/ClimateDashboard";
-import ForecastDashboard from "./page/climateCondition/ForecastDashboard";
+import HourForecastDashboard from "./page/climateCondition/HourForecastDashboard";
 import PrecisionDashboard from "./page/precisionFamring/PrecisionDashboard";
 import CropRecommendation from "./page/dataAnalytics/CropRecommendation/CropRecommendation";
 import ManagementCropDashboard from "./page/precisionFamring/CropManagement/CropManagement";
@@ -25,6 +25,7 @@ import EditUser from "./page/user/EditUser";
 import AddCManagement from "./page/precisionFamring/CropManagement/AddCManagement";
 import EditCManagement from "./page/precisionFamring/CropManagement/EditCManagement";
 import FertiliserRecommendation from "./page/dataAnalytics/FertiliserRecommendation/FertiliserRecommendation";
+import DailyForecastDashboard from "./page/climateCondition/DailyForecastDashboard";
 
 function App() {
   return (
@@ -46,7 +47,8 @@ function App() {
                 <Route path="/sensor-monitoring/surrounding" element={<SurroundingDashboard/>} />
 
                 {/*Subpage - Climate*/}
-                <Route path="/climate-condition/forecast" element={<ForecastDashboard/>}/>
+                <Route path="/climate-condition/forecast-hour" element={<HourForecastDashboard/>}/>
+                <Route path="/climate-condition/forecast-daily" element={<DailyForecastDashboard/>}/>
 
                 {/*Subpage - Precision Farming*/}
                 <Route path="/precision-farming/crop-management" element={<ManagementCropDashboard/>}/>

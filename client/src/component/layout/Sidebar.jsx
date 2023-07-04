@@ -65,7 +65,9 @@ const Sidebar = () => {
                         <a onClick={toggleClimateSubMenu}><TiWeatherPartlySunny/> Climate Condition</a>
                         {isClimateSubMenuOpen &&
                             <ul>
-                                <li className="ml-1"><NavLink to="/climate-condition/forecast">Forecast</NavLink></li>
+                                <li className="ml-1"><NavLink to="/climate-condition/forecast-hour">Hourly Forecast</NavLink></li>
+                                <li className="ml-1"><NavLink to="/climate-condition/forecast-daily">Daily Forecast</NavLink></li>
+
                             </ul>
                         }
                     </li>
