@@ -7,7 +7,6 @@ import SensorDashboard from "./page/sensorMonitoring/SensorDashboard";
 import SoilDashboard from "./page/sensorMonitoring/SoilDashboard";
 import SurroundingDashboard from "./page/sensorMonitoring/SurroundingDashboard";
 import ClimateDashboard from "./page/climateCondition/ClimateDashboard";
-import HistoricalDashboard from "./page/climateCondition/HistoricalDashboard";
 import ForecastDashboard from "./page/climateCondition/ForecastDashboard";
 import PrecisionDashboard from "./page/precisionFamring/PrecisionDashboard";
 import CropRecommendation from "./page/dataAnalytics/CropRecommendation/CropRecommendation";
@@ -47,7 +46,6 @@ function App() {
                 <Route path="/sensor-monitoring/surrounding" element={<SurroundingDashboard/>} />
 
                 {/*Subpage - Climate*/}
-                <Route path="/climate-condition/historical" element={<HistoricalDashboard/>}/>
                 <Route path="/climate-condition/forecast" element={<ForecastDashboard/>}/>
 
                 {/*Subpage - Precision Farming*/}

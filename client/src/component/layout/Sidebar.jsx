@@ -66,7 +66,6 @@ const Sidebar = () => {
                         {isClimateSubMenuOpen &&
                             <ul>
                                 <li className="ml-1"><NavLink to="/climate-condition/historical">Historical</NavLink></li>
-                                <li className="ml-1"><NavLink to="/climate-condition/forecast">Forecast</NavLink></li>
                             </ul>
                         }
                     </li>
