@@ -5,8 +5,6 @@ import allVege from "../../image/crop/allVege2.jpg";
 import cropManagement from "../../image/crop/cropManagement.jpeg";
 import farmingRecord from "../../image/crop/farmingRecord.jpg";
 import {useSelector} from "react-redux";
-import {NavLink} from "react-router-dom";
-import {IoPerson} from "react-icons/io5";
 
 const PrecisionFarming = () => {
 
