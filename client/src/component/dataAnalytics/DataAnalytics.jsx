@@ -5,14 +5,12 @@ import allVege from '../../image/crop/allVege.jpg';
 import fertiliser from '../../image/crop/fertiliser.jpg';
 import report from '../../image/crop/report.jpg';
 import visualization from "../../image/crop/visualization.jpg";
+import {useSelector} from "react-redux";
+import cropManagement from "../../image/crop/cropManagement.jpeg";
 
 
 const DataAnalytics = () => {
-    const [isHovered, setIsHovered] = useState(false);
-
-    const handleCardHover = () => {
-        setIsHovered(!isHovered);
-    };
+    const {user} = useSelector((state) => state.auth);
 
     const handleCardClick = (endpoint) => {
         window.location.href = endpoint;
@@ -86,36 +84,39 @@ const DataAnalytics = () => {
                     </ShakeLittle>
                 </div>
 
-                <div className="column is-4">
-                    <ShakeLittle>
-                        <div className="card mt-5 mb-4" onClick={() => handleCardClick('/data-analytics/report')}>
-                            <div style={{ position: 'relative', height:"40vh"}}>
-                                <img
-                                    src={report}
-                                    alt="report"
-                                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
-                                />
-                                <div className="card-content"
-                                     style={{
-                                         position: 'relative',
-                                         zIndex: 2,
-                                         backgroundColor:"white",
-                                         width:"95%",
-                                         left:"2%",
-                                         top:"50%",
-                                         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-                                         opacity: 0.9,
-                                         minHeight:"24vh"
-                                     }}>
-                                    <div className="content has-text-centered">
-                                        <div className="subtitle"  style={{fontWeight:"bold"}}>Report</div>
-                                        <div>Summary of the user-inserted crop data, crop management and farming records</div>
+                {user && (user.user.user_role === 'Farmer' || user.user.user_role === 'Admin') && (
+                    <div className="column is-4">
+                        <ShakeLittle>
+                            <div className="card mt-5 mb-4" onClick={() => handleCardClick('/data-analytics/report')}>
+                                <div style={{ position: 'relative', height:"40vh"}}>
+                                    <img
+                                        src={report}
+                                        alt="report"
+                                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+                                    />
+                                    <div className="card-content"
+                                         style={{
+                                             position: 'relative',
+                                             zIndex: 2,
+                                             backgroundColor:"white",
+                                             width:"95%",
+                                             left:"2%",
+                                             top:"50%",
+                                             boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                                             opacity: 0.9,
+                                             minHeight:"24vh"
+                                         }}>
+                                        <div className="content has-text-centered">
+                                            <div className="subtitle"  style={{fontWeight:"bold"}}>Report</div>
+                                            <div>Summary of the user-inserted crop data, crop management and farming records</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </ShakeLittle>
-                </div>
+                        </ShakeLittle>
+                    </div>
+                )}
+
 
                 <div className="column is-4">
                     <ShakeLittle>
