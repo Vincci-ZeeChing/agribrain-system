@@ -90,7 +90,9 @@ const Sidebar = () => {
                                 <li className="ml-1"><NavLink to="/data-analytics/crop-recommendation">Crop Recommendation</NavLink></li>
                                 <li className="ml-1"><NavLink to="/data-analytics/fertiliser-recommendation">Fertiliser Recommendation</NavLink></li>
                                 <li className="ml-1"><NavLink to="/data-analytics/visualization">Visualization</NavLink></li>
-                                <li className="ml-1"><NavLink to="/data-analytics/report">Report</NavLink></li>
+                                {user && (user.user.user_role === 'Farmer' || user.user.user_role === 'Admin') && (
+                                    <li className="ml-1"><NavLink to="/data-analytics/report">Report</NavLink></li>
+                                )}
                             </ul>
                         }
                     </li>
