@@ -6,7 +6,6 @@ const SessionStore = require('connect-session-sequelize')(session.Store);
 const cors = require('cors');
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
-const ReportRoute = require('./route/ReportRoute');
 const { sequelize } = require('./config/Database.js');
 // const { UserModel } = require('./model/UserModel.js');
 // const { FarmingModel } = require('./model/FarmingModel.js');
@@ -18,6 +17,8 @@ const FarmingRoute = require("./route/FarmingRoute");
 const WeatherRoute = require("./route/WeatherRoute");
 const CropManagementRoute = require("./route/CropManagementRoute");
 const AuthRoute = require("./route/AuthRoute");
+const ReportRoute = require('./route/ReportRoute');
+const IoTRoute = require('./route/IoTRoute');
 
 const app = express();
 
@@ -64,6 +65,7 @@ app.use(FarmingRoute);
 app.use(WeatherRoute);
 app.use(CropManagementRoute);
 app.use(ReportRoute);
+app.use(IoTRoute);
 
 // store.sync();
 
