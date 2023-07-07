@@ -123,7 +123,7 @@ const PrecisionFarming = () => {
 
                 <div className="column is-4">
                     <ShakeLittle>
-                        <div className="card mt-5 mb-6" onClick={() => handleCardClick('/precision-farming/crop/add')}>
+                        <div className="card mt-5 mb-6" onClick={() => handleCardClick('/precision-farming/crop')}>
                             <div style={{ position: 'relative', height:"40vh"}}>
                                 <img
                                     src={cropList}
@@ -155,7 +155,7 @@ const PrecisionFarming = () => {
                 {user && (user.user.user_role === 'Farmer' || user.user.user_role === 'Admin') && (
                     <div className="column is-4">
                         <ShakeLittle>
-                            <div className="card mt-5 mb-4" onClick={() => handleCardClick('/precision-farming/crop-management/add')}>
+                            <div className="card mt-5 mb-4" onClick={() => handleCardClick('/precision-farming/crop-management')}>
                                 <div style={{ position: 'relative', height:"40vh"}}>
                                     <img
                                         src={cropManagementList}
@@ -187,7 +187,7 @@ const PrecisionFarming = () => {
 
                 <div className="column is-4">
                     <ShakeLittle>
-                        <div className="card mt-5 mb-4" onClick={() => handleCardClick('/precision-farming/farming-record/add')}>
+                        <div className="card mt-5 mb-4" onClick={() => handleCardClick('/precision-farming/farming-record')}>
                             <div style={{ position: 'relative', height:"40vh"}}>
                                 <img
                                     src={farmingList}
@@ -215,8 +215,6 @@ const PrecisionFarming = () => {
                         </div>
                     </ShakeLittle>
                 </div>
-
-
             </div>
         </div>
     );
