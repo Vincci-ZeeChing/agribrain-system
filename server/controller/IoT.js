@@ -40,7 +40,7 @@ const createSensorData = async () => {
 };
 
 // Schedule the task to run every 1 minute
-cron.schedule('*/1 * * * *', createSensorData);
+cron.schedule('*/20 * * * * *', createSensorData);
 
 
 module.exports = {
