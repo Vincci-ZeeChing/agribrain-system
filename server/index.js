@@ -11,6 +11,7 @@ const { sequelize } = require('./config/Database.js');
 // const { FarmingModel } = require('./model/FarmingModel.js');
 // const { CropModel } = require('./model/CropModel.js');
 // const { CropManagementModel } = require('./model/CropManagementModel.js');
+// const {SensorModel} = require('./model/SensorModel.js');
 const UserRoute = require("./route/UserRoute");
 const CropRoute = require("./route/CropRoute");
 const FarmingRoute = require("./route/FarmingRoute");

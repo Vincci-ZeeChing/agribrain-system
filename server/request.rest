@@ -204,3 +204,8 @@ GET http://localhost:5000/api/v1/currentWeather
 ###
 //Get Sensor
 GET http://localhost:5000/api/v1/sensorData
+
+
+###
+//Create Sensor
+POST http://localhost:5000/api/v1/sensorData
