@@ -27,6 +27,11 @@ const SensorMonitoring = () => {
         return Number(number).toFixed(2);
     };
 
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    };
+
     const renderTemperature = () => {
         if (sensor.sensor_temperature < 3) {
             return <div>Check your hardware devices</div>;
@@ -54,7 +59,7 @@ const SensorMonitoring = () => {
     };
 
     const renderHumidity = () => {
-        if (sensor.sensor_humidity < 3 ) {
+        if (sensor.sensor_humidity < 3) {
             return <div>Check your hardware devices</div>;
         } else if (sensor.sensor_humidity < 40) {
             return (
@@ -82,7 +87,7 @@ const SensorMonitoring = () => {
     const renderMoisture = () => {
         if (sensor.sensor_moisture === 0) {
             return <div>Check your hardware devices</div>;
-        } else if (sensor.sensor_moisture <= 40) {
+        } else if (sensor.sensor_moisture <= 30) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -99,7 +104,7 @@ const SensorMonitoring = () => {
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
                         {formatNumber(sensor.sensor_moisture)} %
                     </div>
-                    <div className="content has-text-centered"> Soil moisture is in good condition</div>
+                    <div className="content has-text-centered">Soil moisture is in good condition</div>
                 </div>
             );
         }
@@ -117,6 +122,7 @@ const SensorMonitoring = () => {
                         </header>
                         <div className="card-content">
                             <div className="content has-text-centered">{renderTemperature()}</div>
+                            <div className="content has-text-centered" style={{fontSize:"12px"}}>Last Updated: {formatDate(sensor.createdAt)}</div>
                         </div>
                         <footer className="card-footer">
                             <a href="/sensor-monitoring/surrounding" className="card-footer-item">
@@ -133,6 +139,7 @@ const SensorMonitoring = () => {
                         </header>
                         <div className="card-content">
                             <div className="content has-text-centered">{renderHumidity()}</div>
+                            <div className="content has-text-centered" style={{fontSize:"12px"}}>Last Updated: {formatDate(sensor.createdAt)}</div>
                         </div>
                         <footer className="card-footer">
                             <a href="/sensor-monitoring/surrounding" className="card-footer-item">
@@ -149,6 +156,7 @@ const SensorMonitoring = () => {
                         </header>
                         <div className="card-content">
                             <div className="content has-text-centered">{renderMoisture()}</div>
+                            <div className="content has-text-centered" style={{fontSize:"12px"}}>Last Updated: {formatDate(sensor.createdAt)}</div>
                         </div>
                         <footer className="card-footer">
                             <a href="/sensor-monitoring/soil" className="card-footer-item">

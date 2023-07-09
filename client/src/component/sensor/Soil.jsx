@@ -108,7 +108,7 @@ const Soil = () => {
     const renderMoisture = () => {
         if (latestSensor.sensor_moisture === 0) {
             return <div>Check your hardware devices</div>;
-        } else if (latestSensor.sensor_moisture <= 40) {
+        } else if (latestSensor.sensor_moisture <= 30) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
