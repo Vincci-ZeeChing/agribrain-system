@@ -24,18 +24,15 @@ const DashboardComponent = () => {
 
     useEffect(() => {
         getSensor();
-        const interval = setInterval(getSensor, 60000); // Refresh data every 1 minute
-        return () => clearInterval(interval); // Cleanup interval on component unmount
+        const interval = setInterval(getSensor, 5000);
+        return () => clearInterval(interval);
     }, []);
 
     const getSensor = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/v1/sensorData');
+            const response = await axios.get('http://localhost:5000/api/v1/sensorDataRealTime');
             const sensorData = response.data;
-            if (sensorData.length > 0) {
-                const lastData = sensorData[sensorData.length - 1]; // Get the last data
-                setSensor(lastData);
-            }
+            setSensor(sensorData);
         } catch (error) {
             console.error(error);
         }
@@ -82,27 +79,84 @@ const DashboardComponent = () => {
     }, [sensor]);
 
     const updateFarmingAdvice = () => {
-        const { sensor_moisture, sensor_temperature, sensor_humidity } = sensor;
+        const { moisture, temperature, humidity } = sensor;
 
         let advice = '';
-        if (sensor_moisture < 30) {
+        if (moisture < 30 && moisture >= 1) {
             advice = 'Increase irrigation to maintain optimal soil moisture.';
-        } else if (sensor_moisture > 70) {
+        } else if (moisture > 80) {
             advice = 'Reduce irrigation to avoid overwatering.';
-        } else {
-            advice = 'Soil moisture level is optimal for crop growth.';
+        }else if (moisture < 1) {
+            advice = 'Insertion of the sensor into the soil.';
         }
+        // else {
+        //     advice = 'Soil moisture level is optimal for crop growth.';
+        // }
 
-        if (sensor_temperature > 35 && sensor_humidity > 80) {
+
+
+        if (temperature > 35 && humidity > 80) {
             advice += ' High temperature and humidity may require additional shading and ventilation.';
-        } else if (sensor_temperature < 15 && sensor_humidity < 40) {
-            advice += ' Low temperature and humidity may require additional heating and moisture.';
-        } else {
-            advice += ' No specific advice for current temperature and humidity conditions.';
+        } else if (temperature < 20 || humidity > 100) {
+            advice += ' Hardware Error, Please check the hardware.';
+        }else if (temperature >30) {
+            advice += ' High temperature may require additional shading.';
         }
+        // else {
+        //     advice += ' No specific advice for current temperature and humidity conditions.';
+        // }
 
         setFarmingAdvice(advice);
     };
+
+    const renderTemperature = () => {
+        if (sensor.temperature < 1 || sensor.temperature < 20) {
+            return (
+                <div>
+                    NaN %
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    {Number(sensor.temperature).toFixed(2)} °C
+                </div>
+            );
+        }
+    };
+
+    const renderHumidity = () => {
+        if (sensor.humidity < 1 || sensor.humidity > 100) {
+            return (
+                <div>
+                    NaN %
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    {sensor.humidity} %
+                </div>
+            );
+        }
+    };
+
+    const renderMoisture = () => {
+        if (sensor.moisture === 0) {
+            return (
+                <div>
+                    0 %
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    {sensor.moisture} %
+                </div>
+            );
+        }
+    };
+
 
     return (
         <div>
@@ -148,15 +202,15 @@ const DashboardComponent = () => {
                                     {/* Rest of your sensor monitoring code */}
                                     <div className="content has-text-centered" style={{ fontSize: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                         <span>Soil Moisture :</span>
-                                        <span>{sensor.sensor_moisture} %</span>
+                                        <span>{renderMoisture()}</span>
                                     </div>
                                     <div className="content has-text-centered" style={{ fontSize: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                         <span>Temperature :</span>
-                                        <span>{Number(sensor.sensor_temperature).toFixed(2)} °C</span>
+                                        <span>{renderTemperature()}</span>
                                     </div>
                                     <div className="content has-text-centered" style={{ fontSize: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                         <span>Humidity :</span>
-                                        <span>{sensor.sensor_humidity} %</span>
+                                        <span>{renderHumidity()}</span>
                                     </div>
                                 </div>
 
