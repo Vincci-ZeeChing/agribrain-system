@@ -19,6 +19,26 @@ const DashboardComponent = () => {
         "\"The discovery of agriculture was the first big step toward a civilized life.\" - Arthur Keith"
     ];
 
+    const [sensor, setSensor] = useState({});
+
+    useEffect(() => {
+        getSensor();
+        const interval = setInterval(getSensor, 60000); // Refresh data every 1 minute
+        return () => clearInterval(interval); // Cleanup interval on component unmount
+    }, []);
+
+    const getSensor = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/v1/sensorData');
+            const sensorData = response.data;
+            if (sensorData.length > 0) {
+                const lastData = sensorData[sensorData.length - 1]; // Get the last data
+                setSensor(lastData);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
 
     const getWeatherData = () => {
@@ -98,16 +118,20 @@ const DashboardComponent = () => {
                                 </header>
                                 <div className="card-content" style={{ height: '80%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                                     {/* Rest of your sensor monitoring code */}
-                                    <div className="content has-text-centered" style={{ fontSize: '20px' }}>
-                                        Soil Moisture: 80.0 %
+                                    <div className="content has-text-centered" style={{ fontSize: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span>Soil Moisture :</span>
+                                        <span>{sensor.sensor_moisture} %</span>
                                     </div>
-                                    <div className="content has-text-centered" style={{ fontSize: '20px' }}>
-                                        Temperature: 80.0 %
+                                    <div className="content has-text-centered" style={{ fontSize: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span>Temperature :</span>
+                                        <span>{Number(sensor.sensor_temperature).toFixed(2)} °C</span>
                                     </div>
-                                    <div className="content has-text-centered" style={{ fontSize: '20px' }}>
-                                        Humidity: 80.0 %
+                                    <div className="content has-text-centered" style={{ fontSize: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span>Humidity :</span>
+                                        <span>{sensor.sensor_humidity} %</span>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <div className="column is-6">
