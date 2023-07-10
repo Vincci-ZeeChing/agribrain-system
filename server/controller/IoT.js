@@ -13,7 +13,7 @@ const getSensorData = async (req, res) => {
     }
 }
 
-const createSensorData = async () => {
+const createSensorData = async (req, res) => {
     try {
         const response = await fetch('http://192.168.100.145/temp_humid', {
             credentials: 'include',
@@ -32,15 +32,17 @@ const createSensorData = async () => {
                 sensor_moisture: data.moisture.toString(),
             });
         } else {
-            console.log('Skipping post request due to 0 value');
+            res.status(200).json({ message: 'Skipping post request due to 0 value' });
         }
     } catch (error) {
-        console.error(error);
+        res.status(500).json({ message: error.message });
     }
 };
 
+
+
 // Schedule the task to run every 1 minute
-cron.schedule('*/20 * * * * *', createSensorData);
+cron.schedule('*/40 * * * * *', createSensorData);
 
 
 module.exports = {
