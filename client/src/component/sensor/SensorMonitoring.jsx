@@ -6,18 +6,15 @@ const SensorMonitoring = () => {
 
     useEffect(() => {
         getSensor();
-        const interval = setInterval(getSensor, 60000); // Refresh data every 1 minute
-        return () => clearInterval(interval); // Cleanup interval on component unmount
+        const interval = setInterval(getSensor, 5000);
+        return () => clearInterval(interval);
     }, []);
 
     const getSensor = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/v1/sensorData');
+            const response = await axios.get('http://localhost:5000/api/v1/sensorDataRealTime');
             const sensorData = response.data;
-            if (sensorData.length > 0) {
-                const lastData = sensorData[sensorData.length - 1]; // Get the last data
-                setSensor(lastData);
-            }
+            setSensor(sensorData);
         } catch (error) {
             console.error(error);
         }
@@ -33,13 +30,22 @@ const SensorMonitoring = () => {
     };
 
     const renderTemperature = () => {
-        if (sensor.sensor_temperature < 3) {
-            return <div>Check your hardware devices</div>;
-        } else if (sensor.sensor_temperature > 40) {
+        if (sensor.temperature < 1 ) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
-                        {formatNumber(sensor.sensor_temperature)} °C
+                        NaN °C
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>
+                        Check your hardware devices
+                    </div>
+                </div>
+            );
+        } else if (sensor.temperature > 40) {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        {formatNumber(sensor.temperature)} °C
                     </div>
                     <div className="content has-text-centered" style={{ color: 'red' }}>
                         Temperature is high. Take necessary measures to cool the environment.
@@ -50,7 +56,7 @@ const SensorMonitoring = () => {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
-                        {formatNumber(sensor.sensor_temperature)} °C
+                        {formatNumber(sensor.temperature)} °C
                     </div>
                     <div className="content has-text-centered">Temperature is in good condition</div>
                 </div>
@@ -59,13 +65,22 @@ const SensorMonitoring = () => {
     };
 
     const renderHumidity = () => {
-        if (sensor.sensor_humidity < 3) {
-            return <div>Check your hardware devices</div>;
-        } else if (sensor.sensor_humidity < 40) {
+        if (sensor.humidity <1 || sensor.humidity > 100) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
-                        {formatNumber(sensor.sensor_humidity)} %
+                        NaN %
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>
+                        Check your hardware devices
+                    </div>
+                </div>
+            );
+        } else if (sensor.humidity < 40) {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        {formatNumber(sensor.humidity)} %
                     </div>
                     <div className="content has-text-centered" style={{ color: 'red' }}>
                         Humidity is low. Take necessary measures to increase humidity.
@@ -76,7 +91,7 @@ const SensorMonitoring = () => {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
-                        {formatNumber(sensor.sensor_humidity)} %
+                        {formatNumber(sensor.humidity)} %
                     </div>
                     <div className="content has-text-centered">Humidity is in good condition</div>
                 </div>
@@ -85,13 +100,22 @@ const SensorMonitoring = () => {
     };
 
     const renderMoisture = () => {
-        if (sensor.sensor_moisture === 0) {
-            return <div>Check your hardware devices</div>;
-        } else if (sensor.sensor_moisture <= 30) {
+        if (sensor.moisture === 0) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
-                        {formatNumber(sensor.sensor_moisture)} %
+                        NaN °C
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>
+                        Insertion of the sensor into the soil.
+                    </div>
+                </div>
+            );
+        } else if (sensor.moisture <= 30) {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        {formatNumber(sensor.moisture)} %
                     </div>
                     <div className="content has-text-centered" style={{ color: 'red' }}>
                         Soil moisture is low, irrigate the crop
@@ -102,7 +126,7 @@ const SensorMonitoring = () => {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
-                        {formatNumber(sensor.sensor_moisture)} %
+                        {formatNumber(sensor.moisture)} %
                     </div>
                     <div className="content has-text-centered">Soil moisture is in good condition</div>
                 </div>
@@ -120,9 +144,8 @@ const SensorMonitoring = () => {
                         <header className="card-header" style={{ boxShadow: 'none', backgroundColor: '#E1F6F0' }}>
                             <p className="card-header-title is-centered">Surrounding Temperature</p>
                         </header>
-                        <div className="card-content">
+                        <div className="card-content" style={{ height: '30vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <div className="content has-text-centered">{renderTemperature()}</div>
-                            <div className="content has-text-centered" style={{fontSize:"12px"}}>Last Updated: {formatDate(sensor.createdAt)}</div>
                         </div>
                         <footer className="card-footer">
                             <a href="/sensor-monitoring/surrounding" className="card-footer-item">
@@ -137,9 +160,8 @@ const SensorMonitoring = () => {
                         <header className="card-header" style={{ boxShadow: 'none', backgroundColor: '#E1F6F0' }}>
                             <p className="card-header-title is-centered">Surrounding Humidity</p>
                         </header>
-                        <div className="card-content">
+                        <div className="card-content" style={{ height: '30vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <div className="content has-text-centered">{renderHumidity()}</div>
-                            <div className="content has-text-centered" style={{fontSize:"12px"}}>Last Updated: {formatDate(sensor.createdAt)}</div>
                         </div>
                         <footer className="card-footer">
                             <a href="/sensor-monitoring/surrounding" className="card-footer-item">
@@ -154,9 +176,8 @@ const SensorMonitoring = () => {
                         <header className="card-header" style={{ boxShadow: 'none', backgroundColor: '#E1F6F0' }}>
                             <p className="card-header-title is-centered">Soil Moisture</p>
                         </header>
-                        <div className="card-content">
+                        <div className="card-content" style={{ height: '30vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <div className="content has-text-centered">{renderMoisture()}</div>
-                            <div className="content has-text-centered" style={{fontSize:"12px"}}>Last Updated: {formatDate(sensor.createdAt)}</div>
                         </div>
                         <footer className="card-footer">
                             <a href="/sensor-monitoring/soil" className="card-footer-item">
