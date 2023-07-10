@@ -13,9 +13,22 @@ const getSensorData = async (req, res) => {
     }
 }
 
+const getRealTimeSensorData = async (req, res) => {
+    try {
+        const response = await fetch('http://192.168.100.145/sensorData', {
+            credentials: 'include',
+        });
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+}
+
 const createSensorData = async (req, res) => {
     try {
-        const response = await fetch('http://192.168.100.145/temp_humid', {
+        const response = await fetch('http://192.168.100.145/sensorData', {
             credentials: 'include',
         });
 
@@ -47,5 +60,6 @@ cron.schedule('*/40 * * * * *', createSensorData);
 
 module.exports = {
     getSensorData,
+    getRealTimeSensorData,
     createSensorData,
 }

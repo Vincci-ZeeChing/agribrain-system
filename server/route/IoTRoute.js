@@ -1,9 +1,10 @@
 const express = require('express');
-const { getSensorData , createSensorData } = require ("../controller/IoT.js");
+const { getSensorData ,getRealTimeSensorData, createSensorData } = require ("../controller/IoT.js");
 
 const router = express.Router();
 
 router.get('/api/v1/sensorData', getSensorData);
+router.get('/api/v1/sensorDataRealTime', getRealTimeSensorData);
 router.post('/api/v1/sensorData', createSensorData);
 
 
