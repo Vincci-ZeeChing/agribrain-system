@@ -5,6 +5,8 @@ const DashboardComponent = () => {
     const [weatherData, setWeatherData] = useState();
     const [currentDate, setCurrentDate] = useState('');
     const [dailyQuote, setDailyQuote] = useState('');
+    const [sensor, setSensor] = useState({});
+    const [farmingAdvice, setFarmingAdvice] = useState('');
 
     const quotes = [
         "\"The farmer is the only man in our economy who buys everything at retail, sells everything at wholesale, and pays the freight both ways.\" - John F. Kennedy",
@@ -19,7 +21,6 @@ const DashboardComponent = () => {
         "\"The discovery of agriculture was the first big step toward a civilized life.\" - Arthur Keith"
     ];
 
-    const [sensor, setSensor] = useState({});
 
     useEffect(() => {
         getSensor();
@@ -75,6 +76,33 @@ const DashboardComponent = () => {
         const timer = setInterval(updateDailyQuote, 86400000);
         return () => clearInterval(timer);
     }, []);
+
+    useEffect(() => {
+        updateFarmingAdvice();
+    }, [sensor]);
+
+    const updateFarmingAdvice = () => {
+        const { sensor_moisture, sensor_temperature, sensor_humidity } = sensor;
+
+        let advice = '';
+        if (sensor_moisture < 30) {
+            advice = 'Increase irrigation to maintain optimal soil moisture.';
+        } else if (sensor_moisture > 70) {
+            advice = 'Reduce irrigation to avoid overwatering.';
+        } else {
+            advice = 'Soil moisture level is optimal for crop growth.';
+        }
+
+        if (sensor_temperature > 35 && sensor_humidity > 80) {
+            advice += ' High temperature and humidity may require additional shading and ventilation.';
+        } else if (sensor_temperature < 15 && sensor_humidity < 40) {
+            advice += ' Low temperature and humidity may require additional heating and moisture.';
+        } else {
+            advice += ' No specific advice for current temperature and humidity conditions.';
+        }
+
+        setFarmingAdvice(advice);
+    };
 
     return (
         <div>
@@ -135,14 +163,13 @@ const DashboardComponent = () => {
                             </div>
                         </div>
                         <div className="column is-6">
-                            <div className="card" style={{ width: '40vw', margin: '2vw', height: "35vh" }}>
-                                <header className="card-header" style={{ boxShadow: 'none', backgroundColor: "#E1F6F0" }}>
+                            <div className="card" style={{ width: '40vw', margin: '2vw', height: '35vh' }}>
+                                <header className="card-header" style={{ boxShadow: 'none', backgroundColor: '#E1F6F0' }}>
                                     <p className="card-header-title is-centered">Farming Advisor</p>
                                 </header>
                                 <div className="card-content" style={{ height: '80%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                                    {/* Rest of your farming advisor code */}
                                     <div className="content has-text-centered" style={{ fontSize: '20px' }}>
-                                        Irrigation Crop
+                                        {farmingAdvice}
                                     </div>
                                 </div>
                             </div>
