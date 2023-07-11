@@ -30,7 +30,7 @@ const SensorMonitoring = () => {
     };
 
     const renderTemperature = () => {
-        if (sensor.temperature < 1 ) {
+        if (sensor.temperature < 1 || sensor.temperature === null) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -65,7 +65,7 @@ const SensorMonitoring = () => {
     };
 
     const renderHumidity = () => {
-        if (sensor.humidity <1 || sensor.humidity > 100) {
+        if (sensor.humidity <1 || sensor.humidity === null || sensor.humidity > 100) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -100,7 +100,7 @@ const SensorMonitoring = () => {
     };
 
     const renderMoisture = () => {
-        if (sensor.moisture === 0) {
+        if (sensor.moisture === 0 || sensor.moisture === null) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
