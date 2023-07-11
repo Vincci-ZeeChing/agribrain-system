@@ -95,7 +95,7 @@ const FormFertiliserRecommendation = () => {
     return (
         <div>
             <h1 className="title">Fertiliser Recommendation</h1>
-            <h1 className="subtitle">Input the details below</h1>
+            <h1 className="subtitle">Enter your current soil nutrient status</h1>
 
             <div className="columns is-multiline">
                 <div className="column is-flex is-justify-content-center is-align-content-center">
