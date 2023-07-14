@@ -137,7 +137,7 @@ const FormCropRecommendation = () => {
         Chilli: chilliImage,
         'Coriander leaf': corianderLeafImage,
         Corn: cornImage,
-        Cucumbers: cucumberImage,
+        Cucumber: cucumberImage,
         'Fava beans': favaBeansImage,
         'French beans': frenchBeansImage,
         'Green peas': greenPeasImage,
