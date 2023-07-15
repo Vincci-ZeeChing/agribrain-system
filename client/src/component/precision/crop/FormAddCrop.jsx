@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import pluralize from 'pluralize';
 
 const FormAddCrop = () => {
     const [name, setName] = useState('');
@@ -17,9 +18,13 @@ const FormAddCrop = () => {
         }
 
         try {
+            const singularCropName = pluralize.singular(name.trim());
+            const capitalizedCropName = singularCropName.charAt(0).toUpperCase() + singularCropName.slice(1);
+
             await axios.post('http://localhost:5000/api/v1/crop', {
-                crop_name: name,
+                crop_name: capitalizedCropName,
             });
+
             navigate('/precision-farming/crop');
         } catch (error) {
             if (error.response && error.response.data && error.response.data.msg) {
@@ -27,6 +32,7 @@ const FormAddCrop = () => {
             }
         }
     };
+
 
     return (
         <div>
