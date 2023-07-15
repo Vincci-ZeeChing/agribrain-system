@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
-import axios from "axios";
-import {useNavigate} from "react-router-dom";
-
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const FormAddCrop = () => {
-    const [name,setName] = useState("");
-    const [message,setMessage] = useState("");
+    const [name, setName] = useState('');
+    const [message, setMessage] = useState('');
 
     const navigate = useNavigate();
 
@@ -18,16 +17,16 @@ const FormAddCrop = () => {
         }
 
         try {
-            await axios.post("http://localhost:5000/api/v1/crop",{
-                crop_name:name,
-            })
-            navigate("/precision-farming/crop");
-        }catch (error) {
-            if(error.response){
-                setMessage(error.response.data.message);
+            await axios.post('http://localhost:5000/api/v1/crop', {
+                crop_name: name,
+            });
+            navigate('/precision-farming/crop');
+        } catch (error) {
+            if (error.response && error.response.data && error.response.data.msg) {
+                setMessage(error.response.data.msg);
             }
         }
-    }
+    };
 
     return (
         <div>
@@ -37,22 +36,28 @@ const FormAddCrop = () => {
                 <div className="card-content">
                     <div className="content">
                         <form onSubmit={handleSaveCrop}>
-                            <p className="has-text-centered has-text-danger">{message}</p>
+                            {message && (
+                                <p className="has-text-centered has-text-danger">{message}</p>
+                            )}
                             <div className="field">
-                                <label className="label"> Crop Name</label>
+                                <label className="label">Crop Name</label>
                                 <div className="control">
                                     <input
                                         type="text"
                                         className="input"
                                         value={name}
-                                        onChange={(e)=> setName(e.target.value)}
-                                        placeholder='Crop Name'
+                                        onChange={(e) => setName(e.target.value)}
+                                        placeholder="Crop Name"
                                     />
                                 </div>
                             </div>
                             <div className="field">
                                 <div className="control">
-                                    <button type="submit" className="button" style={{backgroundColor:'#71AF9D',color:"white"}}>
+                                    <button
+                                        type="submit"
+                                        className="button"
+                                        style={{ backgroundColor: '#71AF9D', color: 'white' }}
+                                    >
                                         Save
                                     </button>
                                 </div>
