@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
+import pluralize from "pluralize";
 
 const FormEditCrop = () => {
     const [name,setName] = useState("");
@@ -26,14 +27,23 @@ const FormEditCrop = () => {
 
     const handleUpdateCrop = async (e) => {
         e.preventDefault();
+
+        if (name.trim() === '') {
+            setMessage('Crop Name cannot be empty.');
+            return;
+        }
+
+        const singularCropName = pluralize.singular(name.trim());
+        const capitalizedCropName = singularCropName.charAt(0).toUpperCase() + singularCropName.slice(1);
+
         try {
             await axios.patch(`http://localhost:5000/api/v1/crop/${id}`,{
-                crop_name:name,
+                crop_name:capitalizedCropName,
             })
             navigate("/precision-farming/crop");
         }catch (error) {
-            if(error.response){
-                setMessage(error.response.data.message);
+            if (error.response && error.response.data && error.response.data.msg) {
+                setMessage(error.response.data.msg);
             }
         }
     }
@@ -46,9 +56,9 @@ const FormEditCrop = () => {
                 <div className="card-content">
                     <div className="content">
                         <form onSubmit={handleUpdateCrop}>
-                            <p className="has-text-centered">
-                                {message}
-                            </p>
+                            {message && (
+                                <p className="has-text-centered has-text-danger">{message}</p>
+                            )}
                             <div className="field">
                                 <label className="label"> Crop Name</label>
                                 <div className="control">
