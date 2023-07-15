@@ -61,7 +61,7 @@ const FormEditCrop = () => {
                             </div>
                             <div className="field">
                                 <div className="control">
-                                    <button type="submit" className="button is-success">
+                                    <button type="submit" className="button" style={{ backgroundColor: "#71AF9D", color: "white" }}>
                                         Update
                                     </button>
                                 </div>
