@@ -51,6 +51,17 @@ const createCrop = async (req, res) => {
     const userId = req.session.userId;
 
     try {
+        // Check if the crop already exists
+        const existingCrop = await Crop.findOne({
+            where: {
+                crop_name,
+            },
+        });
+
+        if (existingCrop) {
+            return res.status(400).json({ msg: 'Crop already exists' });
+        }
+
         // Create the crop in the database
         const newCrop = await Crop.create({
             crop_name,
@@ -78,6 +89,19 @@ const updateCrop = async (req, res) => {
         }
 
         const { crop_name, crop_active } = req.body;
+
+        // Check if the crop name is being updated to a duplicate value
+        if (crop_name !== crop.crop_name) {
+            const existingCrop = await Crop.findOne({
+                where: {
+                    crop_name,
+                },
+            });
+
+            if (existingCrop) {
+                return res.status(400).json({ msg: 'Crop already exists' });
+            }
+        }
 
         if (req.user_role === 'Farmer' || req.user_role === 'Admin') {
             await Crop.update({ crop_name, crop_active }, {
