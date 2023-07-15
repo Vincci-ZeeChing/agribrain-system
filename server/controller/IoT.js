@@ -38,7 +38,7 @@ const createSensorData = async (req, res) => {
 
         const data = await response.json();
 
-        if (data.temperature !== 0 && data.humidity !== 0 && data.moisture !== 0 && data.humidity > 100 && data.temperature > 20 ) {
+        if (data.temperature !== 0 && data.humidity !== 0 && data.moisture !== 0 && data.humidity < 100 && data.temperature > 20 ) {
             await SensorModel.create({
                 sensor_temperature: data.temperature.toString(),
                 sensor_humidity: data.humidity.toString(),
