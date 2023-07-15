@@ -51,10 +51,22 @@ const Surrounding = () => {
                     labels: {
                         formatter: (value) => value,
                     },
+                    title: {
+                        text: 'Time',
+                        style: {
+                            fontSize: '15px',
+                        },
+                    },
                 },
                 yaxis: {
                     labels: {
                         formatter: (value) => Math.floor(value),
+                    },
+                    title: {
+                        text: 'Humidity (%)',
+                        style: {
+                            fontSize: '15px',
+                        },
                     },
                 },
                 dataLabels: {
@@ -94,16 +106,27 @@ const Surrounding = () => {
                     },
                 },
                 colors: ['#71AF9D'],
-
                 xaxis: {
                     categories: xaxisLabels,
                     labels: {
                         formatter: (value) => value,
                     },
+                    title: {
+                        text: 'Time',
+                        style: {
+                            fontSize: '15px',
+                        },
+                    },
                 },
                 yaxis: {
                     labels: {
-                        formatter: (value) => Math.floor(value),
+                        formatter: (value) => value.toFixed(2), // Format value with 2 decimal places
+                    },
+                    title: {
+                        text: 'Temperature (°C)',
+                        style: {
+                            fontSize: '15px',
+                        },
                     },
                 },
                 dataLabels: {
@@ -124,6 +147,8 @@ const Surrounding = () => {
             return <ReactApexChart options={chartOptions} series={chartSeries} type="area" height={350} />;
         }
     };
+
+
 
 
     const [latestSensor, setLatestSensor] = useState({});

@@ -3,7 +3,6 @@ import axios from 'axios';
 import ReactApexChart from 'react-apexcharts';
 
 const HourlyForecast = () => {
-    const [activeTab, setActiveTab] = useState(0);
     const [forecastWeatherData, setForecastWeatherData] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [hourlyChartData, setHourlyChartData] = useState({
