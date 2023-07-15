@@ -17,6 +17,9 @@ const SensorMonitoring = () => {
             setSensor(sensorData);
         } catch (error) {
             console.error(error);
+            console.error(error);
+            setSensor({});
+            return 'Failed to fetch sensor data. Please check your network connection.';
         }
     };
 
@@ -30,7 +33,7 @@ const SensorMonitoring = () => {
     };
 
     const renderTemperature = () => {
-        if (sensor.temperature < 1 || sensor.temperature === null) {
+        if (sensor.temperature < 1) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -52,7 +55,7 @@ const SensorMonitoring = () => {
                     </div>
                 </div>
             );
-        } else {
+        } else if (sensor.temperature < 40 && sensor.temperature > 20) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -61,11 +64,22 @@ const SensorMonitoring = () => {
                     <div className="content has-text-centered">Temperature is in good condition</div>
                 </div>
             );
+        }else {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        NaN °C
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>
+                        Check your hardware devices
+                    </div>
+                </div>
+            );
         }
     };
 
     const renderHumidity = () => {
-        if (sensor.humidity <1 || sensor.humidity === null || sensor.humidity > 100) {
+        if (sensor.humidity <1 || sensor.humidity > 100) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -87,7 +101,7 @@ const SensorMonitoring = () => {
                     </div>
                 </div>
             );
-        } else {
+        } else if (sensor.humidity > 40 && sensor.humidity < 80) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -96,22 +110,33 @@ const SensorMonitoring = () => {
                     <div className="content has-text-centered">Humidity is in good condition</div>
                 </div>
             );
+        }else {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        NaN %
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>
+                        Check your hardware devices
+                    </div>
+                </div>
+            );
         }
     };
 
     const renderMoisture = () => {
-        if (sensor.moisture === 0 || sensor.moisture === null) {
+        if (sensor.moisture === 0 ) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
-                        NaN °C
+                        NaN %
                     </div>
                     <div className="content has-text-centered" style={{ color: 'red' }}>
                         Insertion of the sensor into the soil.
                     </div>
                 </div>
             );
-        } else if (sensor.moisture <= 30) {
+        } else if (sensor.moisture <= 40) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -122,13 +147,24 @@ const SensorMonitoring = () => {
                     </div>
                 </div>
             );
-        } else {
+        } else if (sensor.moisture > 40 && sensor.moisture < 70) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
                         {formatNumber(sensor.moisture)} %
                     </div>
                     <div className="content has-text-centered">Soil moisture is in good condition</div>
+                </div>
+            );
+        }else {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        NaN %
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>
+                        Check your hardware devices
+                    </div>
                 </div>
             );
         }
