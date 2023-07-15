@@ -49,7 +49,6 @@ const DashboardComponent = () => {
             })
             .catch((error) => {
                 console.log(error);
-                // You can add additional error handling here, such as setting a default weather data value
             });
     };
 
