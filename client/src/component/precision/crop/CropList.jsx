@@ -56,10 +56,21 @@ const CropList = () => {
     };
 
     const handleSwitchChange = async (cropId, newValue) => {
-        await axios.patch(`http://localhost:5000/api/v1/crop/${cropId}`, {
-            crop_active: newValue,
-        });
-        getCrops();
+        try {
+            const updatedCrop = crop.find((crop) => crop.crop_uuid === cropId);
+            if (!updatedCrop) {
+                return;
+            }
+
+            await axios.patch(`http://localhost:5000/api/v1/crop/${cropId}`, {
+                crop_name: updatedCrop.crop_name,
+                crop_active: newValue,
+            });
+
+            getCrops();
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
