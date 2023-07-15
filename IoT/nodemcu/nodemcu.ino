@@ -2,14 +2,10 @@
 #include <ESP8266WiFi.h>
 #include <ESPAsyncWebSrv.h>
 #include <ArduinoJson.h>
-#include <LiquidCrystal_I2C.h>
 
 // Replace with your network credentials
 const char* ssid = "hansheng";
 const char* password = "hansheng0512";
-
-// Initialize LCD display
-LiquidCrystal_I2C lcd(0x27, 20, 4); // Change the I2C address if necessary
 
 // Initialize DHT sensor
 #define DHTPIN 5
@@ -36,15 +32,8 @@ void setup() {
   }
   Serial.println("Connected to WiFi");
 
-  // Configure DHT sensor
-  lcd.begin();
-
-  // Turn on LCD backlight
-  lcd.backlight();
-  lcd.clear();
-
   // Configure web server routes
-  server.on("/temp_humid", HTTP_GET, [](AsyncWebServerRequest* request) {
+  server.on("/sensorData", HTTP_GET, [](AsyncWebServerRequest* request) {
     // Create JSON document
     StaticJsonDocument<200> jsonDoc;
 
@@ -53,7 +42,7 @@ void setup() {
     float humidity = readHumidity();
     int analog_reading = analogRead(sensor_pin);
     float moisture_percentage;
-    
+
     moisture_percentage = map(analog_reading, dry_threshold, wet_threshold, 0, 100);
 
     // Set values in JSON document
@@ -100,21 +89,6 @@ void loop() {
   Serial.print(moisture_percentage);
   Serial.println("%");
 
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("Temperature: ");
-  lcd.print(formatFloat(temperature, 1));
-  lcd.print("C");
-
-  lcd.setCursor(0, 1);
-  lcd.print("Humidity: ");
-  lcd.print(humidity);
-  lcd.print("%");
-
-  lcd.setCursor(0, 2);
-  lcd.print("Moisture: ");
-  lcd.print(moisture_percentage);
-  lcd.print("%");
 
   delay(2000);
 }
