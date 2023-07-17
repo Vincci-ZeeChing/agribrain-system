@@ -7,23 +7,25 @@ const FormEditCrop = () => {
     const [name,setName] = useState("");
     const [message,setMessage] = useState("");
     const {id} = useParams();
+    const [originalName, setOriginalName] = useState(""); // Add state for the original crop name
 
 
     const navigate = useNavigate();
 
-    useEffect(()=>{
-        const getCropById = async() => {
-            try{
-                const response = await axios.get(`http://localhost:5000/api/v1/crop/${id}`)
-                setName(response.data.name);
-            }catch (error){
-                if(error.response){
+    useEffect(() => {
+        const getCropById = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/v1/crop/${id}`);
+                setName(response.data.crop_name);
+                setOriginalName(response.data.name); // Store the original crop name
+            } catch (error) {
+                if (error.response) {
                     setMessage(error.response.data.message);
                 }
             }
-        }
+        };
         getCropById();
-    },[id])
+    }, [id]);
 
     const handleUpdateCrop = async (e) => {
         e.preventDefault();
@@ -64,9 +66,11 @@ const FormEditCrop = () => {
                                 <div className="control">
                                     <input
                                         type="text"
-                                        className="input" value={name}
-                                        onChange={(e)=> setName(e.target.value)}
-                                        placeholder='Crop Name'/>
+                                        className="input"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        placeholder='Crop Name'
+                                    />
                                 </div>
                             </div>
                             <div className="field">
