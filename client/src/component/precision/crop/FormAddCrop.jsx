@@ -33,6 +33,16 @@ const FormAddCrop = () => {
         }
     };
 
+	// Function to handle the input change and allow only alphabet characters
+    const handleNameChange = (e) => {
+        const inputValue = e.target.value;
+        const alphabetPattern = /^[A-Za-z]+$/; // Regular expression to allow only alphabet characters
+
+        if (alphabetPattern.test(inputValue) || inputValue === '') {
+            // If the input matches the alphabet pattern or is an empty string, update the state
+            setName(inputValue);
+        }
+    };
 
     return (
         <div>
@@ -52,7 +62,7 @@ const FormAddCrop = () => {
                                         type="text"
                                         className="input"
                                         value={name}
-                                        onChange={(e) => setName(e.target.value)}
+                                        onChange={handleNameChange}
                                         placeholder="Crop Name"
                                     />
                                 </div>
