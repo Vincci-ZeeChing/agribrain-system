@@ -42,6 +42,12 @@ const FormAddUser = () => {
             return;
         }
 
+        // Check for blank fields
+        // if (!name || !email || !password || !confirmPassword || !phone || !role) {
+        //     setMessage('Please fill in all the fields.');
+        //     return;
+        // }
+
         if (password !== confirmPassword) {
             setPasswordMatchError('Passwords do not match');
             return;
@@ -156,12 +162,16 @@ const FormAddUser = () => {
                                             value={role}
                                             onChange={(e) => setRole(e.target.value)}
                                         >
+                                            <option value="">Select Role</option>
                                             <option value="Admin">Admin</option>
                                             <option value="Farmer">Farmer</option>
                                             <option value="Worker">Worker</option>
                                         </select>
                                     </div>
                                 </div>
+                                {role === "" && (
+                                    <p className="help is-danger">Please select a role</p>
+                                )}
                             </div>
 
                             <div className="field">
