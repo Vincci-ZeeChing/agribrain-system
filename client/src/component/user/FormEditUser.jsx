@@ -81,6 +81,29 @@ const FormEditUser = () => {
             }
         }
     }
+
+    const handleNameChange = (e) => {
+        const inputName = e.target.value;
+        // Regular expression to match only alphabets (uppercase and lowercase) and spaces
+        const alphabetsWithSpacesRegex = /^[A-Za-z\s]+$/;
+
+        // Check if the input value matches the regex
+        if (inputName === '' || alphabetsWithSpacesRegex.test(inputName)) {
+            setName(inputName);
+        }
+    };
+
+    const handlePhoneChange = (e) => {
+        const inputPhone = e.target.value;
+        // Regular expression to match only numbers
+        const numbersRegex = /^[0-9]+$/;
+
+        // Check if the input value matches the regex
+        if (inputPhone === '' || numbersRegex.test(inputPhone)) {
+            setPhone(inputPhone);
+        }
+    };
+
     return (
         <div>
             <h1 className="title">Users</h1>
@@ -97,8 +120,9 @@ const FormEditUser = () => {
                                         type="text"
                                         className="input"
                                         value={name}
-                                        onChange={(e)=>setName(e.target.value)}
-                                        placeholder='Full Name'/>
+                                        onChange={handleNameChange} // Use the custom handler for name change
+                                        placeholder='Full Name'
+                                    />
                                 </div>
                             </div>
                             <div className="field">
@@ -147,8 +171,9 @@ const FormEditUser = () => {
                                         type="text"
                                         className="input"
                                         value={phone}
-                                        onChange={(e)=>setPhone(e.target.value)}
-                                        placeholder='Phone Number'/>
+                                        onChange={handlePhoneChange} // Use the custom handler for phone number change
+                                        placeholder='Phone Number'
+                                    />
                                 </div>
                             </div>
                             <div className="field">
