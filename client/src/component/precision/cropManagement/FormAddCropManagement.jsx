@@ -39,6 +39,12 @@ const FormAddCropManagement = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Check if all fields are empty
+        if (!date && !harvest && !sold && !price && !cropId) {
+            setMessage('Please fill in all the fields.');
+            return;
+        }
+
         if (date === null) {
             setMessage('Date cannot be empty.');
             return;
