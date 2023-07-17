@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ApexCharts from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
 
 const Soil = () => {
     const [sensorData, setSensorData] = useState([]);
+    const [realTimeSensor, setRealTimeSensor] = useState("");
+    const [lastUpdated, setLastUpdated] = useState(null); // Add state for last updated time
 
     useEffect(() => {
         getSensorData();
@@ -19,6 +20,13 @@ const Soil = () => {
             if (sensorData.length > 0) {
                 const lastTenData = sensorData.slice(-10); // Get the last 10 data rows
                 setSensorData(lastTenData);
+
+                // Find the latest timestamp in the data and set it as the last updated time
+                const latestTimestamp = lastTenData.reduce((maxTimestamp, data) => {
+                    const currentTimestamp = new Date(data.createdAt).getTime();
+                    return Math.max(maxTimestamp, currentTimestamp);
+                }, 0);
+                setLastUpdated(new Date(latestTimestamp));
             }
         } catch (error) {
             console.error(error);
@@ -26,26 +34,7 @@ const Soil = () => {
     };
 
 
-    const [latestSensor, setLatestSensor] = useState({});
 
-    useEffect(() => {
-        getLatestSensor();
-        const interval = setInterval(getLatestSensor, 60000); // Refresh data every 1 minute
-        return () => clearInterval(interval); // Cleanup interval on component unmount
-    }, []);
-
-    const getLatestSensor = async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/api/v1/sensorData');
-            const latestSensorData = response.data;
-            if (latestSensorData.length > 0) {
-                const lastData = latestSensorData[latestSensorData.length - 1]; // Get the last data
-                setLatestSensor(lastData);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
 
     const formatNumber = (number) => {
         return Number(number).toFixed(2);
@@ -106,34 +95,62 @@ const Soil = () => {
     };
 
     const renderMoisture = () => {
-        if (latestSensor.sensor_moisture === 0) {
-            return <div>Check your hardware devices</div>;
-        } else if (latestSensor.sensor_moisture <= 30) {
+        if (realTimeSensor.moisture === 0 ) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
-                        {formatNumber(latestSensor.sensor_moisture)} %
+                        NaN %
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>
+                        Insertion of the sensor into the soil.
+                    </div>
+                </div>
+            );
+        } else if (realTimeSensor.moisture <= 40) {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        {formatNumber(realTimeSensor.moisture)} %
                     </div>
                     <div className="content has-text-centered" style={{ color: 'red' }}>
                         Soil moisture is low, irrigate the crop
                     </div>
                 </div>
             );
-        } else {
+        } else if (realTimeSensor.moisture > 40 && realTimeSensor.moisture < 70) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
-                        {formatNumber(latestSensor.sensor_moisture)} %
+                        {formatNumber(realTimeSensor.moisture)} %
                     </div>
-                    <div className="content has-text-centered"> Soil moisture is in good condition</div>
+                    <div className="content has-text-centered">Soil moisture is in good condition</div>
+                </div>
+            );
+        }else {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        NaN %
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>
+                        Check your hardware devices
+                    </div>
                 </div>
             );
         }
     };
 
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    };
+
     return (
         <div>
             <h1 className="title">Soil</h1>
+            <div>
+                Last Updated: {lastUpdated ? formatDate(lastUpdated) : 'Never'}
+            </div>
 
             <div className="column fullwidth">
                 <div className="card" style={{ margin: '2vw' }}>
@@ -156,7 +173,6 @@ const Soil = () => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 };
