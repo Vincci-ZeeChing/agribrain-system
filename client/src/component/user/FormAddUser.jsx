@@ -11,12 +11,14 @@ const FormAddUser = () => {
     const [role, setRole] = useState('');
     const [message, setMessage] = useState('');
     const [passwordMatchError, setPasswordMatchError] = useState('');
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const navigate = useNavigate();
 
     const handleSaveUser = async (e) => {
         e.preventDefault();
 
+        setFormSubmitted(true);
         // Check for blank fields
         if (!name && !email && !password && !confirmPassword && !phone && !role) {
             setMessage('Please fill in all the fields.');
@@ -169,7 +171,7 @@ const FormAddUser = () => {
                                         </select>
                                     </div>
                                 </div>
-                                {role === "" && (
+                                {formSubmitted && role === "" && (
                                     <p className="help is-danger">Please select a role</p>
                                 )}
                             </div>
