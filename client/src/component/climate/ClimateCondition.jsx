@@ -247,7 +247,7 @@ const ClimateCondition = () => {
 
                         {weatherData && weatherData.current && (
                             <div className="column" style={{ background: 'white', borderRadius: '8px', height: '100%', textAlign: 'center', margin: '0.3rem', minHeight:"20vh" }}>
-                                <p>Pressure</p>
+                                <p>Wind</p>
                                 <p style={{ fontSize: "15px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                     <img
                                         style={{ height: "64px", marginRight: "1vw", marginTop: "2vh" }}
@@ -317,7 +317,7 @@ const ClimateCondition = () => {
                         )}
                         {weatherData && weatherData.current && (
                             <div className="column" style={{ background: 'white', borderRadius: '8px', height: '100%', textAlign: 'center', margin: '0.3rem', minHeight:"20vh" }}>
-                                <p>Humidity</p>
+                                <p>Air Quality</p>
                                 <p style={{ fontSize: "20px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                     <img
                                         style={{ height: "64px", marginRight: "1vw", marginTop: "2vh" }}
