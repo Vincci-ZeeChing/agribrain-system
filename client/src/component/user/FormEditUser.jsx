@@ -10,6 +10,7 @@ const FormEditUser = () => {
     const [phone,setPhone] = useState("");
     const [role,setRole] = useState("");
     const [message,setMessage] = useState("");
+    const [passwordMatchError, setPasswordMatchError] = useState('');
 
     const {id} = useParams();
 
@@ -37,6 +38,33 @@ const FormEditUser = () => {
 
     const handleUpdateUser = async (e) => {
         e.preventDefault();
+
+        if (!name && !email && !phone && !role) {
+            setMessage('Please fill in all the fields.');
+            return;
+        }
+
+        if (name.trim() === '') {
+            setMessage('Full Name cannot be empty.');
+            return;
+        }
+
+        if (email.trim() === '') {
+            setMessage('Email cannot be empty.');
+            return;
+        }
+
+
+        if (phone.trim() === '') {
+            setMessage('Phone Number cannot be empty.');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            setPasswordMatchError('Passwords do not match');
+            return;
+        }
+
         try {
             await axios.patch(`http://localhost:5000/api/v1/user/${id}`,{
                 user_fullname:name,
@@ -61,9 +89,7 @@ const FormEditUser = () => {
                 <div className="card-content">
                     <div className="content">
                         <form onSubmit={handleUpdateUser}>
-                            <p className="has-text-centered">
-                                {message}
-                            </p>
+                            <p className="has-text-centered has-text-danger">{message}</p>
                             <div className="field">
                                 <label className="label"> Full Name</label>
                                 <div className="control">
@@ -96,6 +122,9 @@ const FormEditUser = () => {
                                         onChange={(e)=>setPassword(e.target.value)}
                                         placeholder='*******'/>
                                 </div>
+                                {passwordMatchError && (
+                                    <p className="help is-danger">{passwordMatchError}</p>
+                                )}
                             </div>
                             <div className="field">
                                 <label className="label"> Confirm Password</label>
@@ -107,6 +136,9 @@ const FormEditUser = () => {
                                         onChange={(e)=>setConfirmPassword(e.target.value)}
                                         placeholder='*******'/>
                                 </div>
+                                {passwordMatchError && (
+                                    <p className="help is-danger">{passwordMatchError}</p>
+                                )}
                             </div>
                             <div className="field">
                                 <label className="label"> Phone Number</label>
