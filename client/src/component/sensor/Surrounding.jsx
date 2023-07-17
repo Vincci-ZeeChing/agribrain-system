@@ -5,6 +5,7 @@ import ReactApexChart from 'react-apexcharts';
 const Surrounding = () => {
     const [sensorData, setSensorData] = useState([]);
 	const [realTimeSensor, setRealTimeSensor] = useState("");
+    const [lastUpdated, setLastUpdated] = useState(null); // Add state for last updated time
 
     useEffect(() => {
         getSensorData();
@@ -20,6 +21,8 @@ const Surrounding = () => {
                 const lastTenData = sensorData.slice(-10); // Get the last 10 data rows
                 setSensorData(lastTenData);
             }
+            setLastUpdated(new Date());
+
         } catch (error) {
             console.error(error);
         }
@@ -46,6 +49,11 @@ const Surrounding = () => {
 
     const formatNumber = (number) => {
         return Number(number).toFixed(2);
+    };
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
     };
 
     const renderHumidityChart = () => {
@@ -264,6 +272,9 @@ const Surrounding = () => {
     return (
         <div>
             <h1 className="title">Surrounding</h1>
+			<div>
+                Last Updated: {lastUpdated ? formatDate(lastUpdated) : 'Never'}
+            </div>
 
             <div className="columns is-multiline">
                 <div className="column is-6">
