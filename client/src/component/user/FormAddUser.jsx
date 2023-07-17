@@ -17,6 +17,12 @@ const FormAddUser = () => {
     const handleSaveUser = async (e) => {
         e.preventDefault();
 
+        // Check for blank fields
+        if (!name && !email && !password && !confirmPassword && !phone && !role) {
+            setMessage('Please fill in all the fields.');
+            return;
+        }
+
         if (name.trim() === '') {
             setMessage('Full Name cannot be empty.');
             return;
@@ -41,12 +47,6 @@ const FormAddUser = () => {
             setMessage('Phone Number cannot be empty.');
             return;
         }
-
-        // Check for blank fields
-        // if (!name || !email || !password || !confirmPassword || !phone || !role) {
-        //     setMessage('Please fill in all the fields.');
-        //     return;
-        // }
 
         if (password !== confirmPassword) {
             setPasswordMatchError('Passwords do not match');
