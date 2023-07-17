@@ -4,6 +4,7 @@ import ReactApexChart from 'react-apexcharts';
 
 const Surrounding = () => {
     const [sensorData, setSensorData] = useState([]);
+	const [realTimeSensor, setRealTimeSensor] = useState("");
 
     useEffect(() => {
         getSensorData();
@@ -21,6 +22,25 @@ const Surrounding = () => {
             }
         } catch (error) {
             console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        getRealTimeSensor();
+        const interval = setInterval(getRealTimeSensor, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const getRealTimeSensor = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/v1/sensorDataRealTime');
+            const sensorData = response.data;
+            setRealTimeSensor(sensorData);
+            console.log(realTimeSensor)
+        } catch (error) {
+            console.error(error);
+            setRealTimeSensor({});
+            return 'Failed to fetch sensor data. Please check your network connection.';
         }
     };
 
@@ -150,80 +170,97 @@ const Surrounding = () => {
 
 
 
-
-    const [latestSensor, setLatestSensor] = useState({});
-
-    useEffect(() => {
-        getLatestSensor();
-        const interval = setInterval(getLatestSensor, 60000); // Refresh data every 1 minute
-        return () => clearInterval(interval); // Cleanup interval on component unmount
-    }, []);
-
-    const getLatestSensor = async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/api/v1/sensorData');
-            const latestSensorData = response.data;
-            if (latestSensorData.length > 0) {
-                const lastData = latestSensorData[latestSensorData.length - 1]; // Get the last data
-                setLatestSensor(lastData);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     const renderTemperature = () => {
-        if (latestSensor.sensor_temperature < 3) {
-            return <div>Check your hardware devices</div>;
-        } else if (latestSensor.sensor_temperature > 40) {
+        if (realTimeSensor.temperature < 1) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
-                        {formatNumber(latestSensor.sensor_temperature)} °C
+                        NaN °C
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>
+                        Check your hardware devices
+                    </div>
+                </div>
+            );
+        } else if (realTimeSensor.temperature > 40) {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        {formatNumber(realTimeSensor.temperature)} °C
                     </div>
                     <div className="content has-text-centered" style={{ color: 'red' }}>
                         Temperature is high. Take necessary measures to cool the environment.
                     </div>
                 </div>
             );
-        } else {
+        } else if (realTimeSensor.temperature < 40 && realTimeSensor.temperature > 20) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
-                        {formatNumber(latestSensor.sensor_temperature)} °C
+                        {formatNumber(realTimeSensor.temperature)} °C
                     </div>
                     <div className="content has-text-centered">Temperature is in good condition</div>
+                </div>
+            );
+        }else {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        NaN °C
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>
+                        Check your hardware devices
+                    </div>
                 </div>
             );
         }
     };
 
     const renderHumidity = () => {
-        if (latestSensor.sensor_humidity < 3 ) {
-            return <div>Check your hardware devices</div>;
-        } else if (latestSensor.sensor_humidity < 40) {
+        if (realTimeSensor.humidity <1 || realTimeSensor.humidity > 100) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
-                        {formatNumber(latestSensor.sensor_temperature)} C
+                        NaN %
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>
+                        Check your hardware devices
+                    </div>
+                </div>
+            );
+        } else if (realTimeSensor.humidity < 40) {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        {formatNumber(realTimeSensor.humidity)} %
                     </div>
                     <div className="content has-text-centered" style={{ color: 'red' }}>
                         Humidity is low. Take necessary measures to increase humidity.
                     </div>
                 </div>
             );
-        } else {
+        } else if (realTimeSensor.humidity > 40 && realTimeSensor.humidity < 80) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
-                        {formatNumber(latestSensor.sensor_humidity)} %
+                        {formatNumber(realTimeSensor.humidity)} %
                     </div>
                     <div className="content has-text-centered">Humidity is in good condition</div>
                 </div>
             );
+        }else {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        NaN %
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>
+                        Check your hardware devices
+                    </div>
+                </div>
+            );
         }
     };
-
     return (
         <div>
             <h1 className="title">Surrounding</h1>
