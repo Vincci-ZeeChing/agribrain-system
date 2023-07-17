@@ -20,9 +20,14 @@ const Surrounding = () => {
             if (sensorData.length > 0) {
                 const lastTenData = sensorData.slice(-10); // Get the last 10 data rows
                 setSensorData(lastTenData);
-            }
-            setLastUpdated(new Date());
 
+                // Find the latest timestamp in the data and set it as the last updated time
+                const latestTimestamp = lastTenData.reduce((maxTimestamp, data) => {
+                    const currentTimestamp = new Date(data.createdAt).getTime();
+                    return Math.max(maxTimestamp, currentTimestamp);
+                }, 0);
+                setLastUpdated(new Date(latestTimestamp));
+            }
         } catch (error) {
             console.error(error);
         }
@@ -269,6 +274,7 @@ const Surrounding = () => {
             );
         }
     };
+
     return (
         <div>
             <h1 className="title">Surrounding</h1>
