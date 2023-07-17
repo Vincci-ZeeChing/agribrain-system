@@ -16,6 +16,32 @@ const FormAddUser = () => {
 
     const handleSaveUser = async (e) => {
         e.preventDefault();
+
+        if (name.trim() === '') {
+            setMessage('Full Name cannot be empty.');
+            return;
+        }
+
+        if (email.trim() === '') {
+            setMessage('Email cannot be empty.');
+            return;
+        }
+
+        if (password.trim() === '') {
+            setMessage('Password cannot be empty.');
+            return;
+        }
+
+        if (confirmPassword.trim() === '') {
+            setMessage('Confirm Password cannot be empty.');
+            return;
+        }
+
+        if (phone.trim() === '') {
+            setMessage('Phone Number cannot be empty.');
+            return;
+        }
+
         if (password !== confirmPassword) {
             setPasswordMatchError('Passwords do not match');
             return;
@@ -47,8 +73,7 @@ const FormAddUser = () => {
                 <div className="card-content">
                     <div className="content">
                         <form onSubmit={handleSaveUser}>
-                            {message}
-                            <p className="has-text-centered">{message}</p>
+                            <p className="has-text-centered has-text-danger">{message}</p>
                             <div className="field">
                                 <label className="label"> Full Name</label>
                                 <div className="control">
@@ -116,12 +141,11 @@ const FormAddUser = () => {
                                         pattern="[0-9]*"
                                         value={phone}
                                         onChange={(e) => {
-                                            const inputPhone = e.target.value;
+                                            const inputPhone = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
                                             setPhone(inputPhone);
                                         }}
                                         placeholder="Phone Number"
                                     />
-
                                 </div>
                             </div>
                             <div className="field">
