@@ -5,13 +5,12 @@ import axios from 'axios';
 const FormEditCropManagement = () => {
     const [crops, setCrops] = useState("");
     const [cropId, setCropId] = useState("");
-
     const [dates, setDates] = useState(null);
-    const [harvest, setHarvest] = useState('');
-    const [store, setStore] = useState('');
-    const [sold, setSold] = useState('');
-    const [price, setPrice] = useState('');
-    const [message, setMessage] = useState('');
+    const [harvest, setHarvest] = useState("");
+    const [store, setStore] = useState("");
+    const [sold, setSold] = useState("");
+    const [price, setPrice] = useState("");
+    const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
     const { id } = useParams();
@@ -21,15 +20,13 @@ const FormEditCropManagement = () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/v1/cropManagement/${id}`);
                 const cropManagement = response.data;
-                setCropId(cropManagement.CROP_T.id)
+                setCropId(cropManagement.CROP_T.id);
                 setCrops(cropManagement.CROP_T.crop_name);
                 setDates(cropManagement.c_management_date);
                 setHarvest(cropManagement.c_management_harvest);
                 setStore(cropManagement.c_management_stored);
                 setSold(cropManagement.c_management_sold);
                 setPrice(cropManagement.c_management_price);
-                console.log(crops);
-                console.log(dates);
             } catch (error) {
                 console.log(error);
             }
@@ -37,57 +34,36 @@ const FormEditCropManagement = () => {
         getCropsManagementById();
     }, [id]);
 
+    useEffect(() => {
+        const calculatedStore = (parseFloat(harvest) - parseFloat(sold)).toFixed(2);
+        setStore(calculatedStore);
+    }, [harvest, sold]);
 
     const handleUpdateCropManagement = async (e) => {
+
+        if(store.trim() < 0){
+            setMessage('Stored cannot be less than 0.');
+            return;
+        }
+
+
         e.preventDefault();
-
-        if (dates === null) {
-            setMessage('Date cannot be empty.');
-            return;
-        }
-
-        if (harvest.trim() === '') {
-            setMessage('Harvest cannot be empty.');
-            return;
-        }
-
-        if (store.trim() === '') {
-            setMessage('Store cannot be empty.');
-            return;
-        }
-
-        if (sold.trim() === '') {
-            setMessage('Sold cannot be empty.');
-            return;
-        }
-
-        if (price.trim() === '') {
-            setMessage('Price cannot be empty.');
-            return;
-        }
-
-        if (cropId.trim() === '') {
-            setMessage('Crop Name cannot be empty.');
-            return;
-        }
-
         try {
-            await axios.patch(`http://localhost:5000/api/v1/cropManagement/${id}`,{
+            await axios.patch(`http://localhost:5000/api/v1/cropManagement/${id}`, {
                 c_management_date: dates,
                 c_management_harvest: harvest,
                 c_management_stored: store,
                 c_management_sold: sold,
                 c_management_price: price,
                 cropId: cropId,
-            })
+            });
             navigate("/precision-farming/crop-management");
-        }catch (error) {
-            if(error.response){
+        } catch (error) {
+            if (error.response) {
                 setMessage(error.response.data.message);
             }
         }
-    }
-
+    };
 
     return (
         <div>
@@ -109,7 +85,7 @@ const FormEditCropManagement = () => {
                                             placeholder="Select a date"
                                             name="date"
                                             disabled={true}
-                                            value={dates}
+                                            value={dates || ""}
                                             onChange={(e) => setDates(e.target.value)}
                                         />
                                     </div>
@@ -158,15 +134,13 @@ const FormEditCropManagement = () => {
                                         </div>
                                     </div>
 
-
                                     <div className="field">
                                         <label className="label">Stored (kg)</label>
                                         <div className="control">
                                             <input
-                                                type="number"
+                                                type="text"
                                                 className="input"
-                                                placeholder="100"
-                                                name="stored"
+                                                disabled={true}
                                                 value={store}
                                                 onChange={(e) => setStore(e.target.value)}
                                             />
@@ -194,7 +168,7 @@ const FormEditCropManagement = () => {
                                     <button
                                         type="submit"
                                         className="button"
-                                        style={{ backgroundColor: '#71AF9D', color: 'white' }}
+                                        style={{ backgroundColor: "#71AF9D", color: "white" }}
                                     >
                                         Save
                                     </button>
@@ -209,3 +183,4 @@ const FormEditCropManagement = () => {
 };
 
 export default FormEditCropManagement;
+

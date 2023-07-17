@@ -7,10 +7,9 @@ const FormAddCropManagement = () => {
     const [crops, setCrops] = useState([]);
     const [cropId, setCropId] = useState('');
     const [date, setDate] = useState(null);
-    const [harvest,setHarvest] = useState('');
-    const [store,setStore] = useState('');
-    const [sold,setSold] = useState('');
-    const [price,setPrice] = useState('');
+    const [harvest, setHarvest] = useState('');
+    const [sold, setSold] = useState('');
+    const [price, setPrice] = useState('');
     const navigate = useNavigate();
     const [message, setMessage] = useState('');
 
@@ -29,6 +28,14 @@ const FormAddCropManagement = () => {
     };
 
 
+
+    const calculateStored = () => {
+        if (harvest.trim() !== '' && sold.trim() !== '') {
+            return (parseFloat(harvest) - parseFloat(sold)).toFixed(2);
+        }
+        return '';
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -39,11 +46,6 @@ const FormAddCropManagement = () => {
 
         if (harvest.trim() === '') {
             setMessage('Harvest cannot be empty.');
-            return;
-        }
-
-        if (store.trim() === '') {
-            setMessage('Store cannot be empty.');
             return;
         }
 
@@ -62,6 +64,11 @@ const FormAddCropManagement = () => {
             return;
         }
 
+        if(calculateStored() < 0){
+            setMessage('Stored cannot be less than 0.');
+            return;
+        }
+
         try {
             // Format the date to YYYY-MM-DD format
             const formattedDate = date.toISOString().slice(0, 10);
@@ -69,7 +76,7 @@ const FormAddCropManagement = () => {
             await axios.post("http://localhost:5000/api/v1/cropManagement", {
                 c_management_date: formattedDate,
                 c_management_harvest: harvest,
-                c_management_stored: store,
+                c_management_stored: calculateStored(),
                 c_management_sold: sold,
                 c_management_price: price,
                 cropId: cropId,
@@ -162,12 +169,10 @@ const FormAddCropManagement = () => {
                                         <label className="label">Stored (kg)</label>
                                         <div className="control">
                                             <input
-                                                type="number"
+                                                type="text"
                                                 className="input"
-                                                placeholder="100"
-                                                name="stored"
-                                                value={store}
-                                                onChange={(e) => setStore(e.target.value)}
+                                                disabled
+                                                value={calculateStored()}
                                             />
                                         </div>
                                     </div>
