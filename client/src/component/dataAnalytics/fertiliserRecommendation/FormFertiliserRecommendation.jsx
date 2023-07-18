@@ -14,6 +14,12 @@ const FormFertiliserRecommendation = () => {
         potassiumStatus: '',
     });
 
+    const [fieldErrors, setFieldErrors] = useState({
+        crop: '',
+        nitrogen: '',
+        phosphorus: '',
+        potassium: '',
+    });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,18 +40,48 @@ const FormFertiliserRecommendation = () => {
     const handleCropChange = (event) => {
         const { value } = event.target;
         setSelectedCrop(value);
-        // Get the nutrient values for the selected crop
-        const cropNutrientData = nutrientData[selectedCrop];
-        setActualNurientData(cropNutrientData);
-        console.log(actualNurientData);
     };
 
+// Add a new useEffect hook to handle nutrient data updates when the selectedCrop changes
+    useEffect(() => {
+        // Ensure that the nutrient data is available and the selectedCrop is not an empty string
+        if (Object.keys(nutrientData).length > 0 && selectedCrop !== '') {
+            // Get the nutrient values for the selected crop
+            const cropNutrientData = nutrientData[selectedCrop];
+            setActualNurientData(cropNutrientData);
+        }
+    }, [selectedCrop, nutrientData]);
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
         // Get the user input values
-        const { nitrogen, phosphorus, potassium } = event.target.elements;
+        const { crop, nitrogen, phosphorus, potassium } = event.target.elements;
+
+        // Check for empty fields and set error messages
+        const errors = {};
+        if (crop.value === '') {
+            errors.crop = 'Please select a crop';
+        }
+
+        if (nitrogen.value === '') {
+            errors.nitrogen = 'Please enter a value';
+        }
+
+        if (phosphorus.value === '') {
+            errors.phosphorus = 'Please enter a value';
+        }
+
+        if (potassium.value === '') {
+            errors.potassium = 'Please enter a value';
+        }
+
+        setFieldErrors(errors);
+
+        // If any error exists, return and prevent further processing
+        if (Object.keys(errors).length > 0) {
+            return;
+        }
 
         // Get the nutrient values for the selected crop
         const cropNutrientData = nutrientData[selectedCrop];
@@ -114,8 +150,8 @@ const FormFertiliserRecommendation = () => {
                                                     </option>
                                                 ))}
                                             </select>
-
                                         </div>
+                                        {fieldErrors.crop && <p className="help is-danger">{fieldErrors.crop}</p>}
                                     </div>
                                 </div>
 
@@ -130,6 +166,7 @@ const FormFertiliserRecommendation = () => {
                                             style={{ width: '50vw' }}
                                         />
                                     </div>
+                                    {fieldErrors.nitrogen && <p className="help is-danger">{fieldErrors.nitrogen}</p>}
                                 </div>
 
                                 <div className="field">
@@ -143,6 +180,7 @@ const FormFertiliserRecommendation = () => {
                                             style={{ width: '50vw' }}
                                         />
                                     </div>
+                                    {fieldErrors.phosphorus && <p className="help is-danger">{fieldErrors.phosphorus}</p>}
                                 </div>
 
                                 <div className="field">
@@ -156,6 +194,7 @@ const FormFertiliserRecommendation = () => {
                                             style={{ width: '50vw' }}
                                         />
                                     </div>
+                                    {fieldErrors.potassium && <p className="help is-danger">{fieldErrors.potassium}</p>}
                                 </div>
 
                                 <div className="field">
