@@ -88,9 +88,9 @@ const DashboardComponent = () => {
         }else if (moisture < 1) {
             advice = 'Insertion of the sensor into the soil.';
         }
-        // else {
-        //     advice = 'Soil moisture level is optimal for crop growth.';
-        // }
+        else {
+            advice = 'Soil moisture level is optimal for crop growth.';
+        }
 
 
 
@@ -101,9 +101,9 @@ const DashboardComponent = () => {
         }else if (temperature >30) {
             advice += ' High temperature may require additional shading.';
         }
-        // else {
-        //     advice += ' No specific advice for current temperature and humidity conditions.';
-        // }
+        else {
+            advice += ' No specific advice for current temperature and humidity conditions.';
+        }
 
         setFarmingAdvice(advice);
     };
