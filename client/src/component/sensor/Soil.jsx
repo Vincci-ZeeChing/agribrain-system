@@ -94,6 +94,25 @@ const Soil = () => {
         }
     };
 
+    useEffect(() => {
+        getRealTimeSensor();
+        const interval = setInterval(getRealTimeSensor, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const getRealTimeSensor = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/v1/sensorDataRealTime');
+            const sensorData = response.data;
+            setRealTimeSensor(sensorData);
+            console.log(sensorData.moisture)
+        } catch (error) {
+            console.error(error);
+            setRealTimeSensor({});
+            return 'Failed to fetch sensor data. Please check your network connection.';
+        }
+    };
+
     const renderMoisture = () => {
         if (realTimeSensor.moisture === 0 ) {
             return (
@@ -117,13 +136,22 @@ const Soil = () => {
                     </div>
                 </div>
             );
-        } else if (realTimeSensor.moisture > 40 && realTimeSensor.moisture < 70) {
+        } else if (realTimeSensor.moisture > 40 && realTimeSensor.moisture < 80) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
                         {formatNumber(realTimeSensor.moisture)} %
                     </div>
                     <div className="content has-text-centered">Soil moisture is in good condition</div>
+                </div>
+            );
+        }else if (realTimeSensor.moisture > 80) {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        {formatNumber(realTimeSensor.moisture)} %
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>Soil moisture is low, stop irrigate the crop</div>
                 </div>
             );
         }else {

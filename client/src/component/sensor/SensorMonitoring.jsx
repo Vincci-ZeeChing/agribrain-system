@@ -15,8 +15,8 @@ const SensorMonitoring = () => {
             const response = await axios.get('http://localhost:5000/api/v1/sensorDataRealTime');
             const sensorData = response.data;
             setSensor(sensorData);
+            console.log(sensorData.moisture)
         } catch (error) {
-            console.error(error);
             console.error(error);
             setSensor({});
             return 'Failed to fetch sensor data. Please check your network connection.';
@@ -31,6 +31,7 @@ const SensorMonitoring = () => {
         const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
         return new Date(dateString).toLocaleDateString('en-US', options);
     };
+
 
     const renderTemperature = () => {
         if (sensor.temperature < 1) {
@@ -147,13 +148,22 @@ const SensorMonitoring = () => {
                     </div>
                 </div>
             );
-        } else if (sensor.moisture > 40 && sensor.moisture < 70) {
+        } else if (sensor.moisture > 40 && sensor.moisture < 80) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
                         {formatNumber(sensor.moisture)} %
                     </div>
                     <div className="content has-text-centered">Soil moisture is in good condition</div>
+                </div>
+            );
+        }else if (sensor.moisture > 80) {
+            return (
+                <div>
+                    <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
+                        {formatNumber(sensor.moisture)} %
+                    </div>
+                    <div className="content has-text-centered" style={{ color: 'red' }}>Soil moisture is low, stop irrigate the crop</div>
                 </div>
             );
         }else {
