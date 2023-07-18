@@ -40,14 +40,28 @@ const FormEditCropManagement = () => {
     }, [harvest, sold]);
 
     const handleUpdateCropManagement = async (e) => {
+        e.preventDefault();
 
         if(store.trim() < 0){
             setMessage('Stored cannot be less than 0.');
             return;
         }
 
+        if (harvest.trim() === '') {
+            setMessage('Harvest cannot be empty.');
+            return;
+        }
 
-        e.preventDefault();
+        if (sold.trim() === '') {
+            setMessage('Sold cannot be empty.');
+            return;
+        }
+
+        if (price.trim() === '') {
+            setMessage('Price cannot be empty.');
+            return;
+        }
+
         try {
             await axios.patch(`http://localhost:5000/api/v1/cropManagement/${id}`, {
                 c_management_date: dates,
