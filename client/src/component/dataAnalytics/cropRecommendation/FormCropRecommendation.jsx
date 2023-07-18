@@ -70,18 +70,16 @@ const FormCropRecommendation = () => {
         event.preventDefault(); // Prevent form submission
 
         // Check if any field is empty
-        const isEmpty = Object.entries(data).some(([key, value]) => {
+        const emptyFields = {};
+        for (const [key, value] of Object.entries(data)) {
             if (value === '') {
-                setFieldErrors((prevState) => ({
-                    ...prevState,
-                    [key]: 'Please enter a value',
-                }));
-                return true;
+                emptyFields[key] = 'Please enter a value';
             }
-            return false;
-        });
+        }
 
-        if (isEmpty) {
+        setFieldErrors(emptyFields);
+
+        if (Object.keys(emptyFields).length > 0) {
             return;
         }
 
@@ -112,18 +110,8 @@ const FormCropRecommendation = () => {
             .catch((error) => {
                 console.error('Error:', error);
             });
-
-        // Clear field errors if no empty fields
-        setFieldErrors({
-            nitrogen: '',
-            phosphorus: '',
-            potassium: '',
-            rainfall: '',
-            phValue: '',
-            temperature: '',
-            humidity: '',
-        });
     };
+
 
     const cropImageMap = {
         Beetroot: beetrootImage,
@@ -206,7 +194,7 @@ const FormCropRecommendation = () => {
                                                 value={data.phosphorus}
                                                 onChange={handleInputChange}
                                             />
-                                            {fieldErrors.nitrogen && (
+                                            {fieldErrors.phosphorus && (
                                                 <p className="help is-danger">{fieldErrors.phosphorus}</p>
                                             )}
                                         </div>
@@ -223,7 +211,7 @@ const FormCropRecommendation = () => {
                                                 value={data.potassium}
                                                 onChange={handleInputChange}
                                             />
-                                            {fieldErrors.nitrogen && (
+                                            {fieldErrors.potassium && (
                                                 <p className="help is-danger">{fieldErrors.potassium}</p>
                                             )}
                                         </div>
@@ -242,8 +230,8 @@ const FormCropRecommendation = () => {
                                                 value={data.rainfall}
                                                 onChange={handleInputChange}
                                             />
-                                            {fieldErrors.nitrogen && (
-                                                <p className="help is-danger">{fieldErrors.rainfall}</p>
+                                            {fieldErrors.rainfall && (
+                                                <p className="help is-danger">{fieldErrors.potassium}</p>
                                             )}
                                         </div>
                                     </div>
@@ -259,7 +247,7 @@ const FormCropRecommendation = () => {
                                                 value={data.phValue}
                                                 onChange={handleInputChange}
                                             />
-                                            {fieldErrors.nitrogen && (
+                                            {fieldErrors.phValue && (
                                                 <p className="help is-danger">{fieldErrors.phValue}</p>
                                             )}
                                         </div>
@@ -276,7 +264,7 @@ const FormCropRecommendation = () => {
                                                 value={data.temperature}
                                                 onChange={handleInputChange}
                                             />
-                                            {fieldErrors.nitrogen && (
+                                            {fieldErrors.temperature && (
                                                 <p className="help is-danger">{fieldErrors.temperature}</p>
                                             )}
                                         </div>
@@ -293,7 +281,7 @@ const FormCropRecommendation = () => {
                                                 value={data.humidity}
                                                 onChange={handleInputChange}
                                             />
-                                            {fieldErrors.nitrogen && (
+                                            {fieldErrors.humidity && (
                                                 <p className="help is-danger">{fieldErrors.humidity}</p>
                                             )}
                                         </div>
