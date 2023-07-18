@@ -34,6 +34,15 @@ const FormAddFarming = () => {
     const handleSaveFarming = async (e) => {
         e.preventDefault();
 
+        let farmingName = name === 'Other' ? otherName : name;
+        farmingName = farmingName.charAt(0).toUpperCase() + farmingName.slice(1).toLowerCase();
+
+        // Check if all fields are empty
+        if (!date && !farmingName && !cropId) {
+            setMessage('Please fill in all the fields.');
+            return;
+        }
+
         if (date === null) {
             setMessage('Date cannot be empty.');
             return;
@@ -42,9 +51,6 @@ const FormAddFarming = () => {
         const formattedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
             .toISOString()
             .split('T')[0];
-
-        let farmingName = name === 'Other' ? otherName : name;
-        farmingName = farmingName.charAt(0).toUpperCase() + farmingName.slice(1).toLowerCase();
 
         if (farmingName.trim() === '') {
             setMessage('Farming Name cannot be empty.');
