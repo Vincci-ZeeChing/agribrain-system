@@ -11,6 +11,10 @@ RF_pkl_filename = './model/NBClassifier.pkl'
 with open(RF_pkl_filename, 'rb') as RF_Model_pkl:
     RF_model = pickle.load(RF_Model_pkl)
 
+@app.route('/', methods=['GET'])
+def Hello():
+    return jsonify("Hello World")
+
 @app.route('/predictCrop', methods=['POST'])
 def postpredict():
     # Get the JSON data from the request
