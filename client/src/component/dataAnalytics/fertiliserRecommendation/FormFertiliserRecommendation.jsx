@@ -13,7 +13,12 @@ const FormFertiliserRecommendation = () => {
         phosphorusStatus: '',
         potassiumStatus: '',
     });
-
+    const [userInputData, setUserInputData] = useState({
+        crop: '',
+        nitrogen: '',
+        phosphorus: '',
+        potassium: '',
+    });
     const [fieldErrors, setFieldErrors] = useState({
         crop: '',
         nitrogen: '',
@@ -78,6 +83,16 @@ const FormFertiliserRecommendation = () => {
 
         setFieldErrors(errors);
 
+        // Set the user input data
+        const inputData = {
+            crop: crop.value,
+            nitrogen: nitrogen.value,
+            phosphorus: phosphorus.value,
+            potassium: potassium.value,
+        };
+
+        setUserInputData(inputData);
+
         // If any error exists, return and prevent further processing
         if (Object.keys(errors).length > 0) {
             return;
@@ -109,10 +124,6 @@ const FormFertiliserRecommendation = () => {
         const nitrogenStatus = isNitrogenOptimal ? 'optimal' : nitrogenValue > cropNutrientData['Nitrogen (N)'] ? 'high' : 'low';
         const phosphorusStatus = isPhosphorusOptimal ? 'optimal' : phosphorusValue > cropNutrientData['Phosphorus (P)'] ? 'high' : 'low';
         const potassiumStatus = isPotassiumOptimal ? 'optimal' : potassiumValue > cropNutrientData['Potassium (K)'] ? 'high' : 'low';
-
-        console.log('Nitrogen status:', nitrogenStatus);
-        console.log('Phosphorus status:', phosphorusStatus);
-        console.log('Potassium status:', potassiumStatus);
 
         setResult({
             nitrogenStatus,
@@ -240,15 +251,27 @@ const FormFertiliserRecommendation = () => {
                             </header>
                             <section className="modal-card-body">
                                 {selectedCrop && (
-                                    <div>
-                                        <strong style={{fontSize:"30px"}}>{selectedCrop}</strong>
-                                        <p>Nutrition Data:</p>
-                                        <p>Nitrogen (N): {actualNurientData['Nitrogen (N)']}</p>
-                                        <p>Phosphorus (P): {actualNurientData['Phosphorus (P)']}</p>
-                                        <p>Potassium (K): {actualNurientData['Potassium (K)']}</p>
-                                        <br />
-                                    </div>
+                                    <>
+                                        <strong style={{ fontSize: "30px" }}>{selectedCrop}</strong>
+                                        <div style={{ display: "flex", justifyContent: "space-between" , marginBottom:"3vh"}}>
+                                            <div style={{ flex: 1 }}>
+                                                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                                    <strong>User Input:</strong>
+                                                    <p>Nitrogen (N): {userInputData.nitrogen}</p>
+                                                    <p>Phosphorus (P): {userInputData.phosphorus}</p>
+                                                    <p>Potassium (K): {userInputData.potassium}</p>
+                                                </div>
+                                            </div>
+                                            <div style={{ flex: 1 }}>
+                                                <strong>Estimate Nutrition Data for the crop:</strong>
+                                                <p>Nitrogen (N): {actualNurientData['Nitrogen (N)']}</p>
+                                                <p>Phosphorus (P): {actualNurientData['Phosphorus (P)']}</p>
+                                                <p>Potassium (K): {actualNurientData['Potassium (K)']}</p>
+                                            </div>
+                                        </div>
+                                    </>
                                 )}
+
                                 {result.nitrogenStatus === "low" && (
                                     <div>
                                         <strong>Nitrogen (N): Too Low</strong>
