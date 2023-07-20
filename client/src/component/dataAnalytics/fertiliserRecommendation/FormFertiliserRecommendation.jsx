@@ -373,15 +373,16 @@ const FormFertiliserRecommendation = () => {
                                         <strong>Potassium (K): Optimal</strong>
                                         <br />
                                         <p>
-
+                                            Maintaining optimal potassium levels is essential for overall plant health, as potassium plays a vital role in various physiological processes, including enzyme activation, water uptake, and photosynthesis. Adequate potassium levels contribute to improved disease resistance, strong root development, and enhanced nutrient uptake.
                                         </p>
                                         <p>
                                             Method: <br/>
-
+                                            To maintain optimal potassium levels, regular soil testing is recommended to monitor potassium availability. Potassium can be supplied through potassium-rich fertilizers like potassium sulfate or potassium chloride, applied at recommended rates based on the specific crop's needs. Proper irrigation practices and soil moisture management are also essential to ensure efficient potassium uptake by plants.
                                         </p>
                                         <br/>
                                     </div>
                                 )}
+
                             </section>
                             <footer className="modal-card-foot" />
                         </div>
