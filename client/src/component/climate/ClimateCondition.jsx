@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import CameronHighlands from "../../image/weather/CameronHighlands.jpg"
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 
 // Air Quality
@@ -34,7 +33,6 @@ const ClimateCondition = () => {
             })
             .catch((error) => {
                 console.log(error);
-                // You can add additional error handling here, such as setting a default weather data value
             });
     };
 
@@ -50,7 +48,6 @@ const ClimateCondition = () => {
             })
             .catch((error) => {
                 console.log(error);
-                // You can add additional error handling here, such as setting a default weather data value
             });
     }
 
@@ -143,11 +140,9 @@ const ClimateCondition = () => {
                         )}
                     </div>
 
-
                     <hr style={{ borderTop: '1px solid #ccc', margin: '3rem 0' }} />
 
                     <div style={{ textAlign: 'left', marginRight: "2vw" }}>
-
                         {weatherData && weatherData.current && (
                             <h1 className="text is-bold" style={{ fontSize: "20px" }} >
                                 {weatherData.current.condition.text}
@@ -159,13 +154,8 @@ const ClimateCondition = () => {
                                 Cloud Cover {weatherData.current.cloud}%
                             </h1>
                         )}
-
-
                     </div>
-
                     <br />
-
-
                 </div>
                 <div
                     className="column pt-5"
@@ -263,8 +253,6 @@ const ClimateCondition = () => {
                             </div>
                         )}
 
-
-
                         {weatherData && weatherData.current && (
                             <div className="column" style={{ background: 'white', borderRadius: '8px', height: '100%', textAlign: 'center', margin: '0.3rem', minHeight:"20vh" }}>
                                 <p>Pressure</p>
@@ -278,8 +266,8 @@ const ClimateCondition = () => {
                                 </p>
                             </div>
                         )}
-
                     </div>
+
                     <div className="columns p-3">
                         {weatherData && weatherData.current && (
                             <div className="column" style={{ background: 'white', borderRadius: '8px', height: '100%', textAlign: 'center', margin: '0.3rem', minHeight:"20vh" }}>

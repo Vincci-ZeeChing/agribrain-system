@@ -27,12 +27,6 @@ const SensorMonitoring = () => {
         return Number(number).toFixed(2);
     };
 
-    const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
-        return new Date(dateString).toLocaleDateString('en-US', options);
-    };
-
-
     const renderTemperature = () => {
         if (sensor.temperature < 1) {
             return (

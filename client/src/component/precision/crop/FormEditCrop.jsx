@@ -6,11 +6,12 @@ import pluralize from "pluralize";
 const FormEditCrop = () => {
     const [name,setName] = useState("");
     const [message,setMessage] = useState("");
-    const {id} = useParams();
     const [originalName, setOriginalName] = useState(""); // Add state for the original crop name
 
+    const {id} = useParams();
 
     const navigate = useNavigate();
+
 
     useEffect(() => {
         const getCropById = async () => {

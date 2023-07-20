@@ -1,11 +1,9 @@
 const PDFDocument = require('pdfkit');
-const axios = require("axios");
 const Crop = require("../model/CropModel");
 const User = require("../model/UserModel");
 const CropManagementModel = require("../model/CropManagementModel");
 const FarmingModel = require("../model/FarmingModel");
-const UserModel = require("../model/UserModel");
-const CropModel = require("../model/CropModel");
+
 
 // Report Format
 function formatReport(doc, reportTitle) {

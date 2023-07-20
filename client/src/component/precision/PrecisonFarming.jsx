@@ -47,7 +47,7 @@ const PrecisionFarming = () => {
                                      }}>
                                     <div className="content has-text-centered">
                                         <div className="subtitle" style={{fontWeight:"bold"}}>Add Crop</div>
-                                        <div>hahahaha</div>
+                                        <div>Add a new crop to your precision farming records.</div>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@ const PrecisionFarming = () => {
                                          }}>
                                         <div className="content has-text-centered">
                                             <div className="subtitle" style={{fontWeight:"bold"}}>Add Crop Management</div>
-                                            <div>hahahaha</div>
+                                            <div>Record and manage crop-related activities and data.</div>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@ const PrecisionFarming = () => {
                                      }}>
                                     <div className="content has-text-centered">
                                         <div className="subtitle" style={{fontWeight:"bold"}}>Add Farming Record</div>
-                                        <div>hahahaha</div>
+                                        <div>Keep track of essential farming records and activities.</div>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +144,7 @@ const PrecisionFarming = () => {
                                      }}>
                                     <div className="content has-text-centered">
                                         <div className="subtitle" style={{fontWeight:"bold"}}>Crops List</div>
-                                        <div>hahahaha</div>
+                                        <div>View a list of all the crops recorded in the system.</div>
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +176,7 @@ const PrecisionFarming = () => {
                                          }}>
                                         <div className="content has-text-centered">
                                             <div className="subtitle" style={{fontWeight:"bold"}}>Crop Management List</div>
-                                            <div>hahahaha</div>
+                                            <div>Browse the list of crop management records and actions.</div>
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +208,7 @@ const PrecisionFarming = () => {
                                      }}>
                                     <div className="content has-text-centered">
                                         <div className="subtitle" style={{fontWeight:"bold"}}>Farming List</div>
-                                        <div>hahahaha</div>
+                                        <div>Explore the comprehensive list of farming records and activities.</div>
                                     </div>
                                 </div>
                             </div>
