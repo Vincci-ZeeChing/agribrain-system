@@ -81,44 +81,47 @@ const DashboardComponent = () => {
         const { moisture, temperature, humidity } = sensor;
 
         let advice = '';
-        if (moisture < 30 && moisture >= 1) {
+        if (moisture < 40 && moisture >= 1) {
             advice = 'Increase irrigation to maintain optimal soil moisture.';
         } else if (moisture > 80) {
             advice = 'Reduce irrigation to avoid overwatering.';
-        }else if (moisture < 1) {
+        }else if (moisture === 0 ) {
             advice = 'Insertion of the sensor into the soil.';
-        }
-        else {
+        }else if (moisture <80 || moisture > 40) {
             advice = 'Soil moisture level is optimal for crop growth.';
         }
 
 
-
-        if (temperature > 35 && humidity > 80) {
+        if (temperature > 38 && humidity > 80) {
             advice += ' High temperature and humidity may require additional shading and ventilation.';
-        } else if (temperature < 20 || humidity > 100) {
-            advice += ' Hardware Error, Please check the hardware.';
-        }else if (temperature >30) {
-            advice += ' High temperature may require additional shading.';
-        }
-        else {
+        }else if (temperature >33) {
+            advice += ' High temperature may require irrigation.';
+        }else if (temperature > 20 && temperature < 33) {
             advice += ' No specific advice for current temperature and humidity conditions.';
+        } else {
+            advice = ' Hardware Error, Please check the hardware.';
         }
 
         setFarmingAdvice(advice);
     };
 
     const renderTemperature = () => {
-        if (sensor.temperature < 1 || sensor.temperature < 20) {
+        if (sensor.temperature < 20) {
             return (
                 <div>
-                    NaN %
+                    NaN °C
                 </div>
             );
-        } else {
+        }else if (sensor.temperature >= 20 || sensor.temperature <= 40) {
             return (
                 <div>
                     {Number(sensor.temperature).toFixed(2)} °C
+                </div>
+            );
+        }else {
+            return (
+                <div>
+                    NaN °C
                 </div>
             );
         }
@@ -131,10 +134,16 @@ const DashboardComponent = () => {
                     NaN %
                 </div>
             );
-        } else {
+        }else if (sensor.humidity >=1 ||sensor.humidity <= 100) {
             return (
                 <div>
                     {sensor.humidity} %
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    NaN %
                 </div>
             );
         }
@@ -147,10 +156,16 @@ const DashboardComponent = () => {
                     0 %
                 </div>
             );
-        } else {
+        } else if (sensor.moisture >1 || sensor.moisture < 100) {
             return (
                 <div>
                     {sensor.moisture} %
+                </div>
+            );
+        }else {
+            return (
+                <div>
+                    NaN %
                 </div>
             );
         }
