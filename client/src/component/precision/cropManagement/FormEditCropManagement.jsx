@@ -42,22 +42,22 @@ const FormEditCropManagement = () => {
     const handleUpdateCropManagement = async (e) => {
         e.preventDefault();
 
-        if(store.trim() < 0){
+        if (store < 0) {
             setMessage('Stored cannot be less than 0.');
             return;
         }
 
-        if (harvest.trim() === '') {
+        if (harvest === '') {
             setMessage('Harvest cannot be empty.');
             return;
         }
 
-        if (sold.trim() === '') {
+        if (sold === '') {
             setMessage('Sold cannot be empty.');
             return;
         }
 
-        if (price.trim() === '') {
+        if (price === '') {
             setMessage('Price cannot be empty.');
             return;
         }
