@@ -70,7 +70,7 @@ const DailyForecast = () => {
         setIsLoading(true);
         getForecastWeather().then((response) => {
 
-            const weeklyForecastData = response.forecast.forecastday.slice(0, 2);
+            const weeklyForecastData = response.forecast.forecastday.slice(0, 3);
             const weeklyCategories = weeklyForecastData.map((day) => day.date);
             const averageTemperatures = weeklyForecastData.map((day) => day.day.avgtemp_c);
 
