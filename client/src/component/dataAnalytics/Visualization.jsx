@@ -5,6 +5,22 @@ import ReactApexChart from 'react-apexcharts';
 const Visualization = () => {
     const [realTimeSensor, setRealTimeSensor] = useState({});
     const [weatherData, setWeatherData] = useState();
+	const [currentDateTime, setCurrentDateTime] = useState(new Date());
+	const [lastUpdated, setLastUpdated] = useState();
+    const [forecastWeatherData, setForecastWeatherData] = useState();
+    const [crops, setCrops] = useState([]); // State to hold the fetched crops
+    const [cropManagement, setCropManagement] = useState([]);
+    const [totalHarvest, setTotalHarvest] = useState({});
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentDateTime(new Date());
+        }, 1000);
+        return () => clearInterval(interval);
+    },[])
+
+    const formattedDateTime = currentDateTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + " "
+        + currentDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
 
     useEffect(() => {
         getRealTimeSensor();
@@ -21,7 +37,23 @@ const Visualization = () => {
                 const temperature = parseFloat(lastRecord.sensor_temperature).toFixed(2);
                 const humidity = lastRecord.sensor_humidity;
                 const moisture = lastRecord.sensor_moisture;
+                const last = lastRecord.createdAt;
+
+                // Reformat the createdAt value to date and time in 'en-US' format
+                const createdAtDate = new Date(last);
+                const formattedLastUpdated = createdAtDate.toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                }) + ' ' + createdAtDate.toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    second: 'numeric',
+                    hour12: true,
+                });
                 setRealTimeSensor({ temperature, humidity, moisture });
+                setLastUpdated(formattedLastUpdated);
             }
         } catch (error) {
             console.error(error);
@@ -48,27 +80,14 @@ const Visualization = () => {
                 dataLabels: {
                     showOn: "always",
                     name: {
-                        // fontSize: "16px",
-                        // color: "#888",
-                        // offsetY: -10,
                         show: false,
                     },
                     value: {
-                        // formatter: function (val) {
-                        //     if (typeof val === "number") {
-                        //         return val.toFixed(2);
-                        //     }
-                        //     return val;
-                        // },
-                        // color: "#111",
-                        // offsetY: 0,
-                        // fontSize: "28px",
                         show: false,
                     },
                 },
             },
         },
-        // colors: ['#1ab7ea', '#0084ff', '#39539E'],
         labels: ['Temperature', 'Humidity', 'Moisture'],
         legend: {
             show: true,
@@ -124,6 +143,18 @@ const Visualization = () => {
         realTimeSensor?.moisture || 0,
     ];
 
+    const getForecastWeather = () => {
+        return axios
+            .get('http://localhost:5000/api/v1/forecastWeather')
+            .then((response) => {
+                setForecastWeatherData(response.data);
+                return response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     const getWeatherData = () => {
         axios
             .get(
@@ -137,56 +168,177 @@ const Visualization = () => {
             });
     };
 
+
+    const getCrops = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/v1/crop');
+            const activeCrops = response.data.filter(crop => crop.crop_active === true);
+            setCrops(activeCrops);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getCropsManagement = async () => {
+        try {
+            const response = await axios.get("http://localhost:5000/api/v1/cropManagement");
+            setCropManagement(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     useEffect(() => {
         getWeatherData();
-    }, []);
+        getForecastWeather();
+        getCrops();
+        getCropsManagement();
+        if (cropManagement.length > 0) {
+            const currentMonth = currentDateTime.getMonth(); // Get the current month (0-indexed)
+            const totalHarvestThisMonth = cropManagement.reduce((acc, crop) => {
+                const cropDate = new Date(crop.c_management_date);
+                const cropMonth = cropDate.getMonth();
+                if (cropMonth === currentMonth) {
+                    const cropName = crop.CROP_T.crop_name;
+                    acc[cropName] = (acc[cropName] || 0) + crop.c_management_harvest;
+                }
+                return acc;
+            }, {});
 
+            setTotalHarvest(totalHarvestThisMonth);
+        }
+    }, [cropManagement, currentDateTime]);
 
     return (
         <div>
             <h1 className="title">Visualization</h1>
 
+            <div>
+                <h1 style={{fontSize:"25px", marginBottom:"1vh"}}>{formattedDateTime}</h1>
+            </div>
             <div className="columns is-multiline">
-                <div className="column is-6">
+                <div className="column is-5">
                     <div className="card">
                         <header className="card-header" style={{ boxShadow: 'none', backgroundColor: '#E1F6F0' }}>
                             <p className="card-header-title is-centered">Sensor Data</p>
                         </header>
                         <div className="card-content">
                             <ReactApexChart options={combinedGaugeOptions} series={combinedGaugeSeries} type="radialBar" height={350} />
+                            <div>Last Updated: {lastUpdated}</div>
                         </div>
                     </div>
                 </div>
-                <div className="column is-4">
-                    <div className="card" style={{minHeight:"60vh"}}>
-                        <header className="card-header" style={{ boxShadow: 'none', backgroundColor: "#E1F6F0" }}>
+
+                <div className="column is-3">
+                    <div className="card">
+                        <header className="card-header" style={{ boxShadow: 'none', backgroundColor: '#E1F6F0' }}>
+                            <p className="card-header-title is-centered">Crop in the Farm</p>
+                        </header>
+                        <div className="card-content has-text-centered">
+                            {crops.length > 0 ? (
+                                crops.map((crop) => (
+                                    <div key={crop._id} style={{ marginBottom: '1rem' }}>
+                                        <h3 className="title is-5">{crop.crop_name}</h3>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No crops active in the farm.</p>
+                            )}
+                        </div>
+                    </div>
+                    <div className="card mt-5">
+                        <header className="card-header" style={{ boxShadow: 'none', backgroundColor: '#E1F6F0' }}>
+                            <p className="card-header-title is-centered">Total Harvest this Month</p>
+                        </header>
+                        <div className="card-content has-text-centered">
+                            <div className="card-content has-text-centered">
+                                {Object.keys(totalHarvest).length > 0 ? (
+                                    Object.entries(totalHarvest).map(([cropName, harvest]) => (
+                                        <div key={cropName} style={{ marginBottom: '1rem' }}>
+                                            <h3 className="title is-5">{cropName}: {harvest} KG</h3>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p>No harvest data available for this month.</p>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="column is-12">
+                    <div className="card" style={{ borderRadius: '10px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
+                        <header className="card-header" style={{ boxShadow: 'none', backgroundColor: '#E1F6F0' }}>
                             <p className="card-header-title is-centered">Climate Condition</p>
                         </header>
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                marginTop: "2vh"
-                            }}>
-                            {weatherData && weatherData.current && (
-                                <img
-                                    style={{ height: '150px', width: '150px', marginTop: "5vh" }}
-                                    src={weatherData.current.condition.icon}
-                                    alt="weather-icon"
-                                />
-                            )}
-                        </div>
+                        {weatherData && forecastWeatherData && forecastWeatherData.forecast ? (
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', padding: '2rem', textAlign: 'center' }}>
+                                {/* Day 1 */}
+                                <div>
+                                    <div style={{fontSize:"18px"}}>
+                                        {forecastWeatherData.forecast.forecastday[0].date}
+                                    </div>
+                                    <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>
+                                        {weatherData.current.temp_c}°C
+                                    </div>
+                                    <div>
+                                        <img
+                                            style={{ height: '80px', width: '80px' }}
+                                            src={weatherData.current.condition.icon}
+                                            alt="weather-icon"
+                                        />
+                                    </div>
+                                    <div style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+                                        {weatherData.current.condition.text}
+                                    </div>
+                                </div>
 
-                        <div style={{ textAlign: 'center' }}>
-                            {weatherData && weatherData.current && (
-                                <h1 style={{ fontSize: "70px", fontWeight: "bold" }}>
-                                    {weatherData.current.temp_c}°C
-                                </h1>
-                            )}
-                        </div>
+                                {/* Day 2 */}
+                                <div>
+                                    <div style={{fontSize:"18px"}}>
+                                        {forecastWeatherData.forecast.forecastday[1].date}
+                                    </div>
+                                    <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>
+                                        {forecastWeatherData.forecast.forecastday[1].day.avgtemp_c}°C
+                                    </div>
+                                    <div>
+                                        <img
+                                            style={{ height: '80px', width: '80px' }}
+                                            src={forecastWeatherData.forecast.forecastday[1].day.condition.icon}
+                                            alt="weather-icon"
+                                        />
+                                    </div>
+                                    <div style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+                                        {forecastWeatherData.forecast.forecastday[1].day.condition.text}
+                                    </div>
+                                </div>
+
+                                {/* Day 3 */}
+                                <div>
+                                    <div style={{fontSize:"18px"}}>
+                                        {forecastWeatherData.forecast.forecastday[2].date}
+                                    </div>
+                                    <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>
+                                        {forecastWeatherData.forecast.forecastday[2].day.avgtemp_c}°C
+                                    </div>
+                                    <div>
+                                        <img
+                                            style={{ height: '80px', width: '80px' }}
+                                            src={forecastWeatherData.forecast.forecastday[2].day.condition.icon}
+                                            alt="weather-icon"
+                                        />
+                                    </div>
+                                    <div style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+                                        {forecastWeatherData.forecast.forecastday[2].day.condition.text}
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div>Loading weather data...</div>
+                        )}
                     </div>
                 </div>
+
             </div>
         </div>
     );
