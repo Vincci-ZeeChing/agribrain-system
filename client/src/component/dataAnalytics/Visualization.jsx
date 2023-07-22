@@ -187,12 +187,15 @@ const Visualization = () => {
             console.error(error);
         }
     };
-
     useEffect(() => {
         getWeatherData();
         getForecastWeather();
         getCrops();
         getCropsManagement();
+    }, []);
+
+
+    useEffect(() => {
         if (cropManagement.length > 0) {
             const currentMonth = currentDateTime.getMonth(); // Get the current month (0-indexed)
             const totalHarvestThisMonth = cropManagement.reduce((acc, crop) => {
