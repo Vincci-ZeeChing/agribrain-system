@@ -11,6 +11,7 @@ const Visualization = () => {
     const [crops, setCrops] = useState([]); // State to hold the fetched crops
     const [cropManagement, setCropManagement] = useState([]);
     const [totalHarvest, setTotalHarvest] = useState({});
+    const [dailyHarvestData, setDailyHarvestData] = useState([]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -212,6 +213,83 @@ const Visualization = () => {
         }
     }, [cropManagement, currentDateTime]);
 
+    useEffect(() => {
+        if (cropManagement.length > 0) {
+            // Grouping cropManagement data by date
+            const groupedData = cropManagement.reduce((acc, crop) => {
+                const cropDate = new Date(crop.c_management_date);
+                const cropDateStr = cropDate.toISOString().split('T')[0];
+                if (acc[cropDateStr]) {
+                    acc[cropDateStr] += crop.c_management_harvest;
+                } else {
+                    acc[cropDateStr] = crop.c_management_harvest;
+                }
+                return acc;
+            }, {});
+
+            // Converting grouped data to an array of objects for ApexCharts
+            const dataArray = Object.entries(groupedData).map(([date, harvest]) => ({
+                x: new Date(date).getTime(),
+                y: harvest,
+            }));
+
+            // Sorting the data by date (in case it's not already sorted)
+            dataArray.sort((a, b) => a.x - b.x);
+
+            setDailyHarvestData(dataArray);
+        }
+    }, [cropManagement]);
+
+    const lastFiveDaysData = dailyHarvestData.slice(-5);
+    const areaChartSeries = [
+        {
+            name: 'Harvest',
+            data: lastFiveDaysData,
+        },
+    ];
+
+    const areaChartOptions = {
+        chart: {
+            id: 'area-chart',
+            toolbar: {
+                show: false,
+            },
+        },
+        colors: ['#71AF9D'],
+        xaxis: {
+            type: 'datetime',
+            labels: {
+                // Show only the last five x-axis labels
+                show: lastFiveDaysData.length <= 5,
+                formatter: (value, timestamp) => {
+                    const date = new Date(timestamp);
+                    return `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`;
+                },
+            },
+        },
+        yaxis: {
+            title: {
+                text: 'Total Harvest',
+            },
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        tooltip: {
+            x: {
+                format: 'dd MMM yyyy',
+            },
+        },
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.3,
+            },
+        },
+    };
+
     return (
         <div>
             <h1 className="title">Visualization</h1>
@@ -265,6 +343,17 @@ const Visualization = () => {
                                     <p>No harvest data available for this month.</p>
                                 )}
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="column is-4 ">
+                    <div className="card" style={{ borderRadius: '10px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
+                        <header className="card-header" style={{ boxShadow: 'none', backgroundColor: '#E1F6F0' }}>
+                            <p className="card-header-title is-centered">Total Harvest by Daily</p>
+                        </header>
+                        <div className="card-content">
+                            <ReactApexChart options={areaChartOptions} series={areaChartSeries} type="area" height={350} />
                         </div>
                     </div>
                 </div>
