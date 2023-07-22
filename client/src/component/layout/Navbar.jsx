@@ -22,7 +22,7 @@ const Navbar = () => {
       <div>
         <nav className="navbar is-fixed-top has-shadow is-transparent" style={{ backgroundColor: '#71AF9D' }}>
           <div className="navbar-brand">
-            <NavLink to="/agribrain" className="navbar-item">
+            <NavLink to="/homepage" className="navbar-item">
               <h1 style={{ color: 'white', fontSize: '35px', fontWeight: '900', marginLeft: '1vw' }}>AgriBrain</h1>
             </NavLink>
             <a

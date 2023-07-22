@@ -35,7 +35,7 @@ function App() {
                 <Route path="/" element={<Login/>}/>
 
                 {/*Main Page*/}
-                <Route path="/agribrain" element={<Agribrain/>}/>
+                <Route path="/homepage" element={<Agribrain/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/sensor-monitoring" element={<SensorDashboard/>}/>
                 <Route path="/climate-condition" element={<ClimateDashboard/>} />

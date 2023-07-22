@@ -21,7 +21,7 @@ const Login = () => {
 
     useEffect(() => {
         if (user || isSuccess) {
-            navigate("/agribrain");
+            navigate("/homepage");
         }
         dispatch(reset());
     }, [user, isSuccess, dispatch, navigate]);
