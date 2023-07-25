@@ -1,15 +1,15 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
-import {getMe} from "../../features/authSlice";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getMe } from "../../features/authSlice";
 import Layout from "../layout/Layout";
 import Report from "../../component/dataAnalytics/Report";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 const ReportDashboard = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {isError} = useSelector((state => state.auth));
+    const { isError } = useSelector((state => state.auth));
 
     useEffect(() => {
         dispatch(getMe());
@@ -26,7 +26,7 @@ const ReportDashboard = () => {
             <Helmet>
                 <title>AgriBrain | Report</title>
             </Helmet>
-            <Report/>
+            <Report />
         </Layout>
     );
 };

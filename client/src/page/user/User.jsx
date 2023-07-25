@@ -1,15 +1,15 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../layout/Layout'
 import UserList from "../../component/user/UserList";
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
-import {getMe} from "../../features/authSlice";
-import {Helmet} from "react-helmet";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getMe } from "../../features/authSlice";
+import { Helmet } from "react-helmet";
 
 const Users = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {isError,user} =useSelector((state => state.auth));
+    const { isError, user } = useSelector((state => state.auth));
 
     useEffect(() => {
         dispatch(getMe());
@@ -33,7 +33,7 @@ const Users = () => {
             <Helmet>
                 <title>AgriBrain | User</title>
             </Helmet>
-            <UserList/>
+            <UserList />
         </Layout>
     );
 };

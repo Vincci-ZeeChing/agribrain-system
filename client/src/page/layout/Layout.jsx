@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
     return (
         <React.Fragment>
             <Navbar />
-            <div className="columns mt-6" style={{ minHeight: "90vh" , overflowX: "auto"}}>
+            <div className="columns mt-6" style={{ minHeight: "90vh", overflowX: "auto" }}>
                 {sidebarVisible && (
                     <div className="column is-2">
                         <Sidebar />
@@ -34,13 +34,13 @@ const Layout = ({ children }) => {
                 )}
                 <div className="column has-background-light">
                     <div className="is-flex">
-                        <button className="button mt-3 ml-0" style={{ border: "none", backgroundColor:"transparent"}} onClick={toggleSidebar}>
+                        <button className="button mt-3 ml-0" style={{ border: "none", backgroundColor: "transparent" }} onClick={toggleSidebar}>
                             <FaBars />
                         </button>
                         <nav className="breadcrumb ml-0" aria-label="breadcrumbs">
-                            <div className="columns" style={{width:"97vw"}}>
+                            <div className="columns" style={{ width: "97vw" }}>
                                 <div className="column">
-                                    <ul className="is-active" style={{ marginTop: "3vh", marginLeft: "3vh", fontWeight:"bold" }}>
+                                    <ul className="is-active" style={{ marginTop: "3vh", marginLeft: "3vh", fontWeight: "bold" }}>
                                         <li>
                                             <a style={{ pointerEvents: "none", color: "inherit" }}>Agribrain</a>
                                         </li>
@@ -52,7 +52,7 @@ const Layout = ({ children }) => {
                                     </ul>
                                 </div>
                                 <div className="column is-narrow">
-                                    <p style={{ marginTop: "3vh", textAlign: "right",marginRight:"3vh" }}>
+                                    <p style={{ marginTop: "3vh", textAlign: "right", marginRight: "3vh" }}>
                                         {user && user.user.user_fullname}
                                         <IoPerson style={{ marginLeft: "1vw" }} />
                                     </p>
