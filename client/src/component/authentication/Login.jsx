@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
-import {LoginUser, reset} from "../../features/authSlice";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { LoginUser, reset } from "../../features/authSlice";
 import picture1 from "../../image/adverdisment/picture1.jpg";
 import picture2 from "../../image/adverdisment/picture2.jpg";
 import picture3 from "../../image/adverdisment/picture3.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import {Carousel} from "react-responsive-carousel";
+import { Carousel } from "react-responsive-carousel";
 
 const Login = () => {
 
@@ -15,7 +15,7 @@ const Login = () => {
     const [showEmptyFieldMessage, setShowEmptyFieldMessage] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {user, isError, isSuccess, isLoading, message} = useSelector(
+    const { user, isError, isSuccess, isLoading, message } = useSelector(
         (state) => state.auth
     );
 
@@ -32,7 +32,7 @@ const Login = () => {
             setShowEmptyFieldMessage(true);
         } else {
             setShowEmptyFieldMessage(false);
-            dispatch(LoginUser({email, password}));
+            dispatch(LoginUser({ email, password }));
         }
     };
 
@@ -40,7 +40,7 @@ const Login = () => {
         <section className="hero is-fullheight is-fullwidth">
             <nav
                 className="navbar is-flex is-justify-content-center"
-                style={{backgroundColor: "#71AF9D"}}
+                style={{ backgroundColor: "#71AF9D" }}
             >
                 <div className="navbar-brand">
                     <h1
@@ -65,10 +65,10 @@ const Login = () => {
                                 {isError && (
                                     <div className="modal is-active">
                                         <div className="modal-background"></div>
-                                        <div className="modal-card" style={{width: "20vw"}}>
+                                        <div className="modal-card" style={{ width: "20vw" }}>
                                             <header
                                                 className="modal-card-head"
-                                                style={{backgroundColor: "#71AF9D"}}
+                                                style={{ backgroundColor: "#71AF9D" }}
                                             >
                                                 <p
                                                     className="modal-card-title"
@@ -88,14 +88,14 @@ const Login = () => {
                                             </header>
                                             <section
                                                 className="modal-card-body is-flex is-justify-content-center"
-                                                style={{fontSize: "20px"}}
+                                                style={{ fontSize: "20px" }}
                                             >
-                                                <p style={{margin: "2vh"}}>{message}</p>
-                                                <br/>
+                                                <p style={{ margin: "2vh" }}>{message}</p>
+                                                <br />
                                             </section>
                                             <footer
                                                 className="modal-card-foot is-justify-content-end"
-                                                style={{height: "2vh"}}
+                                                style={{ height: "2vh" }}
                                             >
                                                 <button
                                                     className="button is-small"
@@ -114,7 +114,7 @@ const Login = () => {
                                 )}
                                 <h1 className="title is-2 has-text-centered">Sign In</h1>
                                 {showEmptyFieldMessage && (
-                                    <p className="help is-danger" style={{fontSize: "15px"}}>
+                                    <p className="help is-danger" style={{ fontSize: "15px" }}>
                                         Please fill in all fields.
                                     </p>
                                 )}
@@ -146,7 +146,7 @@ const Login = () => {
                                     <button
                                         type="submit"
                                         className="button"
-                                        style={{backgroundColor: "#71AF9D", color: "white"}}
+                                        style={{ backgroundColor: "#71AF9D", color: "white" }}
                                     >
                                         {isLoading ? "Loading..." : "Login"}
                                     </button>
@@ -162,14 +162,14 @@ const Login = () => {
                                 showArrows={false}
                                 showThumbs={false}
                             >
-                                <div style={{height: "400px"}}>
-                                    <img src={picture1} alt="Advertisement 1" style={{height: "100%"}}/>
+                                <div style={{ height: "400px" }}>
+                                    <img src={picture1} alt="Advertisement 1" style={{ height: "100%" }} />
                                 </div>
-                                <div style={{height: "400px"}}>
-                                    <img src={picture2} alt="Advertisement 2" style={{height: "100%"}}/>
+                                <div style={{ height: "400px" }}>
+                                    <img src={picture2} alt="Advertisement 2" style={{ height: "100%" }} />
                                 </div>
-                                <div style={{height: "400px"}}>
-                                    <img src={picture3} alt="Advertisement 3" style={{height: "100%"}}/>
+                                <div style={{ height: "400px" }}>
+                                    <img src={picture3} alt="Advertisement 3" style={{ height: "100%" }} />
                                 </div>
                             </Carousel>
                         </div>
