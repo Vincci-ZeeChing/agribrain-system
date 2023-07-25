@@ -2,14 +2,14 @@ const SensorModel = require("../model/SensorModel");
 const cron = require('node-cron');
 
 const getSensorData = async (req, res) => {
-    try{
+    try {
         let response;
         response = await SensorModel.findAll(({
-            attributes:['id','sensor_uuid','sensor_temperature','sensor_humidity','sensor_moisture', 'createdAt'],
+            attributes: ['id', 'sensor_uuid', 'sensor_temperature', 'sensor_humidity', 'sensor_moisture', 'createdAt'],
         }))
         res.status(200).json(response);
-    }catch (error){
-        res.status(500).json({msg:error.message});
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
     }
 }
 
@@ -38,7 +38,7 @@ const createSensorData = async (req, res) => {
 
         const data = await response.json();
 
-        if (data.temperature !== 0 && data.humidity !== 0 && data.moisture !== 0 && data.humidity < 100 && data.temperature > 20 ) {
+        if (data.temperature !== 0 && data.humidity !== 0 && data.moisture !== 0 && data.humidity < 100 && data.temperature > 20) {
             await SensorModel.create({
                 sensor_temperature: data.temperature.toString(),
                 sensor_humidity: data.humidity.toString(),

@@ -2,24 +2,24 @@ const Crop = require('../model/CropModel.js');
 const User = require('../model/UserModel.js');
 
 // Get all crop
-const getCrop = async (req,res) =>{
-    try{
+const getCrop = async (req, res) => {
+    try {
         let response;
         response = await Crop.findAll(({
-            attributes:['id','crop_uuid','crop_name', 'crop_active'],
-            include:[{
-                model:User,
-                attributes:['user_fullname','user_email'],
+            attributes: ['id', 'crop_uuid', 'crop_name', 'crop_active'],
+            include: [{
+                model: User,
+                attributes: ['user_fullname', 'user_email'],
             }]
         }))
         res.status(200).json(response);
-    }catch (error){
-        res.status(500).json({msg:error.message});
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
     }
 }
 
 // Get crop by id
-const getCropById = async (req,res) =>{
+const getCropById = async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -129,7 +129,7 @@ const updateCrop = async (req, res) => {
 }
 
 // Delete crop
-const deleteCrop = async (req,res) =>{
+const deleteCrop = async (req, res) => {
     try {
         const crop = await Crop.findOne({
             where: {

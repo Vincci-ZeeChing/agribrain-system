@@ -149,7 +149,7 @@ async function getCropManagement(callback) {
                     [Op.between]: [firstDayOfMonth, lastDayOfMonth],
                 },
             },
-            attributes: ["c_management_uuid","c_management_date", "c_management_harvest", "c_management_stored", "c_management_sold", "c_management_price"],
+            attributes: ["c_management_uuid", "c_management_date", "c_management_harvest", "c_management_stored", "c_management_sold", "c_management_price"],
             include: [
                 {
                     model: User,
@@ -159,7 +159,7 @@ async function getCropManagement(callback) {
                 {
                     model: Crop,
                     as: 'CROP_T',
-                    attributes: ['id','crop_name'],
+                    attributes: ['id', 'crop_name'],
                 },
             ],
         });
@@ -262,7 +262,7 @@ async function getFarmingRecordForCurrentMonth(callback) {
                 {
                     model: Crop,
                     as: 'CROP_T',
-                    attributes: ['id','crop_name'],
+                    attributes: ['id', 'crop_name'],
                 },
             ],
         });
@@ -349,7 +349,7 @@ async function getCropManagementForOtherMonth(year, month, callback) {
                     [Op.between]: [firstDayOfMonth, lastDayOfMonth],
                 },
             },
-            attributes: ["c_management_uuid","c_management_date", "c_management_harvest", "c_management_stored", "c_management_sold", "c_management_price"],
+            attributes: ["c_management_uuid", "c_management_date", "c_management_harvest", "c_management_stored", "c_management_sold", "c_management_price"],
             include: [
                 {
                     model: User,
@@ -359,7 +359,7 @@ async function getCropManagementForOtherMonth(year, month, callback) {
                 {
                     model: Crop,
                     as: 'CROP_T',
-                    attributes: ['id','crop_name'],
+                    attributes: ['id', 'crop_name'],
                 },
             ],
         });
@@ -460,7 +460,7 @@ async function getFarmingRecordForOtherMonth(year, month, callback) {
                 {
                     model: Crop,
                     as: 'CROP_T',
-                    attributes: ['id','crop_name'],
+                    attributes: ['id', 'crop_name'],
                 },
             ],
         });

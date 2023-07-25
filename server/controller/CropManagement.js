@@ -23,7 +23,7 @@ const getCropManagement = async (req, res) => {
         if (role === 'Admin' || role === 'Farmer') {
             // Allow admin and farmer to access all records
             const cropManagementData = await CropManagementModel.findAll({
-                attributes: ["c_management_uuid","c_management_date", "c_management_harvest", "c_management_stored", "c_management_sold", "c_management_price"],
+                attributes: ["c_management_uuid", "c_management_date", "c_management_harvest", "c_management_stored", "c_management_sold", "c_management_price"],
                 include: [
                     {
                         model: UserModel,
@@ -33,7 +33,7 @@ const getCropManagement = async (req, res) => {
                     {
                         model: CropModel,
                         as: 'CROP_T',
-                        attributes: ['id','crop_name'],
+                        attributes: ['id', 'crop_name'],
                     },
                 ],
             });
@@ -57,7 +57,7 @@ const getCropManagementById = async (req, res) => {
             where: {
                 c_management_uuid: id,
             },
-            attributes: ["c_management_uuid","c_management_date", "c_management_harvest", "c_management_stored", "c_management_sold", "c_management_price"],
+            attributes: ["c_management_uuid", "c_management_date", "c_management_harvest", "c_management_stored", "c_management_sold", "c_management_price"],
             include: [
                 {
                     model: UserModel,
@@ -67,7 +67,7 @@ const getCropManagementById = async (req, res) => {
                 {
                     model: CropModel,
                     as: 'CROP_T',
-                    attributes: ['id','crop_name'],
+                    attributes: ['id', 'crop_name'],
                 },
             ],
         });
