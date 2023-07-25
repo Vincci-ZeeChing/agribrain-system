@@ -59,7 +59,7 @@ const SensorMonitoring = () => {
                     <div className="content has-text-centered">Temperature is in good condition</div>
                 </div>
             );
-        }else {
+        } else {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -74,7 +74,7 @@ const SensorMonitoring = () => {
     };
 
     const renderHumidity = () => {
-        if (sensor.humidity <1 || sensor.humidity > 100) {
+        if (sensor.humidity < 1 || sensor.humidity > 100) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -105,7 +105,7 @@ const SensorMonitoring = () => {
                     <div className="content has-text-centered">Humidity is in good condition</div>
                 </div>
             );
-        }else {
+        } else {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -120,7 +120,7 @@ const SensorMonitoring = () => {
     };
 
     const renderMoisture = () => {
-        if (sensor.moisture === 0 ) {
+        if (sensor.moisture === 0) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -151,7 +151,7 @@ const SensorMonitoring = () => {
                     <div className="content has-text-centered">Soil moisture is in good condition</div>
                 </div>
             );
-        }else if (sensor.moisture > 80) {
+        } else if (sensor.moisture > 80) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -160,7 +160,7 @@ const SensorMonitoring = () => {
                     <div className="content has-text-centered" style={{ color: 'red' }}>Soil moisture is low, stop irrigate the crop</div>
                 </div>
             );
-        }else {
+        } else {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>

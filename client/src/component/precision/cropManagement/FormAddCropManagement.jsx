@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const FormAddCropManagement = () => {
     const [crops, setCrops] = useState([]);
@@ -70,7 +70,7 @@ const FormAddCropManagement = () => {
             return;
         }
 
-        if(calculateStored() < 0){
+        if (calculateStored() < 0) {
             setMessage('Stored cannot be less than 0.');
             return;
         }

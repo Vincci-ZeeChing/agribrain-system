@@ -33,7 +33,7 @@ const FormAddCrop = () => {
         }
     };
 
-	// Function to handle the input change and allow only alphabet characters
+    // Function to handle the input change and allow only alphabet characters
     const handleNameChange = (e) => {
         const inputValue = e.target.value;
         const alphabetPattern = /^[A-Za-z]+$/; // Regular expression to allow only alphabet characters

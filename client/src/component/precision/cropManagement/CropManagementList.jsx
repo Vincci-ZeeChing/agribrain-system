@@ -88,8 +88,8 @@ const CropManagementList = () => {
                             style={{ minWidth: "20vw", maxWidth: "25vw" }}
                         />
                         <span className="icon is-small is-left">
-              <FaFilter className="filter-icon" />
-            </span>
+                            <FaFilter className="filter-icon" />
+                        </span>
                     </div>
                 </div>
 
@@ -109,8 +109,8 @@ const CropManagementList = () => {
                             style={{ minWidth: "20vw", maxWidth: "25vw" }}
                         />
                         <span className="icon is-small is-left">
-              <FaFilter className="filter-icon" />
-            </span>
+                            <FaFilter className="filter-icon" />
+                        </span>
                         <DatePicker
                             className="input is-rounded"
                             selected={endDate}
@@ -129,55 +129,55 @@ const CropManagementList = () => {
 
             <table className="table is-bordered is-hoverable is-fullwidth mt-3">
                 <thead>
-                <tr style={{ backgroundColor: '#E1F6F0' }}>
-                    <th className="has-text-centered">No</th>
-                    <th className="has-text-centered">Date</th>
-                    <th className="has-text-centered">Crop Name</th>
-                    <th className="has-text-centered">Harvest (kg)</th>
-                    <th className="has-text-centered">Stored (kg)</th>
-                    <th className="has-text-centered">Sold (kg)</th>
-                    <th className="has-text-centered">Price (RM)</th>
-                    <th className="has-text-centered">Created By</th>
-                    <th className="has-text-centered">Actions</th>
-                </tr>
+                    <tr style={{ backgroundColor: '#E1F6F0' }}>
+                        <th className="has-text-centered">No</th>
+                        <th className="has-text-centered">Date</th>
+                        <th className="has-text-centered">Crop Name</th>
+                        <th className="has-text-centered">Harvest (kg)</th>
+                        <th className="has-text-centered">Stored (kg)</th>
+                        <th className="has-text-centered">Sold (kg)</th>
+                        <th className="has-text-centered">Price (RM)</th>
+                        <th className="has-text-centered">Created By</th>
+                        <th className="has-text-centered">Actions</th>
+                    </tr>
                 </thead>
                 {filteredCropManagement.length > 0 ? (
                     <tbody>
-                    {filteredCropManagement.map((crop, index) => (
-                        <tr key={crop.c_management_uuid}>
-                            <td className="has-text-centered">{index + 1}</td>
-                            <td className="has-text-centered">{crop.c_management_date}</td>
-                            <td className="has-text-centered">{crop.CROP_T.crop_name}</td>
-                            <td className="has-text-centered">{crop.c_management_harvest}</td>
-                            <td className="has-text-centered">{crop.c_management_stored}</td>
-                            <td className="has-text-centered">{crop.c_management_sold}</td>
-                            <td className="has-text-centered">{crop.c_management_price}</td>
-                            <td className="has-text-centered">{crop.USER_T.user_fullname}</td>
-                            <td>
-                                <div className="has-text-centered">
-                                    <Link
-                                        to={`/precision-farming/crop-management/edit/${crop.c_management_uuid}`}
-                                        className="is-small is-info mr-3"
-                                    >
-                                        <span className="is-underlined">Edit</span>
-                                    </Link>
-                                    <span
-                                        className="is-hoverable is-small delete-text"
-                                        style={{ cursor: 'pointer', color: 'red', textDecoration:"underline"} }
-                                        onClick={() => handleDeleteConfirmation(crop.c_management_uuid)}
-                                    >
-                                       Delete
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
+                        {filteredCropManagement.map((crop, index) => (
+                            <tr key={crop.c_management_uuid}>
+                                <td className="has-text-centered">{index + 1}</td>
+                                <td className="has-text-centered">{crop.c_management_date}</td>
+                                <td className="has-text-centered">{crop.CROP_T.crop_name}</td>
+                                <td className="has-text-centered">{crop.c_management_harvest}</td>
+                                <td className="has-text-centered">{crop.c_management_stored}</td>
+                                <td className="has-text-centered">{crop.c_management_sold}</td>
+                                <td className="has-text-centered">{crop.c_management_price}</td>
+                                <td className="has-text-centered">{crop.USER_T.user_fullname}</td>
+                                <td>
+                                    <div className="has-text-centered">
+                                        <Link
+                                            to={`/precision-farming/crop-management/edit/${crop.c_management_uuid}`}
+                                            className="is-small is-info mr-3"
+                                        >
+                                            <span className="is-underlined">Edit</span>
+                                        </Link>
+                                        <span
+                                            className="is-hoverable is-small delete-text"
+                                            style={{ cursor: 'pointer', color: 'red', textDecoration: "underline" }}
+                                            onClick={() => handleDeleteConfirmation(crop.c_management_uuid)}
+                                        >
+                                            Delete
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 ) : (
                     <tbody>
-                    <tr>
-                        <td colSpan="9">No data found.</td>
-                    </tr>
+                        <tr>
+                            <td colSpan="9">No data found.</td>
+                        </tr>
                     </tbody>
                 )}
             </table>

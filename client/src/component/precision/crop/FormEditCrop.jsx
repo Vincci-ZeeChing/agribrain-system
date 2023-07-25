@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import pluralize from "pluralize";
 
 const FormEditCrop = () => {
-    const [name,setName] = useState("");
-    const [message,setMessage] = useState("");
+    const [name, setName] = useState("");
+    const [message, setMessage] = useState("");
     const [originalName, setOriginalName] = useState(""); // Add state for the original crop name
 
-    const {id} = useParams();
+    const { id } = useParams();
 
     const navigate = useNavigate();
 
@@ -40,11 +40,11 @@ const FormEditCrop = () => {
         const capitalizedCropName = singularCropName.charAt(0).toUpperCase() + singularCropName.slice(1);
 
         try {
-            await axios.patch(`http://localhost:5000/api/v1/crop/${id}`,{
-                crop_name:capitalizedCropName,
+            await axios.patch(`http://localhost:5000/api/v1/crop/${id}`, {
+                crop_name: capitalizedCropName,
             })
             navigate("/precision-farming/crop");
-        }catch (error) {
+        } catch (error) {
             if (error.response && error.response.data && error.response.data.msg) {
                 setMessage(error.response.data.msg);
             }

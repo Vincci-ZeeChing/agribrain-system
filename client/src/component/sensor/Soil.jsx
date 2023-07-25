@@ -114,7 +114,7 @@ const Soil = () => {
     };
 
     const renderMoisture = () => {
-        if (realTimeSensor.moisture === 0 ) {
+        if (realTimeSensor.moisture === 0) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -145,7 +145,7 @@ const Soil = () => {
                     <div className="content has-text-centered">Soil moisture is in good condition</div>
                 </div>
             );
-        }else if (realTimeSensor.moisture > 80) {
+        } else if (realTimeSensor.moisture > 80) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -154,7 +154,7 @@ const Soil = () => {
                     <div className="content has-text-centered" style={{ color: 'red' }}>Soil moisture is low, stop irrigate the crop</div>
                 </div>
             );
-        }else {
+        } else {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>

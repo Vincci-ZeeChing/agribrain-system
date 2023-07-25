@@ -4,7 +4,7 @@ import ReactApexChart from 'react-apexcharts';
 
 const Surrounding = () => {
     const [sensorData, setSensorData] = useState([]);
-	const [realTimeSensor, setRealTimeSensor] = useState("");
+    const [realTimeSensor, setRealTimeSensor] = useState("");
     const [lastUpdated, setLastUpdated] = useState(null); // Add state for last updated time
 
     useEffect(() => {
@@ -215,7 +215,7 @@ const Surrounding = () => {
                     <div className="content has-text-centered">Temperature is in good condition</div>
                 </div>
             );
-        }else {
+        } else {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -230,7 +230,7 @@ const Surrounding = () => {
     };
 
     const renderHumidity = () => {
-        if (realTimeSensor.humidity <1 || realTimeSensor.humidity > 100) {
+        if (realTimeSensor.humidity < 1 || realTimeSensor.humidity > 100) {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -261,7 +261,7 @@ const Surrounding = () => {
                     <div className="content has-text-centered">Humidity is in good condition</div>
                 </div>
             );
-        }else {
+        } else {
             return (
                 <div>
                     <div className="content has-text-centered" style={{ height: '10vh', fontSize: '40px', fontWeight: 'bold' }}>
@@ -278,7 +278,7 @@ const Surrounding = () => {
     return (
         <div>
             <h1 className="title">Surrounding</h1>
-			<div>
+            <div>
                 Last Updated: {lastUpdated ? formatDate(lastUpdated) : 'Never'}
             </div>
 
