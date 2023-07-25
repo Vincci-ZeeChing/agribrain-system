@@ -170,7 +170,7 @@ const HourlyForecast = () => {
 
 
     const getCurrentHourIndex = () => {
-        const currentHour = new Date().getHours()+1;
+        const currentHour = new Date().getHours() + 1;
         return currentHour;
     };
 
@@ -199,7 +199,7 @@ const HourlyForecast = () => {
                                 {hourData.time.slice(11, 16)}
                             </p>
                         </header>
-                        <div className="card-content" style={{minHeight:"30vh"}}>
+                        <div className="card-content" style={{ minHeight: "30vh" }}>
                             <div className="content has-text-centered">
                                 <div>
                                     {hourData.condition && (

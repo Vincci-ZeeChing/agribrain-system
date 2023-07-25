@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactApexChart from "react-apexcharts";
 import axios from "axios";
 
@@ -122,8 +122,8 @@ const DailyForecast = () => {
                                                                 <img
                                                                     src={
                                                                         forecastWeatherData.forecast.forecastday[
-                                                                        index + 1
-                                                                            ].day.condition.icon
+                                                                            index + 1
+                                                                        ].day.condition.icon
                                                                     }
                                                                     alt="weather-icon"
                                                                     style={{ margin: '0 auto', width: '60px' }}
