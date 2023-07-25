@@ -34,11 +34,11 @@ const FarmingModel = sequelize.define('FARMING_T', {
             isDate: true,
         },
     },
-    cropId:{
+    cropId: {
         type: DataTypes.INTEGER,
-        allowNull:true,
+        allowNull: true,
         validate: {
-            notEmpty:true,
+            notEmpty: true,
         }
     },
     userId: {

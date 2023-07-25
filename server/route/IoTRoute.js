@@ -1,5 +1,5 @@
 const express = require('express');
-const { getSensorData ,getRealTimeSensorData, createSensorData } = require ("../controller/IoT.js");
+const { getSensorData, getRealTimeSensorData, createSensorData } = require("../controller/IoT.js");
 
 const router = express.Router();
 

@@ -1,5 +1,5 @@
 const express = require('express');
-const { getCurrentWeather, getForecastWeather, getHistoryWeather } = require ("../controller/Weather.js");
+const { getCurrentWeather, getForecastWeather, getHistoryWeather } = require("../controller/Weather.js");
 
 const router = express.Router();
 
