@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
 
 const DashboardComponent = () => {
@@ -85,18 +85,18 @@ const DashboardComponent = () => {
             advice = 'Increase irrigation to maintain optimal soil moisture.';
         } else if (moisture > 80) {
             advice = 'Reduce irrigation to avoid overwatering.';
-        }else if (moisture === 0 ) {
+        } else if (moisture === 0) {
             advice = 'Insertion of the sensor into the soil.';
-        }else if (moisture <80 || moisture > 40) {
+        } else if (moisture < 80 || moisture > 40) {
             advice = 'Soil moisture level is optimal for crop growth.';
         }
 
 
         if (temperature > 38 && humidity > 80) {
             advice += ' High temperature and humidity may require additional shading and ventilation.';
-        }else if (temperature >33) {
+        } else if (temperature > 33) {
             advice += ' High temperature may require irrigation.';
-        }else if (temperature > 20 && temperature < 33) {
+        } else if (temperature > 20 && temperature < 33) {
             advice += ' No specific advice for current temperature and humidity conditions.';
         } else {
             advice = ' Hardware Error, Please check the hardware.';
@@ -112,13 +112,13 @@ const DashboardComponent = () => {
                     NaN °C
                 </div>
             );
-        }else if (sensor.temperature >= 20 || sensor.temperature <= 40) {
+        } else if (sensor.temperature >= 20 || sensor.temperature <= 40) {
             return (
                 <div>
                     {Number(sensor.temperature).toFixed(2)} °C
                 </div>
             );
-        }else {
+        } else {
             return (
                 <div>
                     NaN °C
@@ -134,7 +134,7 @@ const DashboardComponent = () => {
                     NaN %
                 </div>
             );
-        }else if (sensor.humidity >=1 ||sensor.humidity <= 100) {
+        } else if (sensor.humidity >= 1 || sensor.humidity <= 100) {
             return (
                 <div>
                     {sensor.humidity} %
@@ -156,13 +156,13 @@ const DashboardComponent = () => {
                     0 %
                 </div>
             );
-        } else if (sensor.moisture >1 || sensor.moisture < 100) {
+        } else if (sensor.moisture > 1 || sensor.moisture < 100) {
             return (
                 <div>
                     {sensor.moisture} %
                 </div>
             );
-        }else {
+        } else {
             return (
                 <div>
                     NaN %
@@ -208,7 +208,7 @@ const DashboardComponent = () => {
                 <div className="column is-6">
                     <div className="columns" style={{ height: '40vh' }}>
                         <div className="column is-6">
-                            <div className="card" style={{ width: '40vw', margin: '2vw' , height: "35vh" }}>
+                            <div className="card" style={{ width: '40vw', margin: '2vw', height: "35vh" }}>
                                 <header className="card-header" style={{ boxShadow: 'none', backgroundColor: "#E1F6F0" }}>
                                     <p className="card-header-title is-centered">Sensor Monitoring</p>
                                 </header>
