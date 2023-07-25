@@ -47,7 +47,7 @@ const FormFertiliserRecommendation = () => {
         setSelectedCrop(value);
     };
 
-// Add a new useEffect hook to handle nutrient data updates when the selectedCrop changes
+    // Add a new useEffect hook to handle nutrient data updates when the selectedCrop changes
     useEffect(() => {
         // Ensure that the nutrient data is available and the selectedCrop is not an empty string
         if (Object.keys(nutrientData).length > 0 && selectedCrop !== '') {
@@ -101,7 +101,6 @@ const FormFertiliserRecommendation = () => {
         // Get the nutrient values for the selected crop
         const cropNutrientData = nutrientData[selectedCrop];
         setActualNurientData(cropNutrientData);
-        // console.log(actualNurientData);
 
         // Define the range (+/- 5) for optimal values
         const optimalRange = 5;
@@ -220,15 +219,15 @@ const FormFertiliserRecommendation = () => {
                     </form>
                 </div>
                 <div className="column is-flex is-justify-content-center is-align-content-center" >
-                    <div className="card" style={{ width: '100%', margin: '2vw' , height: "35vh" }}>
+                    <div className="card" style={{ width: '100%', margin: '2vw', height: "35vh" }}>
                         <header className="card-header" style={{ boxShadow: 'none', backgroundColor: "#E1F6F0" }}>
-                            <p className="card-header-title is-centered" style={{fontSize:"20px"}}>{selectedCrop}</p>
+                            <p className="card-header-title is-centered" style={{ fontSize: "20px" }}>{selectedCrop}</p>
                         </header>
                         <div className="card-content has-text-centered">
                             {selectedCrop && (
                                 <div>
                                     <p>Estimate Nutrition Data for the crop:</p>
-                                    <br/>
+                                    <br />
                                     <p>Nitrogen (N): {actualNurientData['Nitrogen (N)']}</p>
                                     <p>Phosphorus (P): {actualNurientData['Phosphorus (P)']}</p>
                                     <p>Potassium (K): {actualNurientData['Potassium (K)']}</p>
@@ -242,7 +241,7 @@ const FormFertiliserRecommendation = () => {
                 {modalIsOpen && (
                     <div className="modal is-active">
                         <div className="modal-background" onClick={closeModal}></div>
-                        <div className="modal-content" style={{width:"70vw"}}>
+                        <div className="modal-content" style={{ width: "70vw" }}>
                             <header className="modal-card-head" style={{ backgroundColor: "#71AF9D" }}>
                                 <p className="modal-card-title" style={{ color: "white", textAlign: "center", margin: "0 auto" }}>
                                     Fertiliser Recommendation
@@ -253,7 +252,7 @@ const FormFertiliserRecommendation = () => {
                                 {selectedCrop && (
                                     <>
                                         <strong style={{ fontSize: "30px" }}>{selectedCrop}</strong>
-                                        <div style={{ display: "flex", justifyContent: "space-between" , marginBottom:"3vh"}}>
+                                        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "3vh" }}>
                                             <div style={{ flex: 1 }}>
                                                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
                                                     <strong>User Input:</strong>
@@ -280,10 +279,10 @@ const FormFertiliserRecommendation = () => {
                                             Nitrogen deficiency can lead to stunted growth, yellowing of leaves, and reduced yield. If nitrogen levels are too low, a crop may require additional nitrogen fertilization.
                                         </p>
                                         <p>
-                                            Method:<br/>
+                                            Method:<br />
                                             If nitrogen levels are low, consider applying nitrogen-rich fertilizers such as ammonium nitrate or urea. Follow the recommended application rates based on your crop type and growth stage. Splitting nitrogen applications during the growing season can also help provide a continuous supply.
                                         </p>
-                                        <br/>
+                                        <br />
                                     </div>
                                 )}
                                 {result.nitrogenStatus === "high" && (
@@ -294,10 +293,10 @@ const FormFertiliserRecommendation = () => {
                                             Excessive nitrogen can result in lush vegetative growth but can also lead to decreased fruiting and increased susceptibility to diseases. High nitrogen levels may indicate the need for adjustments in fertilization practices.
                                         </p>
                                         <p>
-                                            Method:<br/>
+                                            Method:<br />
                                             If nitrogen levels are excessively high, reduce nitrogen fertilization. Adjust the application rates and timing to match the crop's requirements without overloading the soil with excess nitrogen.
                                         </p>
-                                        <br/>
+                                        <br />
                                     </div>
                                 )}
                                 {result.nitrogenStatus === "optimal" && (
@@ -308,10 +307,10 @@ const FormFertiliserRecommendation = () => {
                                             Maintaining optimal nitrogen levels is crucial for healthy plant growth and maximum yield. When nitrogen levels are balanced, plants can develop robust vegetative growth, strong root systems, and efficient photosynthesis.
                                         </p>
                                         <p>
-                                            Method:<br/>
+                                            Method:<br />
                                             To maintain optimal nitrogen levels, regular soil testing is recommended to monitor nitrogen availability. It is also important to follow good agricultural practices, including crop rotation, cover cropping, and organic matter management, to enhance nitrogen cycling in the soil. These practices can help ensure a sustainable supply of nitrogen to support plant growth without excessive buildup or depletion.
                                         </p>
-                                        <br/>
+                                        <br />
                                     </div>
                                 )}
 
@@ -323,10 +322,10 @@ const FormFertiliserRecommendation = () => {
                                             Phosphorus deficiency can cause slow growth, poor root development, and delayed maturity. If phosphorus levels are too low, applying phosphorus-based fertilizers may be necessary.
                                         </p>
                                         <p>
-                                            Method:<br/>
+                                            Method:<br />
                                             If phosphorus levels are low, apply phosphorus-based fertilizers such as triple superphosphate or rock phosphate. Again, follow the recommended application rates and consider incorporating the fertilizer into the soil during planting.
                                         </p>
-                                        <br/>
+                                        <br />
                                     </div>
                                 )}
                                 {result.phosphorusStatus === "high" && (
@@ -337,10 +336,10 @@ const FormFertiliserRecommendation = () => {
                                             Phosphorus toxicity is less common but can occur in situations of excessive phosphorus application. It may lead to nutrient imbalances and can negatively impact other nutrients' uptake by the crop.
                                         </p>
                                         <p>
-                                            Method:<br/>
+                                            Method:<br />
                                             If phosphorus levels are too high, avoid applying additional phosphorus-based fertilizers. Instead, focus on maintaining proper nutrient balance through soil testing and adjusting fertilizer practices accordingly.
                                         </p>
-                                        <br/>
+                                        <br />
                                     </div>
                                 )}
 
@@ -352,10 +351,10 @@ const FormFertiliserRecommendation = () => {
                                             Maintaining optimal phosphorus levels is crucial for promoting healthy root development, flowering, and fruiting in plants. Adequate phosphorus availability supports energy transfer, DNA synthesis, and other essential metabolic processes.
                                         </p>
                                         <p>
-                                            Method: <br/>
+                                            Method: <br />
                                             To maintain optimal phosphorus levels, it is important to regularly monitor soil fertility through soil testing. Additionally, adopting practices such as proper crop rotation, organic matter management, and using phosphorus fertilizers with controlled-release formulations can help ensure a sustained supply of phosphorus to plants. These practices enhance nutrient cycling and minimize phosphorus loss, promoting efficient nutrient utilization and minimizing environmental impacts.
                                         </p>
-                                        <br/>
+                                        <br />
                                     </div>
                                 )}
 
@@ -373,7 +372,7 @@ const FormFertiliserRecommendation = () => {
                                             Method:
                                             For low potassium levels, use potassium-rich fertilizers like potassium chloride or potassium sulfate. Apply according to recommended rates, considering the crop's specific needs.
                                         </p>
-                                        <br/>
+                                        <br />
                                     </div>
                                 )}
                                 {result.potassiumStatus === "high" && (
@@ -387,7 +386,7 @@ const FormFertiliserRecommendation = () => {
                                         <p>
                                             Excess potassium levels can be challenging to address directly. In such cases, focus on maintaining balanced nutrient management practices overall. Limiting potassium inputs and adjusting other nutrient applications can help restore nutrient equilibrium.
                                         </p>
-                                        <br/>
+                                        <br />
                                     </div>
                                 )}
 
@@ -399,10 +398,10 @@ const FormFertiliserRecommendation = () => {
                                             Maintaining optimal potassium levels is essential for overall plant health, as potassium plays a vital role in various physiological processes, including enzyme activation, water uptake, and photosynthesis. Adequate potassium levels contribute to improved disease resistance, strong root development, and enhanced nutrient uptake.
                                         </p>
                                         <p>
-                                            Method: <br/>
+                                            Method: <br />
                                             To maintain optimal potassium levels, regular soil testing is recommended to monitor potassium availability. Potassium can be supplied through potassium-rich fertilizers like potassium sulfate or potassium chloride, applied at recommended rates based on the specific crop's needs. Proper irrigation practices and soil moisture management are also essential to ensure efficient potassium uptake by plants.
                                         </p>
-                                        <br/>
+                                        <br />
                                     </div>
                                 )}
 

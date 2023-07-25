@@ -5,8 +5,8 @@ import ReactApexChart from 'react-apexcharts';
 const Visualization = () => {
     const [realTimeSensor, setRealTimeSensor] = useState({});
     const [weatherData, setWeatherData] = useState();
-	const [currentDateTime, setCurrentDateTime] = useState(new Date());
-	const [lastUpdated, setLastUpdated] = useState();
+    const [currentDateTime, setCurrentDateTime] = useState(new Date());
+    const [lastUpdated, setLastUpdated] = useState();
     const [forecastWeatherData, setForecastWeatherData] = useState();
     const [crops, setCrops] = useState([]); // State to hold the fetched crops
     const [cropManagement, setCropManagement] = useState([]);
@@ -18,7 +18,7 @@ const Visualization = () => {
             setCurrentDateTime(new Date());
         }, 1000);
         return () => clearInterval(interval);
-    },[])
+    }, [])
 
     const formattedDateTime = currentDateTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + " "
         + currentDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
@@ -103,7 +103,7 @@ const Visualization = () => {
             markers: {
                 size: 0
             },
-            formatter: function(seriesName, opts) {
+            formatter: function (seriesName, opts) {
                 return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
             },
             itemMargin: {
@@ -295,7 +295,7 @@ const Visualization = () => {
             <h1 className="title">Visualization</h1>
 
             <div>
-                <h1 style={{fontSize:"25px", marginBottom:"1vh"}}>{formattedDateTime}</h1>
+                <h1 style={{ fontSize: "25px", marginBottom: "1vh" }}>{formattedDateTime}</h1>
             </div>
             <div className="columns is-multiline">
                 <div className="column is-5">
@@ -367,7 +367,7 @@ const Visualization = () => {
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', padding: '2rem', textAlign: 'center' }}>
                                 {/* Day 1 */}
                                 <div>
-                                    <div style={{fontSize:"18px"}}>
+                                    <div style={{ fontSize: "18px" }}>
                                         {forecastWeatherData.forecast.forecastday[0].date}
                                     </div>
                                     <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>
@@ -387,7 +387,7 @@ const Visualization = () => {
 
                                 {/* Day 2 */}
                                 <div>
-                                    <div style={{fontSize:"18px"}}>
+                                    <div style={{ fontSize: "18px" }}>
                                         {forecastWeatherData.forecast.forecastday[1].date}
                                     </div>
                                     <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>
@@ -407,7 +407,7 @@ const Visualization = () => {
 
                                 {/* Day 3 */}
                                 <div>
-                                    <div style={{fontSize:"18px"}}>
+                                    <div style={{ fontSize: "18px" }}>
                                         {forecastWeatherData.forecast.forecastday[2].date}
                                     </div>
                                     <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>

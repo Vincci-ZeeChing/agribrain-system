@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 // Import crop images
 import beetrootImage from '../../../image/crop/beetroot.jpg';
@@ -332,7 +332,7 @@ const FormCropRecommendation = () => {
                             ) : (
                                 <p>Image not found</p>
                             )}
-                            <p style={{fontSize:"30px", textAlign:"center"}}>{prediction}</p>
+                            <p style={{ fontSize: "30px", textAlign: "center" }}>{prediction}</p>
                         </div>
                     </div>
                     <button
