@@ -1,18 +1,18 @@
-import React, {useState} from 'react';
-import {NavLink, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {LogoutUser, reset} from "../../features/authSlice";
+import React, { useState } from 'react';
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { LogoutUser, reset } from "../../features/authSlice";
 
-import {IoHome, IoLogOut, IoPerson} from 'react-icons/io5'
-import {MdDataSaverOn} from 'react-icons/md'
-import {TiWeatherPartlySunny} from 'react-icons/ti'
-import {GiFarmTractor} from 'react-icons/gi'
-import {FaChartPie} from 'react-icons/fa'
+import { IoHome, IoLogOut, IoPerson } from 'react-icons/io5'
+import { MdDataSaverOn } from 'react-icons/md'
+import { TiWeatherPartlySunny } from 'react-icons/ti'
+import { GiFarmTractor } from 'react-icons/gi'
+import { FaChartPie } from 'react-icons/fa'
 
 const Sidebar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {user} = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.auth);
 
 
     const [isSensorSubMenuOpen, setIsSensorSubMenuOpen] = useState(false);
@@ -51,9 +51,9 @@ const Sidebar = () => {
                     General
                 </p>
                 <ul className="menu-list">
-                    <li><NavLink to={"/dashboard"}> <IoHome/> Dashboard</NavLink></li>
+                    <li><NavLink to={"/dashboard"}> <IoHome /> Dashboard</NavLink></li>
                     <li>
-                        <a onClick={toggleSensorSubMenu}><MdDataSaverOn/> Sensor Monitoring </a>
+                        <a onClick={toggleSensorSubMenu}><MdDataSaverOn /> Sensor Monitoring </a>
                         {isSensorSubMenuOpen &&
                             <ul>
                                 <li className="ml-1"><NavLink to="/sensor-monitoring/soil">Soil</NavLink></li>
@@ -62,7 +62,7 @@ const Sidebar = () => {
                         }
                     </li>
                     <li>
-                        <a onClick={toggleClimateSubMenu}><TiWeatherPartlySunny/> Climate Condition</a>
+                        <a onClick={toggleClimateSubMenu}><TiWeatherPartlySunny /> Climate Condition</a>
                         {isClimateSubMenuOpen &&
                             <ul>
                                 <li className="ml-1"><NavLink to="/climate-condition/forecast-hour">Hourly Forecast</NavLink></li>
@@ -72,7 +72,7 @@ const Sidebar = () => {
                         }
                     </li>
                     <li>
-                        <a onClick={togglePrecisionSubMenu}><GiFarmTractor/> Precision Farming</a>
+                        <a onClick={togglePrecisionSubMenu}><GiFarmTractor /> Precision Farming</a>
                         {isPrecisionSubMenuOpen &&
                             <ul>
                                 <li className="ml-1"><NavLink to="/precision-farming/crop">Crops</NavLink></li>
@@ -84,7 +84,7 @@ const Sidebar = () => {
                         }
                     </li>
                     <li>
-                        <a onClick={toggleAnalyticsSubMenu}><FaChartPie/> Data Analytics</a>
+                        <a onClick={toggleAnalyticsSubMenu}><FaChartPie /> Data Analytics</a>
                         {isAnalyticsSubMenuOpen &&
                             <ul>
                                 <li className="ml-1"><NavLink to="/data-analytics/crop-recommendation">Crop Recommendation</NavLink></li>
@@ -106,7 +106,7 @@ const Sidebar = () => {
                         </p>
                         <ul className="menu-list">
                             <li>
-                                <NavLink to={"/user"}><IoPerson/> User</NavLink>
+                                <NavLink to={"/user"}><IoPerson /> User</NavLink>
                             </li>
                             {/* Add more menu items specific to the Farmer or Admin role here */}
                         </ul>
@@ -118,7 +118,7 @@ const Sidebar = () => {
                 </p>
                 <ul className="menu-list">
                     <li onClick={logout}>
-                        <a> <IoLogOut/>
+                        <a> <IoLogOut />
                             Logout
                         </a>
                     </li>

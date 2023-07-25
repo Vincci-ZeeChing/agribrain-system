@@ -7,8 +7,8 @@ import { FaWhatsapp, FaLinkedin, FaInstagram, FaEnvelope } from 'react-icons/fa'
 const Homepage = () => {
     return (
         <div className="columns is-multiline">
-            <div className="column" style={{display:"flex", justifyContent:"center", alignContent:"center"}}>
-                <img style={{ height: "auto", maxWidth: "70%"}} src={logo} alt="logo" />
+            <div className="column" style={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                <img style={{ height: "auto", maxWidth: "70%" }} src={logo} alt="logo" />
             </div>
             <div className="column is-7">
                 <div className="is-flex">
@@ -16,7 +16,7 @@ const Homepage = () => {
                         <div className="title">
                             AgriBrain
                         </div>
-                        <div style={{textAlign:"justify"}}>
+                        <div style={{ textAlign: "justify" }}>
                             AgriBrain is a cutting-edge Smart Farming and Agriculture system that utilizes IoT and Data Analytics to revolutionize the agriculture industry.
                             Our system collects real-time data from sensors and devices installed on farms, which is then processed and analyzed using advanced machine learning algorithms.
                             This allows farmers to make informed decisions based on insights gained from the data, such as optimizing crop yields, crop or fertiliser recommendation, and climate condition.
@@ -28,7 +28,7 @@ const Homepage = () => {
             </div>
 
             <div className="column is-7">
-                <div className="is-flex" style={{ justifyContent: "center" , marginTop:"10vh"}}>
+                <div className="is-flex" style={{ justifyContent: "center", marginTop: "10vh" }}>
                     <div>
                         <div className="title">
                             About Me
@@ -50,27 +50,27 @@ const Homepage = () => {
                 </div>
             </div>
 
-            <div className="column is-5" style={{display:"flex", flexDirection: "column", alignItems: "center", marginTop:"10vh"}}>
+            <div className="column is-5" style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "10vh" }}>
                 <img
                     style={{
                         height: "70%",
                         maxWidth: "70%",
                         borderRadius: "50%", // Apply circular border radius
-                        marginBottom:"1rem",
+                        marginBottom: "1rem",
                     }}
                     src={author}
                     alt="author"
                 />
-                <div style={{display:"flex", justifyContent: "center" }}>
+                <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className="columns">
                         <div className="column">
                             <a href="https://wa.me/60105650214" target="_blank" rel="noopener noreferrer">
-                                <FaWhatsapp size={36} color="#71AF9D"/>
+                                <FaWhatsapp size={36} color="#71AF9D" />
                             </a>
                         </div>
                         <div className="column">
                             <a href="https://www.linkedin.com/in/vincci-zee-ching" target="_blank" rel="noopener noreferrer">
-                                <FaLinkedin size={36} color="#71AF9D"/>
+                                <FaLinkedin size={36} color="#71AF9D" />
                             </a>
                         </div>
                         <div className="column">
@@ -80,7 +80,7 @@ const Homepage = () => {
                         </div>
                         <div className="column">
                             <a href="mailto:vincci-zeeching@outlook.com">
-                                <FaEnvelope size={36} color="#71AF9D"/>
+                                <FaEnvelope size={36} color="#71AF9D" />
                             </a>
                         </div>
                     </div>
