@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 const Report = () => {
     const [selectedMonth, setSelectedMonth] = useState(''); // Default value for May
@@ -64,41 +64,7 @@ const Report = () => {
         }
     };
 
-    const [currentMonth, setCurrentMonth] = React.useState(new Date().toLocaleString('en-US', { month: 'long' }));
-
-    // const handleDownloadOtherMonth = () => {
-    //     if (!selectedMonth || !selectedYear) {
-    //         alert('Please select a month and year before downloading the report.');
-    //         return;
-    //     }
-    //
-    //     try {
-    //         // Construct the API endpoint with the selected month and year as query parameters
-    //         const apiEndpoint = `http://localhost:5000/api/v1/cropManagementReportOtherMonth?year=${selectedYear}&month=${selectedMonth}`;
-    //
-    //         // Make a request to the specific API endpoint to initiate the download
-    //         fetch(apiEndpoint)
-    //             .then((response) => response.blob())
-    //             .then((blob) => {
-    //                 // Create a URL for the downloaded file
-    //                 const url = URL.createObjectURL(blob);
-    //
-    //                 // Create a temporary link and click it to trigger the download
-    //                 const link = document.createElement('a');
-    //                 link.href = url;
-    //                 link.download = `cropManagementReport_${selectedMonth}_${selectedYear}.pdf`;
-    //                 link.click();
-    //
-    //                 // Clean up the URL object
-    //                 URL.revokeObjectURL(url);
-    //             })
-    //             .catch((error) => {
-    //                 console.error('Error downloading report:', error);
-    //             });
-    //     } catch (error) {
-    //         console.error('Error downloading report:', error);
-    //     }
-    // };
+    const [currentMonth] = React.useState(new Date().toLocaleString('en-US', { month: 'long' }));
 
     const handleDownloadOtherMonth = (reportType) => {
         if (!selectedMonth || !selectedYear) {
@@ -221,7 +187,7 @@ const Report = () => {
                         <div className="control">
                             <div className="select">
                                 <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
-                                    <option value="">Select Month</option>
+                                    <option value="">Select Year</option>
                                     <option value="2023">2023</option>
                                 </select>
                             </div>
