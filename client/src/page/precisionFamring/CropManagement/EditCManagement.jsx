@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { getMe } from "../../../features/authSlice";
 import Layout from "../../layout/Layout";
 import { Helmet } from "react-helmet";
-import FormAddCropManagement from "../../../component/precision/cropManagement/FormAddCropManagement";
 import FormEditCropManagement from "../../../component/precision/cropManagement/FormEditCropManagement";
 
 const EditCManagement = () => {
